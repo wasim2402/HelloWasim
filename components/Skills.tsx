@@ -1,6 +1,5 @@
 "use client"
 
-import { motion } from "framer-motion"
 import { Code, Database, Palette, Smartphone, Globe, Zap } from "lucide-react"
 import { useTheme } from "./ThemeProvider"
 
@@ -55,38 +54,20 @@ export default function Skills() {
   return (
     <section id="skills" className="py-20 relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.4, ease: "easeOut" }}
-          viewport={{ once: true, margin: "-100px" }}
-          className="text-center mb-16"
-        >
+        <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold mb-4">
             <span className={`bg-gradient-to-r ${getAccentColor()} bg-clip-text text-transparent`}>
               Skills & Expertise
             </span>
           </h2>
           <p className="text-gray-300 text-lg max-w-2xl mx-auto">Technologies and tools I use to bring ideas to life</p>
-        </motion.div>
+        </div>
 
         {/* Mobile-Optimized Card Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 md:gap-6">
           {skills.map((skill, index) => (
-            <motion.div
+            <div
               key={index}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{
-                duration: 0.3,
-                delay: index * 0.05,
-                ease: "easeOut",
-              }}
-              viewport={{ once: true, margin: "-50px" }}
-              whileHover={{
-                y: -4,
-                transition: { duration: 0.2, ease: "easeOut" },
-              }}
               className="group relative overflow-hidden rounded-xl sm:rounded-2xl p-3 sm:p-4 md:p-6 bg-white/5 backdrop-blur-sm border border-white/10 hover:border-white/20 transition-all duration-200 will-change-transform"
             >
               {/* Background Gradient */}
@@ -119,16 +100,9 @@ export default function Skills() {
                     <span className="text-xs font-bold text-white">{skill.level}%</span>
                   </div>
                   <div className="w-full h-1 sm:h-1.5 md:h-2 rounded-full bg-gray-700">
-                    <motion.div
+                    <div
                       className={`h-1 sm:h-1.5 md:h-2 bg-gradient-to-r ${skill.color} rounded-full will-change-transform`}
-                      initial={{ width: 0 }}
-                      whileInView={{ width: `${skill.level}%` }}
-                      transition={{
-                        duration: 0.6,
-                        delay: index * 0.05,
-                        ease: "easeOut",
-                      }}
-                      viewport={{ once: true }}
+                      style={{ width: `${skill.level}%` }}
                     />
                   </div>
                 </div>
@@ -138,18 +112,12 @@ export default function Skills() {
               <div
                 className={`absolute bottom-0 left-0 w-full h-0.5 sm:h-1 bg-gradient-to-r ${skill.color} transform scale-x-0 group-hover:scale-x-100 transition-transform duration-200 origin-left will-change-transform`}
               />
-            </motion.div>
+            </div>
           ))}
         </div>
 
         {/* Skills Summary - Mobile Optimized */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.4, delay: 0.2 }}
-          viewport={{ once: true }}
-          className="mt-8 sm:mt-12 md:mt-16 text-center"
-        >
+        <div className="mt-8 sm:mt-12 md:mt-16 text-center">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 md:gap-8">
             {[
               { number: "2+", label: "Years Experience" },
@@ -157,16 +125,8 @@ export default function Skills() {
               { number: "15+", label: "Technologies" },
               { number: "100%", label: "Client Satisfaction" },
             ].map((stat, index) => (
-              <motion.div
+              <div
                 key={index}
-                initial={{ opacity: 0, scale: 0.8 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                transition={{
-                  duration: 0.3,
-                  delay: index * 0.05,
-                  ease: "easeOut",
-                }}
-                viewport={{ once: true }}
                 className="text-center p-2 sm:p-3 md:p-4 rounded-lg bg-white/5 backdrop-blur-sm border border-white/10"
               >
                 <div
@@ -175,10 +135,10 @@ export default function Skills() {
                   {stat.number}
                 </div>
                 <div className="text-xs sm:text-xs md:text-sm text-gray-400 leading-tight">{stat.label}</div>
-              </motion.div>
+              </div>
             ))}
           </div>
-        </motion.div>
+        </div>
       </div>
     </section>
   )

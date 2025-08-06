@@ -41,6 +41,7 @@ export default function About() {
                   width={320}
                   height={320}
                   className="w-full h-full object-cover"
+                  priority
                 />
               </motion.div>
               <motion.div

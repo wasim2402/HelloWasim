@@ -1,6 +1,5 @@
 "use client"
 
-import { motion } from "framer-motion"
 import { ExternalLink, Github, ChevronLeft, ChevronRight } from "lucide-react"
 import Image from "next/image"
 import { useTheme } from "./ThemeProvider"
@@ -33,7 +32,7 @@ export default function Projects() {
     {
       title: "Tic Tac Toe ",
       description: "A simple and interactive Tic Tac Toe game allowing two players to compete in turns on a 3x3 grid.",
-      image: "/tic tac toe-project.jpg?height=160&width=240",
+      image: "/tic-tac-toe-project.jpg?height=160&width=240",
       github: "https://github.com/wasim2402/Tic-Tac-Toe",
       demo: "https://wasim2402.github.io/Tic-Tac-Toe/",
       tags: ["HTML", "CSS", "JavaScript"],
@@ -116,20 +115,14 @@ export default function Projects() {
   return (
     <section id="projects" className="py-20 relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.4, ease: "easeOut" }}
-          viewport={{ once: true, margin: "-100px" }}
-          className="text-center mb-16"
-        >
+        <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold mb-4">
             <span className={`bg-gradient-to-r ${getAccentColor()} bg-clip-text text-transparent`}>
               Featured Projects
             </span>
           </h2>
           <p className="text-gray-300 text-lg max-w-2xl mx-auto">A showcase of my recent work and personal projects</p>
-        </motion.div>
+        </div>
 
         {/* Desktop Grid View */}
         <div className="hidden lg:grid lg:grid-cols-3 gap-8">
@@ -142,18 +135,15 @@ export default function Projects() {
         <div className="lg:hidden relative">
           {/* Navigation Buttons */}
           <div className="flex justify-between items-center mb-4">
-            <motion.button
+            <button
               onClick={() => scroll("left")}
               disabled={!canScrollLeft}
-              whileHover={{ scale: canScrollLeft ? 1.1 : 1 }}
-              whileTap={{ scale: canScrollLeft ? 0.9 : 1 }}
-              transition={{ duration: 0.15 }}
               className={`p-2 rounded-full transition-all duration-200 ${
                 canScrollLeft ? "bg-white/10 text-white hover:bg-white/20" : "bg-white/5 text-gray-500"
               }`}
             >
               <ChevronLeft size={20} />
-            </motion.button>
+            </button>
 
             <div className="flex space-x-2">
               {projects.slice(0, Math.ceil(projects.length / 2)).map((_, index) => (
@@ -166,18 +156,15 @@ export default function Projects() {
               ))}
             </div>
 
-            <motion.button
+            <button
               onClick={() => scroll("right")}
               disabled={!canScrollRight}
-              whileHover={{ scale: canScrollRight ? 1.1 : 1 }}
-              whileTap={{ scale: canScrollRight ? 0.9 : 1 }}
-              transition={{ duration: 0.15 }}
               className={`p-2 rounded-full transition-all duration-200 ${
                 canScrollRight ? "bg-white/10 text-white hover:bg-white/20" : "bg-white/5 text-gray-500"
               }`}
             >
               <ChevronRight size={20} />
-            </motion.button>
+            </button>
           </div>
 
           {/* Scrollable Container */}
@@ -210,19 +197,7 @@ function ProjectCard({
   const { getAccentColor } = useTheme()
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      transition={{
-        duration: 0.3,
-        delay: isMobile ? 0 : index * 0.05,
-        ease: "easeOut",
-      }}
-      viewport={{ once: true, margin: "-50px" }}
-      whileHover={{
-        y: -4,
-        transition: { duration: 0.2, ease: "easeOut" },
-      }}
+    <div
       className={`bg-white/5 backdrop-blur-sm rounded-xl overflow-hidden border border-white/10 hover:border-white/20 transition-all duration-200 group will-change-transform ${
         isMobile ? "h-80" : "h-auto"
       }`}
@@ -238,24 +213,18 @@ function ProjectCard({
           }`}
         />
         <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-200 flex items-center justify-center space-x-4">
-          <motion.a
+          <a
             href={project.github}
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.9 }}
-            transition={{ duration: 0.15 }}
             className="p-2 bg-white/20 rounded-full hover:bg-white/30 transition-colors duration-200"
           >
             <Github size={18} className="text-white" />
-          </motion.a>
-          <motion.a
+          </a>
+          <a
             href={project.demo}
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.9 }}
-            transition={{ duration: 0.15 }}
             className="p-2 bg-white/20 rounded-full hover:bg-white/30 transition-colors duration-200"
           >
             <ExternalLink size={18} className="text-white" />
-          </motion.a>
+          </a>
         </div>
       </div>
 
@@ -277,32 +246,26 @@ function ProjectCard({
         </div>
 
         <div className="flex space-x-3">
-          <motion.a
+          <a
             href={project.github}
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            transition={{ duration: 0.15 }}
             className={`flex items-center text-gray-300 hover:text-white transition-colors duration-200 ${
               isMobile ? "text-xs" : "text-sm"
             }`}
           >
             <Github size={14} className="mr-1" />
             Code
-          </motion.a>
-          <motion.a
+          </a>
+          <a
             href={project.demo}
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            transition={{ duration: 0.15 }}
             className={`flex items-center text-gray-300 hover:text-white transition-colors duration-200 ${
               isMobile ? "text-xs" : "text-sm"
             }`}
           >
             <ExternalLink size={14} className="mr-1" />
             Demo
-          </motion.a>
+          </a>
         </div>
       </div>
-    </motion.div>
+    </div>
   )
 }
