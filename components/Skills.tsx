@@ -17,7 +17,7 @@ export default function Skills() {
     {
       icon: Database,
       title: "Backend Development",
-      description: "Node.js, PostgreSQL, MongoDB",
+      description: "Node.js, MySQL, MongoDB",
       level: 80,
       color: "from-green-500 to-emerald-500",
     },
@@ -30,9 +30,9 @@ export default function Skills() {
     },
     {
       icon: Smartphone,
-      title: "Mobile Development",
-      description: "React Native",
-      level: 20,
+      title: "Languages",
+      description: "C, C++, JavaScript, Python",
+      level: 70,
       color: "from-orange-500 to-red-500",
     },
     {

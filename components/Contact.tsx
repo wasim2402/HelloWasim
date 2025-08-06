@@ -1,7 +1,6 @@
 "use client"
 
 import type React from "react"
-
 import { useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { Mail, Phone, MapPin, Send, CheckCircle } from "lucide-react"
@@ -16,41 +15,40 @@ export default function Contact() {
   })
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [showSuccess, setShowSuccess] = useState(false)
- 
-const handleSubmit = async (e: React.FormEvent) => {
-  e.preventDefault();
-  setIsSubmitting(true);
 
-  try {
-     const res = await fetch('/api/contact', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(formData)
-    });
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
 
-    const result = await res.json();
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(formData)
+      });
 
-    if (result.success) {
-      setShowSuccess(true);
-      setFormData({ name: "", email: "", message: "" });
+      const result = await res.json();
 
-      // Auto-hide success popup after 3 seconds
-      setTimeout(() => {
-        setShowSuccess(false);
-      }, 2000);
-    } else {
-      window.alert('Please fill all fields correctly.');
+      if (result.success) {
+        setShowSuccess(true);
+        setFormData({ name: "", email: "", message: "" });
+
+        // Auto-hide success popup after 2 seconds
+        setTimeout(() => {
+          setShowSuccess(false);
+        }, 2000);
+      } else {
+        window.alert('Please fill all fields correctly.');
+      }
+    } catch (error) {
+      console.error(error);
+      window.alert('Something went wrong. Please try again.');
+    } finally {
+      setIsSubmitting(false);
     }
-  } catch (error) {
-    console.error(error);
-    window.alert('Something went wrong. Please try again.');
-  } finally {
-    setIsSubmitting(false);
-  }
-};
-
+  };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData({
@@ -59,34 +57,21 @@ const handleSubmit = async (e: React.FormEvent) => {
     })
   }
 
- 
   return (
     <section id="contact" className="py-20 relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.4, ease: "easeOut" }}
-          viewport={{ once: true, margin: "-100px" }}
-          className="text-center mb-16"
-        >
+        <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold mb-4">
             <span className={`bg-gradient-to-r ${getAccentColor()} bg-clip-text text-transparent`}>Get In Touch</span>
           </h2>
           <p className="text-gray-300 text-lg max-w-2xl mx-auto">
             Ready to start your next project? Let's work together to create something amazing.
           </p>
-        </motion.div>
+        </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
           {/* Contact Info */}
-          <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.4, ease: "easeOut" }}
-            viewport={{ once: true, margin: "-100px" }}
-            className="space-y-8"
-          >
+          <div className="space-y-8">
             <div>
               <h3 className="text-2xl font-semibold mb-6 text-white">Let's Connect</h3>
               <p className="text-gray-300 mb-8 leading-relaxed">
@@ -119,10 +104,6 @@ const handleSubmit = async (e: React.FormEvent) => {
                 <motion.a
                   key={index}
                   href={item.href}
-                  initial={{ opacity: 0, y: 10 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.3, delay: index * 0.1 }}
-                  viewport={{ once: true }}
                   whileHover={{ x: 5 }}
                   className="flex items-center space-x-4 p-4 rounded-xl bg-white/5 backdrop-blur-sm border border-white/10 hover:border-white/20 transition-all duration-200 group will-change-transform"
                 >
@@ -138,24 +119,13 @@ const handleSubmit = async (e: React.FormEvent) => {
                 </motion.a>
               ))}
             </div>
-          </motion.div>
+          </div>
 
           {/* Contact Form */}
-          <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.4, ease: "easeOut" }}
-            viewport={{ once: true, margin: "-100px" }}
-            className="relative"
-          >
+          <div className="relative">
             <form onSubmit={handleSubmit} className="space-y-6">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                <motion.div
-                  initial={{ opacity: 0, y: 10 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.3, delay: 0.1 }}
-                  viewport={{ once: true }}
-                >
+                <div>
                   <label htmlFor="name" className="block text-sm font-medium text-gray-300 mb-2">
                     Name
                   </label>
@@ -169,14 +139,9 @@ const handleSubmit = async (e: React.FormEvent) => {
                     className="w-full px-4 py-3 bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:border-white/30 focus:ring-2 focus:ring-white/10 transition-all duration-200"
                     placeholder="Your Name"
                   />
-                </motion.div>
+                </div>
 
-                <motion.div
-                  initial={{ opacity: 0, y: 10 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.3, delay: 0.2 }}
-                  viewport={{ once: true }}
-                >
+                <div>
                   <label htmlFor="email" className="block text-sm font-medium text-gray-300 mb-2">
                     Email
                   </label>
@@ -190,15 +155,10 @@ const handleSubmit = async (e: React.FormEvent) => {
                     className="w-full px-4 py-3 bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:border-white/30 focus:ring-2 focus:ring-white/10 transition-all duration-200"
                     placeholder="your@email.com"
                   />
-                </motion.div>
+                </div>
               </div>
 
-              <motion.div
-                initial={{ opacity: 0, y: 10 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.3, delay: 0.3 }}
-                viewport={{ once: true }}
-              >
+              <div>
                 <label htmlFor="message" className="block text-sm font-medium text-gray-300 mb-2">
                   Message
                 </label>
@@ -212,15 +172,11 @@ const handleSubmit = async (e: React.FormEvent) => {
                   className="w-full px-4 py-3 bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:border-white/30 focus:ring-2 focus:ring-white/10 transition-all duration-200 resize-none"
                   placeholder="Tell me about your project..."
                 />
-              </motion.div>
+              </div>
 
               <motion.button
                 type="submit"
                 disabled={isSubmitting}
-                initial={{ opacity: 0, y: 10 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.3, delay: 0.4 }}
-                viewport={{ once: true }}
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
                 className={`w-full py-4 px-6 bg-gradient-to-r ${getAccentColor()} text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-200 flex items-center justify-center space-x-2 disabled:opacity-50 disabled:cursor-not-allowed will-change-transform`}
@@ -238,7 +194,7 @@ const handleSubmit = async (e: React.FormEvent) => {
                 )}
               </motion.button>
             </form>
-          </motion.div>
+          </div>
         </div>
       </div>
 

@@ -6,7 +6,7 @@ import "./globals.css"
 const inter = Inter({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
-  title: "Wasim Aktar",
+  title: "HelloWasim",
   description:
     "Modern portfolio website showcasing full-stack development and UI/UX design skills. Built with Next.js, React, and Tailwind CSS.",
   keywords: "portfolio, full-stack developer, UI/UX designer, React, Next.js, web development, Wasim Aktar",
@@ -37,7 +37,7 @@ export const metadata: Metadata = {
       "max-snippet": -1,
     },
   },
-    generator: 'v0.dev'
+    // generator: 'v0.dev'
 }
 
 export default function RootLayout({
