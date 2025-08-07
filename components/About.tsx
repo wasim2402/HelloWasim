@@ -26,12 +26,13 @@ export default function About() {
                 className="w-80 h-80 rounded-full overflow-hidden border-4 border-white/20 shadow-2xl"
               >
                 <Image
-                  src="/profile.jpg?height=320&width=320"
+                  src="/profile.jpg"
                   alt="Profile"
                   width={320}
                   height={320}
                   className="w-full h-full object-cover"
-                  priority
+                  sizes="(max-width: 600px) 160px, 320px"
+                  quality={70}
                 />
               </motion.div>
               {/* Remove rotating animation */}

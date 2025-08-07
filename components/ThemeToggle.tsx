@@ -8,10 +8,8 @@ export default function ThemeToggle() {
   const { theme, setTheme } = useTheme()
 
   const themes = [
-    { name: "purple", color: "from-purple-500 to-pink-500" },
-    { name: "blue", color: "from-blue-500 to-cyan-500" },
-    { name: "green", color: "from-emerald-500 to-teal-500" },
-    { name: "orange", color: "from-orange-500 to-red-500" },
+
+    { name: "blue", color: "from-blue-500 to-cyan-500" }
   ]
 
   return (

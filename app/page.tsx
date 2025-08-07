@@ -41,17 +41,18 @@ export default function Home() {
     }
   }, [])
 
-  if (!mounted) {
-    return (
-      <div className="min-h-screen bg-gradient-to-br from-purple-900 via-gray-900 to-indigo-900 flex items-center justify-center">
-        <div className="animate-pulse-optimized text-white text-xl">Loading...</div>
-      </div>
-    )
-  }
+if (!mounted) {
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-indigo-900 via-slate-900 to-blue-900 flex flex-col items-center justify-center">
+      <div className="w-16 h-16 border-4 border-blue-400 border-t-transparent rounded-full animate-spin mb-6 shadow-lg" />
+      <div className="text-blue-100 text-xl font-semibold tracking-wide">Loading...</div>
+    </div>
+  )
+}
 
   return (
     <ThemeProvider>
-      <AnimatedBackground />
+      {/* <AnimatedBackground /> */}
       <div className="min-h-screen transition-all duration-500 overflow-x-hidden relative z-10">
         <ScrollProgress />
         <Navbar />
