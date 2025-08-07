@@ -20,13 +20,7 @@ export default function Footer() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col items-center space-y-8">
           {/* Social Links */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
-            className="flex space-x-6"
-          >
+          <div className="flex space-x-6">
             {socialLinks.map((social, index) => (
               <motion.a
                 key={index}
@@ -42,16 +36,10 @@ export default function Footer() {
                 />
               </motion.a>
             ))}
-          </motion.div>
+          </div>
 
           {/* Navigation Links */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.1 }}
-            viewport={{ once: true }}
-            className="flex flex-wrap justify-center gap-8 text-sm"
-          >
+          <div className="flex flex-wrap justify-center gap-8 text-sm">
             {["About", "Skills", "Projects", "Contact"].map((item) => (
               <motion.a
                 key={item}
@@ -62,22 +50,16 @@ export default function Footer() {
                 {item}
               </motion.a>
             ))}
-          </motion.div>
+          </div>
 
           {/* Copyright */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            viewport={{ once: true }}
-            className="text-center text-gray-400 text-sm"
-          >
+          <div className="text-center text-gray-400 text-sm">
             <p className="flex items-center justify-center space-x-1">
               <span>© {new Date().getFullYear()} Wasim Aktar. Made with</span>
               <Heart size={16} className={`text-red-500 animate-pulse`} />
               <span>and lots of coffee</span>
             </p>
-          </motion.div>
+          </div>
 
           {/* Back to Top */}
           <motion.button
