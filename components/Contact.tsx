@@ -35,10 +35,10 @@ export default function Contact() {
         setShowSuccess(true);
         setFormData({ name: "", email: "", message: "" });
 
-        // Auto-hide success popup after 2 seconds
+        // Auto-hide success popup after 3 seconds
         setTimeout(() => {
           setShowSuccess(false);
-        }, 2000);
+        }, 3000);
       } else {
         window.alert('Please fill all fields correctly.');
       }
