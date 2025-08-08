@@ -52,7 +52,7 @@ if (!mounted) {
 
   return (
     <ThemeProvider>
-      {/* <AnimatedBackground /> */}
+      <AnimatedBackground />
       <div className="min-h-screen transition-all duration-500 overflow-x-hidden relative z-10">
         <ScrollProgress />
         <Navbar />
