@@ -10,7 +10,6 @@ import Contact from "@/components/Contact"
 import Footer from "@/components/Footer"
 import ScrollProgress from "@/components/ScrollProgress"
 import { ThemeProvider } from "@/components/ThemeProvider"
-import AnimatedBackground from "@/components/AnimatedBackground"
 
 export default function Home() {
   const [mounted, setMounted] = useState(false)
@@ -52,7 +51,6 @@ if (!mounted) {
 
   return (
     <ThemeProvider>
-      <AnimatedBackground />
       <div className="min-h-screen transition-all duration-500 overflow-x-hidden relative z-10">
         <ScrollProgress />
         <Navbar />
