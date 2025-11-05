@@ -35,7 +35,7 @@ export default function Contact() {
         setShowSuccess(true);
         setFormData({ name: "", email: "", message: "" });
 
-        // Auto-hide success popup after 3 seconds
+        // Auto-hide success popup after 1 seconds
         setTimeout(() => {
           setShowSuccess(false);
         }, 3000);
@@ -91,7 +91,7 @@ export default function Contact() {
                 {
                   icon: Phone,
                   label: "Phone",
-                  value: "+91 8391921618",
+                  value: "+91 83xxxxxx18",
                   href: "tel:+15551234567",
                 },
                 {
