@@ -8,6 +8,7 @@ import Skills from "@/components/Skills"
 import Projects from "@/components/Projects"
 import Contact from "@/components/Contact"
 import Footer from "@/components/Footer"
+import Chat from "@/components/Chat"
 import ScrollProgress from "@/components/ScrollProgress"
 import { ThemeProvider } from "@/components/ThemeProvider"
 
@@ -57,6 +58,7 @@ if (!mounted) {
 
         <main className="overflow-x-hidden">
           <Hero />
+          <Chat />
           <About />
           <Skills />
           <Projects />

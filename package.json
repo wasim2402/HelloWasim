@@ -18,6 +18,8 @@
     "typescript": "^5"
   },
   "dependencies": {
+    "@heroicons/react": "^2.2.0",
+    "@radix-ui/react-slot": "^1.2.4",
     "autoprefixer": "^10.4.21",
     "critters": "^0.0.23",
     "framer-motion": "^12.23.12",

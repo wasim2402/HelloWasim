@@ -18,7 +18,7 @@ module.exports = {
         float: "float 6s ease-in-out infinite",
         pulse: "pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite",
         "pulse-optimized": "pulse-optimized 2s ease-in-out infinite",
-        "float-optimized": "float-optimized 4s ease-in-out infinite",
+        "float-optimized": "float-optimized 4s ease-in-out infinite", 
       },
       keyframes: {
         "gradient-x": {
@@ -31,6 +31,7 @@ module.exports = {
             "background-position": "right center",
           },
         },
+
         float: {
           "0%, 100%": { transform: "translateY(0px)" },
           "50%": { transform: "translateY(-20px)" },
