@@ -87,10 +87,16 @@ export default function ChatWidget() {
   };
   
   return (
-    <div className="fixed bottom-4 right-4 z-50">
+    // --- RESPONSIVE CHANGE 1 ---
+    // On mobile, the container is 1rem from the edges.
+    // On sm screens, it's fixed to the bottom-right.
+    <div className="fixed z-50 bottom-4 right-4 left-4 sm:left-auto">
       {/* Chat Window */}
       {isOpen && (
-        <div className="flex h-[35rem] w-[30rem] flex-col rounded-lg bg-white shadow-xl">
+        // --- RESPONSIVE CHANGE 2 ---
+        // On mobile, width is full and height is 80vh.
+        // On sm screens, it snaps to your 30rem x 35rem size.
+        <div className="flex h-[80vh] w-full flex-col rounded-lg bg-white shadow-xl sm:h-[35rem] sm:w-[30rem]">
           {/* Header */}
           <div className="flex items-center justify-between rounded-t-lg bg-blue-600 p-3 text-white">
             <h3 className="text-lg font-semibold">ASK ME</h3>
@@ -165,9 +171,10 @@ export default function ChatWidget() {
 
       {/* Toggle Button */}
       {!isOpen && (
+        // Position the button at the bottom right of its container
         <button
           onClick={toggleChat}
-          className="flex items-center gap-2 rounded-full bg-blue-600 px-4 py-3 text-lg font-semibold text-white shadow-lg transition-transform hover:scale-105"
+          className="ml-auto flex items-center gap-2 rounded-full bg-blue-600 px-4 py-3 text-lg font-semibold text-white shadow-lg transition-transform hover:scale-105"
         >
           <ChatBubbleOvalLeftEllipsisIcon className="h-6 w-6" />
           ASK ME
