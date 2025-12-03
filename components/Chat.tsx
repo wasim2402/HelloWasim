@@ -47,7 +47,7 @@ export default function ChatWidget() {
 
     const userMessage: Message = { role: 'user', text: input };
     const newMessages = [...messages, userMessage];
-    
+
     setMessages(newMessages);
     setIsTyping(true);
     setInput('');
@@ -85,7 +85,7 @@ export default function ChatWidget() {
       setIsTyping(false);
     }
   };
-  
+
   return (
     // --- RESPONSIVE CHANGE 1 ---
     // On mobile, the container is 1rem from the edges.
@@ -109,31 +109,28 @@ export default function ChatWidget() {
           </div>
 
           {/* --- 4. ATTACH THE REF TO THE MESSAGE AREA --- */}
-          <div 
+          <div
             ref={chatContainerRef}
             className="flex-grow space-y-3 overflow-y-auto p-4"
           >
             {messages.map((msg, index) => (
               <div
                 key={index}
-                className={`flex ${
-                  msg.role === 'user' ? 'justify-end' : 'justify-start'
-                } ${
-                  index === 0 ? 'animate-slide-in-left' : ''
-                }`}
+                className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'
+                  } ${index === 0 ? 'animate-slide-in-left' : ''
+                  }`}
               >
                 <div
-                  className={`max-w-[75%] rounded-lg px-3 py-2 text-sm ${
-                    msg.role === 'user'
-                      ? 'bg-blue-500 text-white'
-                      : 'bg-gray-200 text-gray-800'
-                  }`}
+                  className={`max-w-[75%] rounded-lg px-3 py-2 text-sm ${msg.role === 'user'
+                    ? 'bg-blue-500 text-white'
+                    : 'bg-gray-200 text-gray-800'
+                    }`}
                 >
                   {msg.text}
                 </div>
               </div>
             ))}
-            
+
             {isTyping && (
               <div className="flex justify-start">
                 <div className="max-w-[75%] rounded-lg bg-gray-200 px-4 py-3">
@@ -145,7 +142,7 @@ export default function ChatWidget() {
                 </div>
               </div>
             )}
-            
+
           </div>
           {/* ------------------------------------------- */}
 

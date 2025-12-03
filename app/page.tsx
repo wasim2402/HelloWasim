@@ -12,11 +12,14 @@ import Chat from "@/components/Chat"
 import ScrollProgress from "@/components/ScrollProgress"
 import { ThemeProvider } from "@/components/ThemeProvider"
 
+import LoadingScreen from "@/components/LoadingScreen"
+
 export default function Home() {
   const [mounted, setMounted] = useState(false)
 
   useEffect(() => {
-    setMounted(true)
+    // Simulate a slightly longer load time to show off the animation
+    const timer = setTimeout(() => setMounted(true), 2000)
 
     // Optimized smooth scrolling with throttling
     const handleScroll = (e: Event) => {
@@ -37,18 +40,14 @@ export default function Home() {
     document.documentElement.style.overflowX = "hidden"
 
     return () => {
+      clearTimeout(timer)
       links.forEach((link) => link.removeEventListener("click", handleScroll))
     }
   }, [])
 
-if (!mounted) {
-  return (
-    <div className="min-h-screen bg-gradient-to-br from-indigo-900 via-slate-900 to-blue-900 flex flex-col items-center justify-center">
-      <div className="w-16 h-16 border-4 border-blue-400 border-t-transparent rounded-full animate-spin mb-6 shadow-lg" />
-      <div className="text-blue-100 text-xl font-semibold tracking-wide">Loading...</div>
-    </div>
-  )
-}
+  if (!mounted) {
+    return <LoadingScreen />
+  }
 
   return (
     <ThemeProvider>

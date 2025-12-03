@@ -1,81 +1,58 @@
 "use client"
 
 import { motion } from "framer-motion"
+import Link from "next/link"
 import Image from "next/image"
+import { TextGenerateEffect } from "./ui/TextGenerateEffect"
 import { useTheme } from "./ThemeProvider"
 
 export default function About() {
   const { getAccentColor } = useTheme()
 
+  const aboutText = `I'm a full-stack developer with a passion for building beautiful and functional digital experiences. I specialize in React, Next.js, and modern web technologies, always eager to learn and create something new.`
+
   return (
     <section id="about" className="py-20 relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Remove load animation from heading */}
         <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold mb-4">
-            <span className={`bg-gradient-to-r ${getAccentColor()} bg-clip-text text-transparent`}>About Me</span>
+          <h2 className="text-4xl md:text-5xl font-bold mb-4 text-white drop-shadow-[0_0_10px_rgba(255,255,255,0.5)]">
+            About Me
           </h2>
         </div>
 
         <div className="grid md:grid-cols-2 gap-12 items-center">
-          {/* Remove load animation, keep hover effect */}
           <div className="flex justify-center">
             <div className="relative">
               <motion.div
                 whileHover={{ scale: 1.05 }}
-                className="w-80 h-80 rounded-full overflow-hidden border-4 border-white/20 shadow-2xl"
+                className="w-64 h-64 md:w-80 md:h-80 rounded-full overflow-hidden border-4 border-white/20 shadow-2xl relative z-10"
               >
                 <Image
                   src="/profile.jpg"
                   alt="Profile"
-                  width={320}
-                  height={320}
-                  className="w-full h-full object-cover"
-                  sizes="(max-width: 600px) 160px, 320px"
-                  quality={70}
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 768px) 256px, 320px"
                 />
               </motion.div>
-              {/* Remove rotating animation */}
               <div
-                className={`absolute -inset-4 bg-gradient-to-r ${getAccentColor()} rounded-full opacity-20 -z-10`}
+                className={`absolute -inset-4 bg-gradient-to-r ${getAccentColor()} rounded-full opacity-20 blur-xl -z-10`}
               />
             </div>
           </div>
 
-          {/* Remove load animation from right column */}
-          <div className="space-y-6">
-            <h3 className="text-3xl font-bold text-white mb-6">Passionate Full-Stack Developer</h3>
+          <div className="space-y-8 text-center md:text-left">
+            <TextGenerateEffect words={aboutText} />
 
-            <p className="text-gray-300 text-lg leading-relaxed">
-              I'm a full-stack developer with over 2 years of experience creating digital solutions that combine
-              beautiful design with robust functionality. I specialize in React, Next.js, and modern web technologies.
-            </p>
-
-            <p className="text-gray-300 text-lg leading-relaxed">
-              When I'm not coding, you'll find me exploring new technologies, contributing to open-source projects, or
-              sharing knowledge with the developer community.
-            </p>
-
-            <div className="grid grid-cols-2 gap-6 mt-8">
-              {[
-                { number: "10+", label: "Projects Completed" },
-                { number: "1+", label: "Years Experience" },
-                { number: "10+", label: "Happy Clients" },
-                { number: "100%", label: "Satisfaction Rate" },
-              ].map((stat, index) => (
-                <div
-                  key={index}
-                  className="text-center"
-                >
-                  <div
-                    className={`text-2xl font-bold bg-gradient-to-r ${getAccentColor()} bg-clip-text text-transparent`}
-                  >
-                    {stat.number}
-                  </div>
-                  <div className="text-gray-400 text-sm">{stat.label}</div>
-                </div>
-              ))}
-            </div>
+            <Link href="/about" className="inline-block">
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="px-8 py-3 bg-transparent border border-white/20 text-white rounded-none hover:bg-white hover:text-black transition-all duration-300 uppercase tracking-widest text-sm font-medium"
+              >
+                About More
+              </motion.button>
+            </Link>
           </div>
         </div>
       </div>

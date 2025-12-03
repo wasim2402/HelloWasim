@@ -61,8 +61,8 @@ export default function Contact() {
     <section id="contact" className="py-20 relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold mb-4">
-            <span className={`bg-gradient-to-r ${getAccentColor()} bg-clip-text text-transparent`}>Get In Touch</span>
+          <h2 className="text-4xl md:text-5xl font-bold mb-4 text-white drop-shadow-[0_0_10px_rgba(255,255,255,0.5)]">
+            Get In Touch
           </h2>
           <p className="text-gray-300 text-lg max-w-2xl mx-auto">
             Ready to start your next project? Let's work together to create something amazing.
@@ -73,7 +73,7 @@ export default function Contact() {
           {/* Contact Info */}
           <div className="space-y-8">
             <div>
-              <h3 className="text-2xl font-semibold mb-6 text-white">Let's Connect</h3>
+              <h3 className="text-2xl font-semibold mb-6 text-white drop-shadow-[0_0_8px_rgba(255,255,255,0.4)]">Let's Connect</h3>
               <p className="text-gray-300 mb-8 leading-relaxed">
                 I'm always excited to work on new projects and collaborate with amazing people. Whether you have a
                 project in mind or just want to chat about technology, feel free to reach out!
@@ -179,7 +179,7 @@ export default function Contact() {
                 disabled={isSubmitting}
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
-                className={`w-full py-4 px-6 bg-gradient-to-r ${getAccentColor()} text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-200 flex items-center justify-center space-x-2 disabled:opacity-50 disabled:cursor-not-allowed will-change-transform`}
+                className={`w-full py-4 px-6 bg-gradient-to-r ${getAccentColor()} text-white font-semibold rounded-[15px] shadow-lg hover:shadow-xl transition-all duration-200 flex items-center justify-center space-x-2 disabled:opacity-50 disabled:cursor-not-allowed will-change-transform`}
               >
                 {isSubmitting ? (
                   <>

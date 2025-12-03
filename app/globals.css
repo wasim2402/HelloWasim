@@ -37,7 +37,7 @@
 
   /* Navbar links */
   .navbar-link {
-    @apply relative text-gray-300 font-medium transition-colors duration-200;
+    @apply relative text-white font-medium transition-colors duration-200;
   }
 
   .navbar-link::after {
@@ -47,7 +47,7 @@
     height: 2px;
     bottom: -4px;
     left: 50%;
-    background: linear-gradient(to right, #6b7280, #374151);
+    background: white;
     transition: all 0.2s ease;
     transform: translateX(-50%);
   }
