@@ -9,7 +9,7 @@ export default function Hero() {
   const { getAccentColor } = useTheme()
 
   return (
-    <section id="hero" className="min-h-screen flex items-center justify-center relative overflow-hidden py-20">
+    <section id="hero" className="min-h-screen flex items-center justify-center relative overflow-hidden pt-32 pb-20 lg:py-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
         <div className="flex flex-col lg:flex-row items-center justify-between gap-12">
 

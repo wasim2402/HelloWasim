@@ -94,11 +94,12 @@
 }
 
 /* Highly optimized transitions */
-* {
+/* Highly optimized transitions - Removed global wildcard to improve performance */
+/* * {
   transition-property: color, background-color, border-color, opacity, transform;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   transition-duration: 150ms;
-}
+} */
 
 /* Focus styles */
 button:focus-visible,

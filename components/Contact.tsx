@@ -108,7 +108,7 @@ export default function Contact() {
                   className="flex items-center space-x-4 p-4 rounded-xl bg-white/5 backdrop-blur-sm border border-white/10 hover:border-white/20 transition-all duration-200 group will-change-transform"
                 >
                   <div
-                    className={`p-3  bg-transparent group-hover:scale-110 transition-transform duration-200 will-change-transform`}
+                    className={`p-3 bg-transparent group-hover:scale-110 transition-transform duration-200 will-change-transform`}
                   >
                     <item.icon size={20} className="text-white" />
                   </div>
