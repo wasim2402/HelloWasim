@@ -11,7 +11,7 @@ export default function Skills() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full relative z-10">
         <div className="text-center mb-12">
           <h2 className="text-4xl md:text-5xl font-bold mb-4 text-white drop-shadow-[0_0_10px_rgba(255,255,255,0.5)]">
-            Skills & Expertise
+            Expertise
           </h2>
           <p className="text-gray-300 text-lg max-w-2xl mx-auto">
             Technologies and tools I use to bring ideas to life
@@ -34,11 +34,11 @@ export default function Skills() {
                 className="text-center p-4 rounded-xl bg-white/5 backdrop-blur-md border border-white/10 hover:bg-white/10 transition-colors duration-300"
               >
                 <div
-                  className={`text-3xl md:text-4xl font-bold bg-gradient-to-r ${getAccentColor()} bg-clip-text text-transparent mb-2`}
+                  className={`text-3xl md:text-4xl font-bold bg-gradient-to-r ${getAccentColor()} bg-clip-text text-white/80 mb-2`}
                 >
                   {stat.number}
                 </div>
-                <div className="text-sm text-gray-400">{stat.label}</div>
+                <div className="text-sm text-white/80">{stat.label}</div>
               </div>
             ))}
           </div>

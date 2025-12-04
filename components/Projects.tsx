@@ -278,7 +278,7 @@ function ProjectCard({
             {project.tags.map((tag: string, tagIndex: number) => (
               <span
                 key={tagIndex}
-                className={`px-2 py-1 bg-gradient-to-r ${getAccentColor()} text-white rounded-full ${isMobile ? "text-xs" : "text-xs"
+                className={`px-2 py-1 bg-white/70 text-black rounded-lg ${isMobile ? "text-xs" : "text-xs"
                   }`}
               >
                 {tag}

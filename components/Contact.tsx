@@ -108,7 +108,7 @@ export default function Contact() {
                   className="flex items-center space-x-4 p-4 rounded-xl bg-white/5 backdrop-blur-sm border border-white/10 hover:border-white/20 transition-all duration-200 group will-change-transform"
                 >
                   <div
-                    className={`p-3 rounded-lg bg-gradient-to-r ${getAccentColor()} group-hover:scale-110 transition-transform duration-200 will-change-transform`}
+                    className={`p-3  bg-transparent group-hover:scale-110 transition-transform duration-200 will-change-transform`}
                   >
                     <item.icon size={20} className="text-white" />
                   </div>
@@ -179,7 +179,7 @@ export default function Contact() {
                 disabled={isSubmitting}
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
-                className={`w-full py-4 px-6 bg-gradient-to-r ${getAccentColor()} text-white font-semibold rounded-[15px] shadow-lg hover:shadow-xl transition-all duration-200 flex items-center justify-center space-x-2 disabled:opacity-50 disabled:cursor-not-allowed will-change-transform`}
+                className={`w-full py-4 px-6 bg-white text-black font-semibold rounded-[10px] shadow-lg hover:shadow-xl transition-all duration-200 flex items-center justify-center space-x-2 disabled:opacity-50 disabled:cursor-not-allowed will-change-transform`}
               >
                 {isSubmitting ? (
                   <>
