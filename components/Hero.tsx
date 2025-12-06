@@ -28,11 +28,11 @@ export default function Hero() {
             >
               <span className="bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">Hi, I'm </span>
               <br className="hidden lg:block" />
-              <span className="bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">Wasim Aktar</span>
+              <span className="font-playfair font-bold text-white">Wasim Aktar</span>
             </motion.h1>
 
             <motion.p
-              className="text-lg md:text-xl text-gray-300 mb-8 max-w-2xl mx-auto lg:mx-0"
+              className="text-lg md:text-xl text-white/80 mb-8 max-w-2xl mx-auto lg:mx-0"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2, duration: 0.3 }}
@@ -87,7 +87,7 @@ export default function Hero() {
                   whileHover={{ scale: 1.15, y: -3 }}
                   whileTap={{ scale: 0.95 }}
                   transition={{ duration: 0.15 }}
-                  className="p-3 bg-white/10 rounded-full hover:bg-white/20 transition-all duration-200 will-change-transform"
+                  className="p-3 bg-transparent rounded-full hover:bg-white/20 transition-all duration-200 will-change-transform"
                 >
                   <social.icon size={24} className="text-white" />
                 </motion.a>

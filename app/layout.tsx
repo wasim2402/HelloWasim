@@ -1,9 +1,12 @@
 import type React from "react"
 import type { Metadata } from "next"
-import { Inter } from "next/font/google"
+import { Inter, Playfair_Display, Instrument_Serif } from "next/font/google"
+import BlackHole from "@/components/BlackHole"
 import "./globals.css"
 
 const inter = Inter({ subsets: ["latin"] })
+const playfair = Playfair_Display({ subsets: ["latin"], weight: "700", variable: "--font-playfair" })
+const instrument = Instrument_Serif({ weight: "400", subsets: ["latin"], variable: "--font-instrument" })
 
 export const metadata: Metadata = {
   title: "HelloWasim",
@@ -47,7 +50,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className="scroll-smooth">
-      <body className={`${inter.className} antialiased`}>{children}</body>
+      <body className={`${inter.className} ${playfair.variable} ${instrument.variable} antialiased`}>
+        <BlackHole />
+        {children}
+      </body>
     </html>
   )
 }

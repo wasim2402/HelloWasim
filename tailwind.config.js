@@ -18,7 +18,7 @@ module.exports = {
         float: "float 6s ease-in-out infinite",
         pulse: "pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite",
         "pulse-optimized": "pulse-optimized 2s ease-in-out infinite",
-        "float-optimized": "float-optimized 4s ease-in-out infinite", 
+        "float-optimized": "float-optimized 4s ease-in-out infinite",
       },
       keyframes: {
         "gradient-x": {
@@ -47,6 +47,8 @@ module.exports = {
       },
       fontFamily: {
         sans: ["Inter", "system-ui", "sans-serif"],
+        playfair: ["var(--font-playfair)", "serif"],
+        instrument: ["var(--font-instrument)", "serif"],
       },
       screens: {
         xs: "475px",

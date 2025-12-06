@@ -32,7 +32,7 @@ export default function Footer() {
               >
                 <social.icon
                   size={20}
-                  className={`text-gray-400 group-hover:text-white transition-colors duration-300`}
+                  className={`text-white group-hover:text-white transition-colors duration-300`}
                 />
               </motion.a>
             ))}
@@ -53,7 +53,7 @@ export default function Footer() {
           </div>
 
           {/* Copyright */}
-          <div className="text-center text-gray-400 text-sm">
+          <div className="text-center text-white/70 text-sm">
             <p className="flex items-center justify-center space-x-1">
               <span>© {new Date().getFullYear()} Wasim Aktar. Made with</span>
               <Heart size={16} className={`text-red-500 animate-pulse`} />

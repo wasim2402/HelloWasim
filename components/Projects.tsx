@@ -123,7 +123,7 @@ export default function Projects() {
           <h2 className="text-4xl md:text-5xl font-bold mb-4 text-white drop-shadow-[0_0_10px_rgba(255,255,255,0.5)]">
             Featured Projects
           </h2>
-          <p className="text-gray-300 text-lg max-w-2xl mx-auto">A showcase of my recent work and personal projects</p>
+          <p className="text-white/80 text-lg max-w-2xl mx-auto">A showcase of my recent work and personal projects</p>
         </div>
 
         {/* Desktop Grid View */}

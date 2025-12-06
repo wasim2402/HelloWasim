@@ -46,7 +46,7 @@ export default function FloatingSkills() {
         <div className="relative w-full h-[400px] md:h-[600px] flex items-center justify-center overflow-hidden">
             {/* Center Text */}
             <div className="absolute z-10 flex flex-col items-center justify-center">
-                <h3 className={`text-2xl md:text-4xl font-bold tracking-wider text-white drop-shadow-[0_0_8px_rgba(255,255,255,0.4)]`}>
+                <h3 className={`text-2xl md:text-4xl font-bold tracking-wider text-white drop-shadow-[0_0_8px_rgba(255,255,255,0.4)] font-instrument italic`}>
                     SKILLS
                 </h3>
                 <div className={`w-12 md:w-16 h-1 mt-2 rounded-full ${isDark ? "bg-blue-500" : "bg-blue-600"}`} />

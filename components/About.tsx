@@ -42,7 +42,7 @@ export default function About() {
           </div>
 
           <div className="space-y-8 text-center md:text-left">
-            <TextGenerateEffect words={aboutText} />
+            <TextGenerateEffect words={aboutText} className="font-instrument italic font-normal text-[rgb(213,219,230)]" />
 
             <Link href="/about" className="inline-block">
               <motion.button

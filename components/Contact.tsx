@@ -64,7 +64,7 @@ export default function Contact() {
           <h2 className="text-4xl md:text-5xl font-bold mb-4 text-white drop-shadow-[0_0_10px_rgba(255,255,255,0.5)]">
             Get In Touch
           </h2>
-          <p className="text-gray-300 text-lg max-w-2xl mx-auto">
+          <p className="text-white/80 text-lg max-w-2xl mx-auto">
             Ready to start your next project? Let's work together to create something amazing.
           </p>
         </div>
@@ -74,7 +74,7 @@ export default function Contact() {
           <div className="space-y-8">
             <div>
               <h3 className="text-2xl font-semibold mb-6 text-white drop-shadow-[0_0_8px_rgba(255,255,255,0.4)]">Let's Connect</h3>
-              <p className="text-gray-300 mb-8 leading-relaxed">
+              <p className="text-white/80 mb-8 leading-relaxed">
                 I'm always excited to work on new projects and collaborate with amazing people. Whether you have a
                 project in mind or just want to chat about technology, feel free to reach out!
               </p>
@@ -126,7 +126,7 @@ export default function Contact() {
             <form onSubmit={handleSubmit} className="space-y-6">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                 <div>
-                  <label htmlFor="name" className="block text-sm font-medium text-gray-300 mb-2">
+                  <label htmlFor="name" className="block text-sm font-medium text-white/80 mb-2">
                     Name
                   </label>
                   <input
