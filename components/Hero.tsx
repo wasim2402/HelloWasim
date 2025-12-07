@@ -26,9 +26,9 @@ export default function Hero() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.1, duration: 0.3 }}
             >
-              <span className="bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">Hi, I'm </span>
-              <br className="hidden lg:block" />
-              <span className="font-playfair font-bold text-white">Wasim Aktar</span>
+              <span className="font-bold text-white">Hi, I'm </span>
+              <br className="block sm:hidden lg:block" />
+              <span className="font-bold text-white">Wasim Aktar</span>
             </motion.h1>
 
             <motion.p

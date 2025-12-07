@@ -35,11 +35,13 @@ const BlackHole: React.FC = () => {
                 value: new THREE.Vector2(window.innerWidth, window.innerHeight),
             },
             mouse: { value: new THREE.Vector2(0.5, 0.5) },
+            scale: { value: window.innerWidth < 768 ? 0.5 : 0.7 }
         }
 
         const handleResize = () => {
             renderer.setSize(window.innerWidth, window.innerHeight)
             uniforms.resolution.value.set(window.innerWidth, window.innerHeight)
+            uniforms.scale.value = window.innerWidth < 768 ? 0.5 : 0.7
         }
 
         // Shaders
@@ -47,6 +49,7 @@ const BlackHole: React.FC = () => {
       uniform vec2 resolution;
       uniform float time;
       uniform vec2 mouse;
+      uniform float scale;
 
       void main() {
           vec4 o = vec4(0.0);
@@ -62,7 +65,7 @@ const BlackHole: React.FC = () => {
           FC += (mouse - vec2(0.5)) * 100.0 * mouseInfluence;
           
           // Shader logic
-          vec2 p = (FC.xy * 2.0 - r) / r.y / 0.7;
+          vec2 p = (FC.xy * 2.0 - r) / r.y / scale;
           vec2 d = vec2(-1.0, 1.0);
           vec2 c = p * mat2(1.0, 1.0, d / (0.1 + 5.0 / dot(5.0 * p - d, 5.0 * p - d)));
           vec2 v = c;

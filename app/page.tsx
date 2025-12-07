@@ -18,8 +18,19 @@ export default function Home() {
   const [mounted, setMounted] = useState(false)
 
   useEffect(() => {
-    // Simulate a slightly longer load time to show off the animation
-    const timer = setTimeout(() => setMounted(true), 2000)
+    // Check if user has visited before in this session
+    const hasVisited = sessionStorage.getItem("hasVisited")
+
+    if (hasVisited) {
+      setMounted(true)
+    } else {
+      // Simulate a slightly longer load time to show off the animation
+      const timer = setTimeout(() => {
+        setMounted(true)
+        sessionStorage.setItem("hasVisited", "true")
+      }, 6000)
+      return () => clearTimeout(timer)
+    }
 
     // Optimized smooth scrolling with throttling
     const handleScroll = (e: Event) => {
@@ -40,7 +51,6 @@ export default function Home() {
     document.documentElement.style.overflowX = "hidden"
 
     return () => {
-      clearTimeout(timer)
       links.forEach((link) => link.removeEventListener("click", handleScroll))
     }
   }, [])

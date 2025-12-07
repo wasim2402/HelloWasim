@@ -6,7 +6,7 @@ import "./globals.css"
 
 const inter = Inter({ subsets: ["latin"] })
 const playfair = Playfair_Display({ subsets: ["latin"], weight: "700", variable: "--font-playfair" })
-const instrument = Instrument_Serif({ weight: "400", subsets: ["latin"], variable: "--font-instrument" })
+const instrument = Instrument_Serif({ weight: "400", style: ["normal", "italic"], subsets: ["latin"], variable: "--font-instrument" })
 
 export const metadata: Metadata = {
   title: "HelloWasim",
