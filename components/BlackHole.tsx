@@ -38,10 +38,22 @@ const BlackHole: React.FC = () => {
             scale: { value: window.innerWidth < 768 ? 0.5 : 0.7 }
         }
 
+        // Track previous width to detect orientation changes/true resizes vs address bar toggle
+        let prevWidth = window.innerWidth
+
         const handleResize = () => {
-            renderer.setSize(window.innerWidth, window.innerHeight)
-            uniforms.resolution.value.set(window.innerWidth, window.innerHeight)
-            uniforms.scale.value = window.innerWidth < 768 ? 0.5 : 0.7
+            const newWidth = window.innerWidth
+            const isMobile = newWidth < 768
+
+            // On mobile, only resize if width changes (orientation change)
+            // On desktop, resize normally
+            if (!isMobile || newWidth !== prevWidth) {
+                renderer.setSize(window.innerWidth, window.innerHeight)
+                uniforms.resolution.value.set(window.innerWidth, window.innerHeight)
+                uniforms.scale.value = newWidth < 768 ? 0.5 : 0.7
+            }
+
+            prevWidth = newWidth
         }
 
         // Shaders
