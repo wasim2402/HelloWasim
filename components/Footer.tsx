@@ -66,7 +66,7 @@ export default function Footer() {
             onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.9 }}
-            className={`px-6 py-2 bg-white text-black font-medium rounded-[8px] text-sm hover:shadow-lg transition-all duration-300`}
+            className={`px-6 py-2 bg-white text-black font-medium rounded-[2px] text-sm hover:shadow-lg transition-all duration-300`}
           >
             Back to Top
           </motion.button>

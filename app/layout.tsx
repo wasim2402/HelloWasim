@@ -1,10 +1,10 @@
 import type React from "react"
 import type { Metadata } from "next"
-import { Inter, Playfair_Display, Instrument_Serif } from "next/font/google"
-import BlackHole from "@/components/BlackHole"
+import { Plus_Jakarta_Sans, Playfair_Display, Instrument_Serif } from "next/font/google"
+
 import "./globals.css"
 
-const inter = Inter({ subsets: ["latin"] })
+const plusJakarta = Plus_Jakarta_Sans({ subsets: ["latin"], display: "swap" })
 const playfair = Playfair_Display({ subsets: ["latin"], weight: "700", variable: "--font-playfair" })
 const instrument = Instrument_Serif({ weight: "400", style: ["normal", "italic"], subsets: ["latin"], variable: "--font-instrument" })
 
@@ -50,8 +50,8 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className="scroll-smooth">
-      <body className={`${inter.className} ${playfair.variable} ${instrument.variable} antialiased`}>
-        <BlackHole />
+      <body className={`${plusJakarta.className} ${playfair.variable} ${instrument.variable} antialiased`}>
+
         {children}
       </body>
     </html>

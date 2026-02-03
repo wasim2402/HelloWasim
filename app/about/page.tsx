@@ -32,7 +32,6 @@ export default function AboutPage() {
                 <div>
                     <p className="text-neutral-200 text-xs md:text-sm font-normal mb-8">
                         Completed my secondary education with a focus on Science and Mathematics.
-                        Participated in various science fairs and coding competitions.
                         <br /><br />
                         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
                     </p>
@@ -95,7 +94,6 @@ export default function AboutPage() {
             ),
         },
     ];
-
     return (
         <ThemeProvider>
             <div className="min-h-screen bg-black text-white overflow-x-hidden">

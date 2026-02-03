@@ -85,14 +85,14 @@ export default function Contact() {
                 {
                   icon: Mail,
                   label: "Email",
-                  value: "wasimaktar2402@gmail.com",
-                  href: "mailto:wasimaktar2402@gmail.com",
+                  value: "hellowasim.portfolio@gmail.com",
+                  href: "mailto:hellowasim.portfolio@gmail.com",
                 },
                 {
                   icon: Phone,
                   label: "Phone",
-                  value: "+91 83xxxxxx18",
-                  href: "tel:+15551234567",
+                  value: "+91 xxxxxxx618",
+                  href: "tel:+xxx",
                 },
                 {
                   icon: MapPin,

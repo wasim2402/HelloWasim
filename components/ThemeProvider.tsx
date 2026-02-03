@@ -15,7 +15,7 @@ const ThemeContext = createContext<ThemeContextType | undefined>(undefined)
 
 const themes = {
   dark: {
-    gradient: "bg-gradient-to-br from-gray-900 via-black to-gray-800",
+    gradient: "bg-black",
     accent: "from-gray-400 to-gray-600",
   },
   blue: {

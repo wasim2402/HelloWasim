@@ -62,7 +62,7 @@ export default function Hero() {
                 whileHover={{ scale: 1.03 }}
                 whileTap={{ scale: 0.97 }}
                 transition={{ duration: 0.15 }}
-                href="/Wasim_Resume.pdf"
+                href="/Wasim_Resume2026.pdf"
                 download
                 className="inline-block px-8 py-3 border-2 border-white/20 text-white font-semibold rounded-[3px] hover:bg-white hover:text-black transition-all duration-200 will-change-transform"
               >
