@@ -6,6 +6,7 @@ import { Menu, X, Palette } from "lucide-react"
 import { useTheme } from "./ThemeProvider"
 import Image from "next/image"
 import { usePathname } from "next/navigation"
+import HackerClock from "./HackerClock"
 
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false)
@@ -70,7 +71,7 @@ export default function Navbar() {
         }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center py-4">
+        <div className="flex justify-between items-center py-4 relative">
           {/* Logo */}
           <motion.a
             href="#hero"
@@ -80,10 +81,15 @@ export default function Navbar() {
             }}
             whileHover={{ scale: 1.05 }}
             transition={{ duration: 0.2 }}
-            className="flex items-center font-medium"
+            className="flex items-center font-medium z-10"
           >
             <Image src="/logo-as.png" alt="AS Logo" width={48} height={48} className="w-36 h-auto object-contain" priority />
           </motion.a>
+
+          {/* Center Clock - Absolute Positioned for fixed height */}
+          <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-full flex justify-center pointer-events-none ml-10 md:ml-0">
+            <HackerClock />
+          </div>
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-8">
