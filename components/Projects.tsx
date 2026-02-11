@@ -5,6 +5,7 @@ import Image from "next/image"
 import { useTheme } from "./ThemeProvider"
 import { useRef, useState, useEffect } from "react"
 import { motion, useMotionValue, useTransform } from "framer-motion"
+import SpotlightCard from "./ui/SpotlightCard"
 
 export default function Projects() {
   const { getAccentColor } = useTheme()
@@ -242,69 +243,72 @@ function ProjectCard({
         }}
         onMouseMove={!isMobile ? handleMouseMove : undefined}
         onMouseLeave={!isMobile ? handleMouseLeave : undefined}
-        className={`bg-white/5 backdrop-blur-sm rounded-xl overflow-hidden border border-white/10 hover:border-white/20 transition-colors duration-200 group relative ${isMobile ? "h-80" : "h-auto"
-          }`}
       >
-        <div className="relative overflow-hidden" style={{ transform: "translateZ(20px)" }}>
-          <Image
-            src={project.image || "/placeholder.svg"}
-            alt={project.title}
-            width={isMobile ? 240 : 300}
-            height={isMobile ? 140 : 200}
-            className={`w-full object-cover group-hover:scale-105 transition-transform duration-300 ${isMobile ? "h-32" : "h-48"
-              }`}
-          />
-          <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-200 flex items-center justify-center space-x-4">
-            <a
-              href={project.github}
-              className="p-2 bg-white/20 rounded-full hover:bg-white/30 transition-colors duration-200"
-            >
-              <Github size={18} className="text-white" />
-            </a>
-            <a
-              href={project.demo}
-              className="p-2 bg-white/20 rounded-full hover:bg-white/30 transition-colors duration-200"
-            >
-              <ExternalLink size={18} className="text-white" />
-            </a>
+        <SpotlightCard
+          className={`bg-white/5 backdrop-blur-sm rounded-xl border border-white/10 hover:border-white/20 transition-colors duration-200 group relative ${isMobile ? "h-80" : "h-auto"}`}
+          spotlightColor="rgba(255, 255, 255, 0.15)"
+        >
+          <div className="relative overflow-hidden" style={{ transform: "translateZ(20px)" }}>
+            <Image
+              src={project.image || "/placeholder.svg"}
+              alt={project.title}
+              width={isMobile ? 240 : 300}
+              height={isMobile ? 140 : 200}
+              className={`w-full object-cover group-hover:scale-105 transition-transform duration-300 ${isMobile ? "h-32" : "h-48"
+                }`}
+            />
+            <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-200 flex items-center justify-center space-x-4">
+              <a
+                href={project.github}
+                className="p-2 bg-white/20 rounded-full hover:bg-white/30 transition-colors duration-200"
+              >
+                <Github size={18} className="text-white" />
+              </a>
+              <a
+                href={project.demo}
+                className="p-2 bg-white/20 rounded-full hover:bg-white/30 transition-colors duration-200"
+              >
+                <ExternalLink size={18} className="text-white" />
+              </a>
+            </div>
           </div>
-        </div>
 
-        <div className={`p-4 ${isMobile ? "p-3" : "p-6"}`} style={{ transform: "translateZ(30px)" }}>
-          <h3 className={`font-semibold text-white mb-2 ${isMobile ? "text-lg" : "text-xl"} drop-shadow-[0_0_8px_rgba(255,255,255,0.4)]`}>{project.title}</h3>
-          <p className={`text-gray-300 mb-3 ${isMobile ? "text-xs line-clamp-2" : "text-sm"}`}>{project.description}</p>
+          <div className={`p-4 ${isMobile ? "p-3" : "p-6"}`} style={{ transform: "translateZ(30px)" }}>
+            <h3 className={`font-semibold text-white mb-2 ${isMobile ? "text-lg" : "text-xl"} drop-shadow-[0_0_8px_rgba(255,255,255,0.4)]`}>{project.title}</h3>
+            <p className={`text-gray-300 mb-3 ${isMobile ? "text-xs line-clamp-2" : "text-sm"}`}>{project.description}</p>
 
-          <div className="flex flex-wrap gap-1 mb-3">
-            {project.tags.map((tag: string, tagIndex: number) => (
-              <span
-                key={tagIndex}
-                className={`px-2 py-1 bg-white/70 text-black rounded-lg ${isMobile ? "text-xs" : "text-xs"
+            <div className="flex flex-wrap gap-1 mb-3">
+              {project.tags.map((tag: string, tagIndex: number) => (
+                <span
+                  key={tagIndex}
+                  className={`px-2 py-1 bg-white/70 text-black rounded-lg ${isMobile ? "text-xs" : "text-xs"
+                    }`}
+                >
+                  {tag}
+                </span>
+              ))}
+            </div>
+
+            <div className="flex space-x-3">
+              <a
+                href={project.github}
+                className={`flex items-center text-gray-300 hover:text-white transition-colors duration-200 ${isMobile ? "text-xs" : "text-sm"
                   }`}
               >
-                {tag}
-              </span>
-            ))}
+                <Github size={14} className="mr-1" />
+                Code
+              </a>
+              <a
+                href={project.demo}
+                className={`flex items-center text-gray-300 hover:text-white transition-colors duration-200 ${isMobile ? "text-xs" : "text-sm"
+                  }`}
+              >
+                <ExternalLink size={14} className="mr-1" />
+                Demo
+              </a>
+            </div>
           </div>
-
-          <div className="flex space-x-3">
-            <a
-              href={project.github}
-              className={`flex items-center text-gray-300 hover:text-white transition-colors duration-200 ${isMobile ? "text-xs" : "text-sm"
-                }`}
-            >
-              <Github size={14} className="mr-1" />
-              Code
-            </a>
-            <a
-              href={project.demo}
-              className={`flex items-center text-gray-300 hover:text-white transition-colors duration-200 ${isMobile ? "text-xs" : "text-sm"
-                }`}
-            >
-              <ExternalLink size={14} className="mr-1" />
-              Demo
-            </a>
-          </div>
-        </div>
+        </SpotlightCard>
       </motion.div>
     </motion.div>
   )

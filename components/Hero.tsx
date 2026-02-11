@@ -4,6 +4,8 @@ import { motion } from "framer-motion"
 import { ArrowDown, Github, Linkedin, Mail } from "lucide-react"
 import { useTheme } from "./ThemeProvider"
 import CodeEditor from "./CodeEditor"
+import HackerText from "./ui/HackerText"
+import MagneticButton from "./ui/MagneticButton"
 
 export default function Hero() {
   const { getAccentColor } = useTheme()
@@ -28,7 +30,7 @@ export default function Hero() {
             >
               <span className="font-bold text-white">Hi, I'm </span>
               <br className="block sm:hidden lg:block" />
-              <span className="font-bold text-white">Wasim Aktar</span>
+              <HackerText text="Wasim Aktar" className="font-bold text-white block sm:inline" />
             </motion.h1>
 
             <motion.p
@@ -46,28 +48,32 @@ export default function Hero() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3, duration: 0.3 }}
             >
-              <motion.button
-                whileHover={{ scale: 1.03 }}
-                whileTap={{ scale: 0.97 }}
-                transition={{ duration: 0.15 }}
-                onClick={() => {
-                  document.getElementById("projects")?.scrollIntoView({ behavior: "smooth" });
-                }}
-                className="px-8 py-3 bg-white text-black border-2 border-black font-semibold rounded-[3px] shadow-lg hover:shadow-xl transition-all duration-200 will-change-transform"
-              >
-                View My Work
-              </motion.button>
+              <MagneticButton>
+                <motion.button
+                  whileHover={{ scale: 1.03 }}
+                  whileTap={{ scale: 0.97 }}
+                  transition={{ duration: 0.15 }}
+                  onClick={() => {
+                    document.getElementById("projects")?.scrollIntoView({ behavior: "smooth" });
+                  }}
+                  className="px-8 py-3 bg-white text-black border-2 border-black font-semibold rounded-[3px] shadow-lg hover:shadow-xl transition-all duration-200 will-change-transform"
+                >
+                  View My Work
+                </motion.button>
+              </MagneticButton>
 
-              <motion.a
-                whileHover={{ scale: 1.03 }}
-                whileTap={{ scale: 0.97 }}
-                transition={{ duration: 0.15 }}
-                href="/Wasim_Resume2026.pdf"
-                download
-                className="inline-block px-8 py-3 border-2 border-white/20 text-white font-semibold rounded-[3px] hover:bg-white hover:text-black transition-all duration-200 will-change-transform"
-              >
-                Download CV
-              </motion.a>
+              <MagneticButton>
+                <motion.a
+                  whileHover={{ scale: 1.03 }}
+                  whileTap={{ scale: 0.97 }}
+                  transition={{ duration: 0.15 }}
+                  href="/Wasim_Resume2026.pdf"
+                  download
+                  className="inline-block px-8 py-3 border-2 border-white/20 text-white font-semibold rounded-[3px] hover:bg-white hover:text-black transition-all duration-200 will-change-transform"
+                >
+                  Download CV
+                </motion.a>
+              </MagneticButton>
             </motion.div>
 
             <motion.div
