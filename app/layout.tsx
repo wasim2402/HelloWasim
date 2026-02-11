@@ -50,7 +50,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className="scroll-smooth">
-      <body className={`${plusJakarta.className} ${playfair.variable} ${instrument.variable} antialiased`}>
+      <body
+        className={`${plusJakarta.className} ${playfair.variable} ${instrument.variable} antialiased`}
+        suppressHydrationWarning
+      >
 
         {children}
       </body>

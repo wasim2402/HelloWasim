@@ -30,9 +30,19 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
   const getGradientClasses = () => themes[theme].gradient
   const getAccentColor = () => themes[theme].accent
 
-  // Apply theme to body when theme changes
+  // Apply theme to body when theme changes, but preserve existing utility classes (fonts, etc.)
   useEffect(() => {
-    document.body.className = `${getGradientClasses()} min-h-screen transition-all duration-500`
+    const body = document.body
+    const gradient = themes[theme].gradient.split(" ")
+    const otherTheme = theme === "dark" ? "blue" : "dark"
+    const otherGradient = themes[otherTheme].gradient.split(" ")
+
+    body.classList.remove(...otherGradient)
+    body.classList.add(...gradient, "min-h-screen", "transition-all", "duration-500")
+
+    return () => {
+      body.classList.remove(...gradient, "min-h-screen", "transition-all", "duration-500")
+    }
   }, [theme])
 
   return (
