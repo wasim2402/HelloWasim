@@ -7,6 +7,7 @@ import { useTheme } from "./ThemeProvider"
 import Image from "next/image"
 import { usePathname } from "next/navigation"
 import HackerClock from "./HackerClock"
+import SpotifyWidget from "./SpotifyWidget"
 
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false)
@@ -103,6 +104,8 @@ export default function Navbar() {
               </a>
             ))}
 
+
+
             {/* Themes Button */}
             <motion.button
               onClick={handleThemeChange}
@@ -155,6 +158,11 @@ export default function Navbar() {
             ))}
           </motion.div>
         )}
+
+        {/* Spotify Widget - Hanging Tab Position */}
+        <div className="absolute top-full right-4 md:right-8 mt-2">
+          <SpotifyWidget className="!bg-black/40 !backdrop-blur-xl !border-white/10 !shadow-xl !py-2 !px-4" />
+        </div>
       </div>
     </motion.nav>
   )
