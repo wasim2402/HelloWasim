@@ -3,6 +3,8 @@ import type { Metadata } from "next"
 import { Plus_Jakarta_Sans, Playfair_Display, Instrument_Serif } from "next/font/google"
 
 import "./globals.css"
+import SpotifyWidget from "@/components/SpotifyWidget"
+import { ThemeProvider } from "@/components/ThemeProvider"
 
 const plusJakarta = Plus_Jakarta_Sans({ subsets: ["latin"], display: "swap" })
 const playfair = Playfair_Display({ subsets: ["latin"], weight: "700", variable: "--font-playfair" })
@@ -54,8 +56,12 @@ export default function RootLayout({
         className={`${plusJakarta.className} ${playfair.variable} ${instrument.variable} antialiased`}
         suppressHydrationWarning
       >
-
-        {children}
+        <ThemeProvider>
+          <SpotifyWidget />
+          <div className="relative z-10">
+            {children}
+          </div>
+        </ThemeProvider>
       </body>
     </html>
   )
