@@ -1,11 +1,13 @@
 import type React from "react"
 import type { Metadata } from "next"
-import { Plus_Jakarta_Sans, Playfair_Display, Instrument_Serif } from "next/font/google"
+import { GeistSans } from "geist/font/sans"
+import { GeistMono } from "geist/font/mono"
+import { Playfair_Display, Instrument_Serif } from "next/font/google"
 
 import "./globals.css"
 import { ThemeProvider } from "@/components/ThemeProvider"
 
-const plusJakarta = Plus_Jakarta_Sans({ subsets: ["latin"], display: "swap" })
+
 const playfair = Playfair_Display({ subsets: ["latin"], weight: "700", variable: "--font-playfair" })
 const instrument = Instrument_Serif({ weight: "400", style: ["normal", "italic"], subsets: ["latin"], variable: "--font-instrument" })
 
@@ -52,7 +54,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="scroll-smooth">
       <body
-        className={`${plusJakarta.className} ${playfair.variable} ${instrument.variable} antialiased`}
+        className={`${GeistSans.className} ${GeistMono.variable} ${playfair.variable} ${instrument.variable} antialiased`}
         suppressHydrationWarning
       >
         <ThemeProvider>

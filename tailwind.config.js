@@ -46,7 +46,8 @@ module.exports = {
         },
       },
       fontFamily: {
-        sans: ["Plus Jakarta Sans", "system-ui", "sans-serif"],
+        sans: ["var(--font-geist-sans)", "system-ui", "sans-serif"],
+        mono: ["var(--font-geist-mono)", "monospace"],
         playfair: ["var(--font-playfair)", "serif"],
         instrument: ["var(--font-instrument)", "serif"],
       },
