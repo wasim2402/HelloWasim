@@ -12,7 +12,7 @@ const playfair = Playfair_Display({ subsets: ["latin"], weight: "700", variable:
 const instrument = Instrument_Serif({ weight: "400", style: ["normal", "italic"], subsets: ["latin"], variable: "--font-instrument" })
 
 export const metadata: Metadata = {
-  title: "HelloWasim",
+  title: "HelloWasim - Portfolio",
   description:
     "Modern portfolio website showcasing full-stack development and UI/UX design skills. Built with Next.js, React, and Tailwind CSS.",
   keywords: "portfolio, full-stack developer, UI/UX designer, React, Next.js, web development, Wasim Aktar",

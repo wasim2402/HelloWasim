@@ -31,18 +31,19 @@ export default function AboutPage() {
             content: (
                 <div>
                     <p className="text-neutral-200 text-xs md:text-sm font-normal mb-8">
-                        Completed my secondary education with a focus on Science and Mathematics.
+                       I completed my schooling with a Science background, where I studied core subjects including Physics, Chemistry, Mathematics, and Biology (PSMB).
                         <br /><br />
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+                        This academic foundation helped me develop strong analytical and problem-solving skills.
+                        It also built my interest in scientific thinking and practical application of concepts.
                     </p>
                     <div className="grid grid-cols-2 gap-4">
                         <div className="p-4 bg-neutral-900 rounded-lg border border-neutral-800">
-                            <h4 className="text-white font-bold mb-1">High School</h4>
-                            <p className="text-neutral-400 text-xs">2016 - 2018</p>
+                            <h4 className="text-white font-bold mb-1">Secondary Education</h4>
+                            <p className="text-neutral-400 text-xs">2018 - 2020</p>
                         </div>
                         <div className="p-4 bg-neutral-900 rounded-lg border border-neutral-800">
-                            <h4 className="text-white font-bold mb-1">Secondary School</h4>
-                            <p className="text-neutral-400 text-xs">2014 - 2016</p>
+                            <h4 className="text-white font-bold mb-1">Higher Secondary</h4>
+                            <p className="text-neutral-400 text-xs">2020 - 2022</p>
                         </div>
                     </div>
                 </div>
@@ -61,8 +62,8 @@ export default function AboutPage() {
                     </p>
                     <div className="grid grid-cols-2 gap-4">
                         <div className="p-4 bg-neutral-900 rounded-lg border border-neutral-800">
-                            <h4 className="text-white font-bold mb-1">B.Tech CSE</h4>
-                            <p className="text-neutral-400 text-xs">2018 - 2022</p>
+                            <h4 className="text-white font-bold mb-1">B.Tech - Information Technology</h4>
+                            <p className="text-neutral-400 text-xs">2022 - 2026</p>
                         </div>
                     </div>
                 </div>
