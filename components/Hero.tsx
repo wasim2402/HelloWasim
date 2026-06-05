@@ -22,16 +22,19 @@ export default function Hero() {
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5, ease: "easeOut" }}
           >
-            <motion.h1
-              className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.1, duration: 0.3 }}
-            >
-              <span className="font-bold text-white">Hi, I'm </span>
-              <br className="block sm:hidden lg:block" />
-              <HackerText text="Wasim Aktar" className="font-bold text-white block sm:inline" />
-            </motion.h1>
+<motion.h1
+  className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6"
+  initial={{ opacity: 0, y: 20 }}
+  animate={{ opacity: 1, y: 0 }}
+  transition={{ delay: 0.1, duration: 0.3 }}
+>
+  <span className="font-bold text-white">Hi, I'm </span>
+  <br className="block sm:hidden lg:block" />
+  <HackerText
+    text="Wasim Aktar"
+    className="italic font-bold text-white block sm:inline"
+  />
+</motion.h1>
 
             <motion.p
               className="text-lg md:text-xl font-instrument text-white/80 mb-8 max-w-2xl mx-auto lg:mx-0"
