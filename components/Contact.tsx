@@ -3,11 +3,15 @@
 import type React from "react"
 import { useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
-import { Mail, Phone, MapPin, Send, CheckCircle } from "lucide-react"
-import { useTheme } from "./ThemeProvider"
+import { Twitter, Instagram, Linkedin, Youtube, CheckCircle } from "lucide-react"
+import { Archivo } from "next/font/google"
+
+const archivo = Archivo({
+  subsets: ['latin'],
+  weight: ['800', '900']
+})
 
 export default function Contact() {
-  const { getAccentColor } = useTheme()
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -35,7 +39,7 @@ export default function Contact() {
         setShowSuccess(true);
         setFormData({ name: "", email: "", message: "" });
 
-        // Auto-hide success popup after 1 seconds
+        // Auto-hide success popup after 3 seconds
         setTimeout(() => {
           setShowSuccess(false);
         }, 3000);
@@ -58,109 +62,82 @@ export default function Contact() {
   }
 
   return (
-    <section id="contact" className="py-20 relative overflow-hidden">
+    <section id="contact" className="py-24 relative overflow-hidden bg-[#F5F5F5]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold mb-4 text-white drop-shadow-[0_0_10px_rgba(255,255,255,0.5)]">
-            Get In Touch
-          </h2>
-          <p className="text-white/80 text-lg max-w-2xl mx-auto">
-            Ready to start your next project? Let's work together to create something amazing.
-          </p>
-        </div>
-
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-          {/* Contact Info */}
-          <div className="space-y-8">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-8">
+          
+          {/* Left Side */}
+          <div className="lg:col-span-7 flex flex-col justify-between h-full py-4">
             <div>
-              <h3 className="text-2xl font-semibold mb-6 text-white drop-shadow-[0_0_8px_rgba(255,255,255,0.4)]">Let's Connect</h3>
-              <p className="text-white/80 mb-8 leading-relaxed">
-                I'm always excited to work on new projects and collaborate with amazing people. Whether you have a
-                project in mind or just want to chat about technology, feel free to reach out!
+              <h2 className={`text-[4rem] md:text-[6rem] font-bold text-black leading-tight tracking-tighter mb-4 ${archivo.className}`}>
+                Let's talk.
+              </h2>
+              <p className="text-black/70 text-lg md:text-xl max-w-md font-medium tracking-tight">
+                Have a project or need help? Fill out the form, and we'll get back to you soon.
               </p>
             </div>
 
-            <div className="space-y-6">
+            <div className="flex space-x-4 mt-20 lg:mt-0">
               {[
-                {
-                  icon: Mail,
-                  label: "Email",
-                  value: "hellowasim.portfolio@gmail.com",
-                  href: "mailto:hellowasim.portfolio@gmail.com",
-                },
-                {
-                  icon: Phone,
-                  label: "Phone",
-                  value: "+91 xxxxxxx618",
-                  href: "tel:+xxx",
-                },
-                {
-                  icon: MapPin,
-                  label: "Location",
-                  value: "Kolkata, India",
-                  href: "https://www.google.com/maps/place/Maulana+Abul+Kalam+Azad+University+of+Technology/@22.9576174,88.5405554,17z/data=!4m7!3m6!1s0x39f8bf5871a9e0d7:0x3cbdf3b9f157e355!4b1!8m2!3d22.9576125!4d88.5431303!16s%2Fg%2F11grbv7qmj?entry=ttu&g_ep=EgoyMDI1MDcyMS4wIKXMDSoASAFQAw%3D%3D",
-                },
-              ].map((item, index) => (
+                { icon: Twitter, href: "https://x.com/wasimaktar_?t=AMbuiTqL7k2GGtzBXp6zMA&s=08", label: "Twitter" },
+                { icon: Instagram, href: "https://www.instagram.com/_wasim.aktar/?igsh=YTM3b2IwaDF2YzJm", label: "Instagram" },
+                { icon: Linkedin, href: "https://www.linkedin.com/in/wasim-aktar-aa7a5a256/", label: "LinkedIn" },
+                { icon: Youtube, href: "#", label: "Youtube" },
+              ].map((item, i) => (
                 <motion.a
-                  key={index}
+                  key={i}
                   href={item.href}
-                  whileHover={{ x: 5 }}
-                  className="flex items-center space-x-4 p-4 rounded-xl bg-white/5 backdrop-blur-sm border border-white/10 hover:border-white/20 transition-all duration-200 group will-change-transform"
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="w-12 h-12 bg-black/5 rounded-xl flex items-center justify-center text-black/70 hover:bg-black/10 hover:text-black transition-colors"
+                  aria-label={item.label}
                 >
-                  <div
-                    className={`p-3 bg-transparent group-hover:scale-110 transition-transform duration-200 will-change-transform`}
-                  >
-                    <item.icon size={20} className="text-white" />
-                  </div>
-                  <div>
-                    <p className="text-sm text-gray-400">{item.label}</p>
-                    <p className="text-white font-medium">{item.value}</p>
-                  </div>
+                  <item.icon size={20} />
                 </motion.a>
               ))}
             </div>
           </div>
 
-          {/* Contact Form */}
-          <div className="relative">
-            <form onSubmit={handleSubmit} className="space-y-6">
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                <div>
-                  <label htmlFor="name" className="block text-sm font-medium text-white/80 mb-2">
-                    Name
-                  </label>
-                  <input
-                    type="text"
-                    id="name"
-                    name="name"
-                    value={formData.name}
-                    onChange={handleChange}
-                    required
-                    className="w-full px-4 py-3 bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:border-white/30 focus:ring-2 focus:ring-white/10 transition-all duration-200"
-                    placeholder="Your Name"
-                  />
-                </div>
-
-                <div>
-                  <label htmlFor="email" className="block text-sm font-medium text-gray-300 mb-2">
-                    Email
-                  </label>
-                  <input
-                    type="email"
-                    id="email"
-                    name="email"
-                    value={formData.email}
-                    onChange={handleChange}
-                    required
-                    className="w-full px-4 py-3 bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:border-white/30 focus:ring-2 focus:ring-white/10 transition-all duration-200"
-                    placeholder="your@email.com"
-                  />
-                </div>
+          {/* Right Side - Form */}
+          <div className="lg:col-span-5 flex justify-end w-full">
+            <div className="w-full max-w-md bg-[#111111] rounded-[20px] p-8 md:p-10 relative overflow-hidden">
+            <form onSubmit={handleSubmit} className="space-y-6 relative z-10">
+              
+              <div>
+                <label htmlFor="name" className="block text-sm font-medium text-white mb-2">
+                  Name
+                </label>
+                <input
+                  type="text"
+                  id="name"
+                  name="name"
+                  value={formData.name}
+                  onChange={handleChange}
+                  required
+                  className="w-full px-5 py-4 bg-transparent border border-white/10 rounded-2xl text-white placeholder-white/30 focus:outline-none focus:border-white/30 transition-all duration-200"
+                  placeholder="Enter your name"
+                />
               </div>
 
               <div>
-                <label htmlFor="message" className="block text-sm font-medium text-gray-300 mb-2">
-                  Message
+                <label htmlFor="email" className="block text-sm font-medium text-white mb-2">
+                  Email
+                </label>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  required
+                  className="w-full px-5 py-4 bg-transparent border border-white/10 rounded-2xl text-white placeholder-white/30 focus:outline-none focus:border-white/30 transition-all duration-200"
+                  placeholder="Enter your email"
+                />
+              </div>
+
+              <div>
+                <label htmlFor="message" className="block text-sm font-medium text-white mb-2">
+                  Your Project
                 </label>
                 <textarea
                   id="message"
@@ -168,9 +145,9 @@ export default function Contact() {
                   value={formData.message}
                   onChange={handleChange}
                   required
-                  rows={6}
-                  className="w-full px-4 py-3 bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:border-white/30 focus:ring-2 focus:ring-white/10 transition-all duration-200 resize-none"
-                  placeholder="Tell me about your project..."
+                  rows={5}
+                  className="w-full px-5 py-4 bg-transparent border border-white/10 rounded-2xl text-white placeholder-white/30 focus:outline-none focus:border-white/30 transition-all duration-200 resize-none"
+                  placeholder="Tell us about your project"
                 />
               </div>
 
@@ -179,21 +156,19 @@ export default function Contact() {
                 disabled={isSubmitting}
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
-                className={`w-full py-4 px-6 bg-white text-black font-semibold rounded-[10px] shadow-lg hover:shadow-xl transition-all duration-200 flex items-center justify-center space-x-2 disabled:opacity-50 disabled:cursor-not-allowed will-change-transform`}
+                className={`w-full py-4 px-6 bg-[#F5F5F5] text-black font-semibold rounded-2xl transition-all duration-200 flex items-center justify-center space-x-2 disabled:opacity-50 disabled:cursor-not-allowed`}
               >
                 {isSubmitting ? (
                   <>
-                    <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                    <span>Sending...</span>
+                    <div className="w-5 h-5 border-2 border-black/30 border-t-black rounded-full animate-spin" />
+                    <span>Submitting...</span>
                   </>
                 ) : (
-                  <>
-                    <Send size={20} />
-                    <span>Send Message</span>
-                  </>
+                  <span>Submit</span>
                 )}
               </motion.button>
             </form>
+            </div>
           </div>
         </div>
       </div>
@@ -212,13 +187,13 @@ export default function Contact() {
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.8, opacity: 0 }}
               transition={{ type: "spring", duration: 0.5 }}
-              className="bg-gradient-to-r from-blue-600 to-blue-700 p-8 rounded-2xl shadow-2xl max-w-md mx-4 text-center"
+              className="bg-gradient-to-r from-black to-gray-900 border border-white/10 p-8 rounded-3xl shadow-2xl max-w-md mx-4 text-center"
             >
               <motion.div
                 initial={{ scale: 0, rotate: -180 }}
                 animate={{ scale: 1, rotate: 0 }}
                 transition={{ delay: 0.2, type: "spring", duration: 0.6 }}
-                className="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-4"
+                className="w-16 h-16 bg-white/10 rounded-full flex items-center justify-center mx-auto mb-4"
               >
                 <CheckCircle size={32} className="text-white" />
               </motion.div>
@@ -236,7 +211,7 @@ export default function Contact() {
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.4, duration: 0.3 }}
-                className="text-blue-100 leading-relaxed"
+                className="text-gray-300 leading-relaxed"
               >
                 Thank you for reaching out! I'll get back to you as soon as possible.
               </motion.p>

@@ -19,21 +19,6 @@ const files = [
 };`,
     },
     {
-        name: "Skills.json",
-        language: "json",
-        content: `{
-  "frontend": [
-    "React", "Tailwind",
-    "Framer Motion"
-  ],
-  "backend": [
-    "Node.js", "Express",
-    "MongoDB", "PostgreSQL"
-  ],
-  "tools": ["Git", "Docker"]
-}`,
-    },
-    {
         name: "Contact.css",
         language: "css",
         content: `.contact-form {

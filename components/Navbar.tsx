@@ -1,42 +1,13 @@
 "use client"
 
-import { useState, useEffect } from "react"
-import { motion } from "framer-motion"
-import { Menu, X, Palette } from "lucide-react"
-import { useTheme } from "./ThemeProvider"
+import { useState } from "react"
+import { motion, AnimatePresence } from "framer-motion"
+import { MoreHorizontal, X } from "lucide-react"
 import Image from "next/image"
 import { usePathname } from "next/navigation"
-import HackerClock from "./HackerClock"
-import SpotifyWidget from "./SpotifyWidget"
 
 export default function Navbar() {
-  const [isScrolled, setIsScrolled] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
-  const { theme, setTheme } = useTheme()
-
-  const themes = ["dark", "blue"] as const
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50)
-    }
-
-    // Throttle scroll events for performance
-    let ticking = false
-    const throttledScroll = () => {
-      if (!ticking) {
-        requestAnimationFrame(() => {
-          handleScroll()
-          ticking = false
-        })
-        ticking = true
-      }
-    }
-
-    window.addEventListener("scroll", throttledScroll, { passive: true })
-    return () => window.removeEventListener("scroll", throttledScroll)
-  }, [])
-
   const pathname = usePathname()
 
   const navItems = [
@@ -46,124 +17,73 @@ export default function Navbar() {
     { name: "Contact", href: pathname === "/" ? "#contact" : "/#contact" },
   ]
 
-  const handleThemeChange = () => {
-    const currentIndex = themes.indexOf(theme)
-    const nextIndex = (currentIndex + 1) % themes.length
-    setTheme(themes[nextIndex])
-  }
-
-  const getThemeLabel = () => {
-    switch (theme) {
-      case "dark":
-        return "Dark"
-      case "blue":
-        return "Blue"
-      default:
-        return "Theme"
-    }
-  }
-
   return (
     <motion.nav
-      initial={{ y: -100 }}
-      animate={{ y: 0 }}
-      transition={{ duration: 0.3, ease: "easeOut" }}
-      className={`fixed top-0 w-full z-50 transition-all duration-300 ${isScrolled ? "bg-black/30 backdrop-blur-md" : "bg-transparent"
-        }`}
+      initial={{ y: -100, x: "-50%" }}
+      animate={{ y: 0, x: "-50%" }}
+      transition={{ duration: 0.5, ease: "easeOut" }}
+      className="fixed top-8 left-1/2 z-[100]"
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center py-4 relative">
-          {/* Logo */}
+      <motion.div 
+        layout
+        transition={{ duration: 0.3, ease: "easeInOut" }}
+        className="bg-[#111111] rounded-2xl p-2 flex flex-col shadow-2xl w-[280px] md:w-[320px] overflow-hidden"
+      >
+        {/* Top Row: Logo & Button */}
+        <div className="flex items-center justify-between pl-4">
           <motion.a
             href="#hero"
+            layout
             onClick={(e) => {
               e.preventDefault()
               document.querySelector("#hero")?.scrollIntoView({ behavior: "smooth" })
+              setIsMobileMenuOpen(false)
             }}
             whileHover={{ scale: 1.05 }}
-            transition={{ duration: 0.2 }}
-            className="flex items-center font-medium z-10"
+            className="flex items-center"
           >
-            <Image src="/logo-as.png" alt="AS Logo" width={48} height={48} className="w-36 h-auto object-contain" priority />
+            <div className="h-5 md:h-6 flex items-center justify-start">
+               <Image src="/logo-as.png" alt="AS Logo" width={80} height={24} className="object-contain h-full w-auto" priority />
+            </div>
           </motion.a>
 
-          {/* Center Clock - Absolute Positioned for fixed height */}
-          <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-full flex justify-center pointer-events-none ml-10 md:ml-0">
-            <HackerClock />
-          </div>
-
-          {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-8">
-            {navItems.map((item) => (
-              <a
-                key={item.name}
-                href={item.href}
-                className="relative font-medium transition-colors duration-200 hover:text-white navbar-link"
-              >
-                {item.name}
-              </a>
-            ))}
-
-
-
-            {/* Themes Button */}
-            <motion.button
-              onClick={handleThemeChange}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              transition={{ duration: 0.2 }}
-              className="text-white hover:text-gray-300 transition-colors duration-200 p-2"
-              aria-label={getThemeLabel()}
-            >
-              <Palette size={20} />
-            </motion.button>
-          </div>
-
-          {/* Mobile Menu Button */}
-          <div className="md:hidden flex items-center space-x-2">
-            <motion.button
-              onClick={handleThemeChange}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="p-2 text-white hover:text-gray-300 transition-colors duration-200"
-              aria-label={getThemeLabel()}
-            >
-              <Palette size={20} />
-            </motion.button>
-
-            <button onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} className="text-white p-2">
-              {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
-            </button>
-          </div>
-        </div>
-
-        {/* Mobile Menu */}
-        {isMobileMenuOpen && (
-          <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.2 }}
-            className="md:hidden bg-black/30 backdrop-blur-md rounded-lg mt-2 p-4"
+          <motion.button 
+            layout
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} 
+            className="w-[44px] h-[36px] md:w-[48px] md:h-[40px] bg-[#F3F2EE] rounded-lg flex items-center justify-center text-[#111111] hover:bg-white transition-colors"
           >
-            {navItems.map((item) => (
-              <a
-                key={item.name}
-                href={item.href}
-                onClick={() => setIsMobileMenuOpen(false)}
-                className="block py-3 text-gray-300 hover:text-white transition-colors duration-200 border-b border-white/10 last:border-b-0"
-              >
-                {item.name}
-              </a>
-            ))}
-          </motion.div>
-        )}
-
-        {/* Spotify Widget - Hanging Tab Position */}
-        <div className="absolute top-full right-4 md:right-8 mt-2">
-          <SpotifyWidget className="!bg-black/40 !backdrop-blur-xl !border-white/10 !shadow-xl !py-2 !px-4" />
+            {isMobileMenuOpen ? <X size={18} /> : <MoreHorizontal size={20} />}
+          </motion.button>
         </div>
-      </div>
+
+        {/* Expanded Nav Links */}
+        <AnimatePresence>
+          {isMobileMenuOpen && (
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: "auto" }}
+              exit={{ opacity: 0, height: 0 }}
+              transition={{ duration: 0.3, ease: "easeInOut" }}
+              className="flex flex-col gap-2 mt-4 mb-2 px-3"
+            >
+              {navItems.map((item, index) => (
+                <motion.a
+                  key={item.name}
+                  href={item.href}
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  initial={{ x: -30, opacity: 0 }}
+                  animate={{ x: 0, opacity: 1 }}
+                  exit={{ x: -20, opacity: 0 }}
+                  transition={{ delay: index * 0.05 + 0.1, duration: 0.3, ease: "easeOut" }}
+                  className="bg-[#F3F2EE] text-[#111111] px-4 py-1.5 rounded-lg text-sm font-semibold hover:bg-white transition-colors w-fit"
+                >
+                  {item.name}
+                </motion.a>
+              ))}
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </motion.div>
     </motion.nav>
   )
 }

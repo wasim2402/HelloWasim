@@ -4,6 +4,13 @@ import { motion } from "framer-motion"
 import { Github, Linkedin, Twitter, Instagram, Mail, Heart } from "lucide-react"
 import { useTheme } from "./ThemeProvider"
 
+import { Inter } from "next/font/google"
+
+const inter = Inter({
+  subsets: ['latin'],
+  weight: ['800']
+})
+
 export default function Footer() {
   const { getAccentColor } = useTheme()
 
@@ -16,9 +23,9 @@ export default function Footer() {
   ]
 
   return (
-    <footer className="py-12 border-t border-white/10">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex flex-col items-center space-y-8">
+    <footer className="pt-12 border-t border-white/10 relative overflow-hidden flex flex-col">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full relative z-10">
+        <div className="flex flex-col items-center space-y-8 pb-0">
           {/* Social Links */}
           <div className="flex space-x-6">
             {socialLinks.map((social, index) => (
@@ -60,17 +67,17 @@ export default function Footer() {
               <span>and lots of coffee</span>
             </p>
           </div>
-
-          {/* Back to Top */}
-          <motion.button
-            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.9 }}
-            className={`px-6 py-2 bg-white text-black font-medium rounded-[2px] text-sm hover:shadow-lg transition-all duration-300`}
-          >
-            Back to Top
-          </motion.button>
         </div>
+      </div>
+
+      {/* Watermark Branding */}
+      <div className="w-full flex justify-center -mt-6 pointer-events-none select-none overflow-hidden">
+        <span
+          className={`text-[18vw] font-bold text-transparent bg-clip-text bg-gradient-to-b from-white/0 to-white/20 tracking-tighter leading-none ${inter.className}`}
+          style={{ marginBottom: '-4.5vw' }}
+        >
+          Wasim
+        </span>
       </div>
     </footer>
   )

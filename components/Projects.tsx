@@ -6,14 +6,58 @@ import { useTheme } from "./ThemeProvider"
 import { useRef, useState, useEffect } from "react"
 import { motion, useMotionValue, useTransform } from "framer-motion"
 import SpotlightCard from "./ui/SpotlightCard"
+import { Archivo } from "next/font/google"
+import gsap from "gsap"
+import ScrollTrigger from "gsap/ScrollTrigger"
+
+const archivo = Archivo({
+  subsets: ['latin'],
+  weight: ['600', '800']
+})
 
 export default function Projects() {
   const { getAccentColor } = useTheme()
   const scrollRef = useRef<HTMLDivElement>(null)
+  const desktopContainerRef = useRef<HTMLDivElement>(null)
+  const desktopSliderRef = useRef<HTMLDivElement>(null)
   const [canScrollLeft, setCanScrollLeft] = useState(false)
   const [canScrollRight, setCanScrollRight] = useState(true)
   const [currentIndex, setCurrentIndex] = useState(0)
   const [showAll, setShowAll] = useState(false)
+
+  // GSAP Horizontal Scroll for Desktop
+  useEffect(() => {
+    if (typeof window !== "undefined" && desktopSliderRef.current && desktopContainerRef.current) {
+      gsap.registerPlugin(ScrollTrigger)
+
+      const slider = desktopSliderRef.current
+      const container = desktopContainerRef.current
+
+      let ctx: gsap.Context
+
+      const timeout = setTimeout(() => {
+        ctx = gsap.context(() => {
+          gsap.to(slider, {
+            x: () => -(slider.scrollWidth - container.offsetWidth),
+            ease: "none",
+            scrollTrigger: {
+              trigger: "#projects",
+              start: "top top",
+              end: () => `+=${Math.max(0, slider.scrollWidth - container.offsetWidth) + 500}`,
+              pin: true,
+              scrub: 1,
+              invalidateOnRefresh: true,
+            }
+          })
+        })
+      }, 500)
+
+      return () => {
+        clearTimeout(timeout)
+        if (ctx) ctx.revert()
+      }
+    }
+  }, [])
 
   const projects = [
     {
@@ -118,30 +162,31 @@ export default function Projects() {
   const visibleProjects = showAll ? projects : projects.slice(0, 3)
 
   return (
-    <section id="projects" className="py-20 relative overflow-hidden">
+    <section id="projects" className="py-20 relative overflow-hidden bg-[#B2C248]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold mb-4 text-white drop-shadow-[0_0_10px_rgba(255,255,255,0.5)]">
+          <h2
+            className={`font-semibold mb-6 text-black tracking-tighter ${archivo.className}`}
+            style={{ fontSize: 'clamp(3rem, 6vw, 76px)', lineHeight: '1' }}
+          >
             Featured Projects
           </h2>
-          <p className="text-white/80 text-lg max-w-2xl mx-auto">A showcase of my recent work and personal projects</p>
+          <p className="text-black/80 text-lg max-w-2xl mx-auto">A showcase of my recent work and personal projects</p>
         </div>
 
-        {/* Desktop Grid View */}
-        <div className="hidden lg:grid lg:grid-cols-3 gap-8 mb-12">
-          {visibleProjects.map((project, index) => (
-            <ProjectCard key={index} project={project} index={index} />
-          ))}
-        </div>
-
-        {/* View All Button */}
-        <div className="hidden lg:flex justify-center">
-          <button
-            onClick={() => setShowAll(!showAll)}
-            className="px-8 py-3 bg-transparent border border-white/20 text-white rounded-none hover:bg-white hover:text-black transition-all duration-300 uppercase tracking-widest text-sm font-medium"
+        {/* Desktop Horizontal Scroll View */}
+        <div className="hidden lg:block overflow-hidden" ref={desktopContainerRef}>
+          <div
+            className="flex gap-8 mb-12"
+            ref={desktopSliderRef}
+            style={{ width: 'max-content', paddingRight: '20vw' }}
           >
-            {showAll ? "Show Less" : "View All"}
-          </button>
+            {projects.map((project, index) => (
+              <div key={index} className="w-[500px] xl:w-[600px] flex-shrink-0 h-full flex">
+                <ProjectCard project={project} index={index} />
+              </div>
+            ))}
+          </div>
         </div>
 
         {/* Mobile/Tablet Horizontal Scroll View */}
@@ -230,12 +275,14 @@ function ProjectCard({
       style={{
         perspective: 1000,
       }}
+      className="h-full w-full"
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ delay: index * 0.1, duration: 0.4 }}
     >
       <motion.div
+        className="h-full w-full"
         style={{
           rotateX: isMobile ? 0 : rotateX,
           rotateY: isMobile ? 0 : rotateY,
@@ -245,10 +292,10 @@ function ProjectCard({
         onMouseLeave={!isMobile ? handleMouseLeave : undefined}
       >
         <SpotlightCard
-          className={`bg-white/5 backdrop-blur-sm rounded-xl border border-white/10 hover:border-white/20 transition-colors duration-200 group relative ${isMobile ? "h-80" : "h-auto"}`}
-          spotlightColor="rgba(255, 255, 255, 0.15)"
+          className={`bg-white/5 backdrop-blur-sm rounded-xl border border-black/20 hover:border-black/40 transition-colors duration-200 group relative flex flex-col ${isMobile ? "h-80" : "h-full"}`}
+          spotlightColor="rgba(0, 0, 0, 0.05)"
         >
-          <div className="relative overflow-hidden" style={{ transform: "translateZ(20px)" }}>
+          <div className="relative overflow-hidden shrink-0" style={{ transform: "translateZ(20px)" }}>
             <Image
               src={project.image || "/placeholder.svg"}
               alt={project.title}
@@ -273,26 +320,25 @@ function ProjectCard({
             </div>
           </div>
 
-          <div className={`p-4 ${isMobile ? "p-3" : "p-6"}`} style={{ transform: "translateZ(30px)" }}>
-            <h3 className={`font-semibold text-white mb-2 ${isMobile ? "text-lg" : "text-xl"} drop-shadow-[0_0_8px_rgba(255,255,255,0.4)]`}>{project.title}</h3>
-            <p className={`text-gray-300 mb-3 ${isMobile ? "text-xs line-clamp-2" : "text-sm"}`}>{project.description}</p>
+          <div className={`flex flex-col flex-grow ${isMobile ? "p-3" : "p-6"}`} style={{ transform: "translateZ(30px)" }}>
+            <h3 className={`font-semibold text-black mb-2 ${isMobile ? "text-lg" : "text-xl"}`}>{project.title}</h3>
+            <p className={`text-black/70 mb-3 ${isMobile ? "text-xs line-clamp-2" : "text-sm"}`}>{project.description}</p>
 
             <div className="flex flex-wrap gap-1 mb-3">
               {project.tags.map((tag: string, tagIndex: number) => (
                 <span
                   key={tagIndex}
-                  className={`px-2 py-1 bg-white/70 text-black rounded-lg ${isMobile ? "text-xs" : "text-xs"
-                    }`}
+                  className={`px-2 py-1 bg-white/70 text-black border border-black/10 rounded-lg ${isMobile ? "text-[10px]" : "text-xs"}`}
                 >
                   {tag}
                 </span>
               ))}
             </div>
 
-            <div className="flex space-x-3">
+            <div className="flex space-x-3 mt-auto pt-4">
               <a
                 href={project.github}
-                className={`flex items-center text-gray-300 hover:text-white transition-colors duration-200 ${isMobile ? "text-xs" : "text-sm"
+                className={`flex items-center text-black/70 hover:text-black transition-colors duration-200 ${isMobile ? "text-xs" : "text-sm"
                   }`}
               >
                 <Github size={14} className="mr-1" />
@@ -300,7 +346,7 @@ function ProjectCard({
               </a>
               <a
                 href={project.demo}
-                className={`flex items-center text-gray-300 hover:text-white transition-colors duration-200 ${isMobile ? "text-xs" : "text-sm"
+                className={`flex items-center text-black/70 hover:text-black transition-colors duration-200 ${isMobile ? "text-xs" : "text-sm"
                   }`}
               >
                 <ExternalLink size={14} className="mr-1" />
