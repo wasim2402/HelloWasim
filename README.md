@@ -24,7 +24,7 @@ A modern, high-performance personal portfolio website built with Next.js, TypeSc
 -   **3D Graphics**: [Three.js](https://threejs.org/)
 -   **Database**: [MongoDB](https://www.mongodb.com/) (via Mongoose)
 -   **Icons**: [Lucide React](https://lucide.dev/), [React Icons](https://react-icons.github.io/react-icons/)
--   **Email**: Nodemailer
+-   **Email**: Web3Forms
 
 ## 📦 Getting Started
 

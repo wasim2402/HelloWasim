@@ -28,7 +28,7 @@ export default function Home() {
       const timer = setTimeout(() => {
         setMounted(true)
         sessionStorage.setItem("hasVisited", "true")
-      }, 6000)
+      }, 4000)
       return () => clearTimeout(timer)
     }
 
@@ -46,18 +46,18 @@ export default function Home() {
       <SmoothScroll>
         <div className="min-h-screen transition-all duration-500 relative z-10">
 
-        <Navbar />
-        <ScrollProfileCard />
+          <Navbar />
+          <ScrollProfileCard />
 
-        <main>
-          <Hero />
-          <About />
-          <Skills />
-          <Projects />
-          <Contact />
-        </main>
+          <main>
+            <Hero />
+            <About />
+            <Skills />
+            <Projects />
+            <Contact />
+          </main>
 
-        <Footer />
+          <Footer />
         </div>
       </SmoothScroll>
     </ThemeProvider>

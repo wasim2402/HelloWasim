@@ -116,7 +116,7 @@ export default function Hero() {
             About More
           </Link>
           <a
-            href="/Wasim_Resume2026.pdf"
+            href="/Wasim_ResumeLatest.pdf"
             download
             className="px-4 py-2 md:py-2.5 bg-[#111111] text-white rounded-lg md:rounded-xl font-semibold text-[10px] md:text-xs hover:bg-[#333] hover:scale-105 transition-all w-full text-center whitespace-nowrap shadow-xl"
           >
