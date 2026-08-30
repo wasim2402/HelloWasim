@@ -71,15 +71,20 @@ export default function Contact() {
   }
 
   return (
-    <section id="contact" className="py-24 relative overflow-hidden bg-[#F5F5F5]">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="contact" className="py-24 min-h-screen flex items-center relative overflow-hidden bg-[#F7F4ED] z-50">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-8">
 
           {/* Left Side */}
           <div className="lg:col-span-7 flex flex-col justify-between h-full py-4">
             <div>
-              <h2 className={`text-[4rem] md:text-[6rem] font-bold text-black leading-tight tracking-tighter mb-4 ${archivo.className}`}>
-                Let's talk.
+              <div className="flex items-center gap-3 mb-8">
+                <span className="w-2 h-2 rounded-full bg-purple-500"></span>
+                <span className="text-xs font-bold tracking-[0.2em] text-black/60 uppercase">Contact</span>
+              </div>
+              <h2 className={`text-[3.5rem] md:text-[5rem] lg:text-[5.5rem] font-medium text-black leading-[1.05] tracking-tighter mb-8 ${archivo.className}`}>
+                Let's build something<br />
+                <span className="italic font-serif font-normal text-transparent bg-clip-text bg-gradient-to-r from-purple-500 to-purple-800">extraordinary.</span>
               </h2>
               <p className="text-black/70 text-lg md:text-xl max-w-md font-medium tracking-tight">
                 Have a project or need help? Fill out the form, and we'll get back to you soon.
@@ -113,75 +118,75 @@ export default function Contact() {
             <div className="relative w-full max-w-md group">
               {/* Glowing Ambient Backlight */}
               <div className="absolute -inset-1.5 bg-gradient-to-r from-blue-600 to-purple-600 rounded-[28px] blur-xl opacity-70 group-hover:opacity-100 transition duration-1000 group-hover:duration-200"></div>
-              
+
               <div className="w-full bg-[#111111] rounded-[20px] p-8 md:p-10 relative overflow-hidden z-10">
                 <form onSubmit={handleSubmit} className="space-y-6 relative z-10">
 
-                <div>
-                  <label htmlFor="name" className="block text-sm font-medium text-white mb-2">
-                    Name
-                  </label>
-                  <input
-                    type="text"
-                    id="name"
-                    name="name"
-                    value={formData.name}
-                    onChange={handleChange}
-                    required
-                    className="w-full px-5 py-4 bg-transparent border border-white/10 rounded-2xl text-white placeholder-white/30 focus:outline-none focus:ring-0 focus:border-white/30 transition-all duration-200"
-                    placeholder="Enter your name"
-                  />
-                </div>
+                  <div>
+                    <label htmlFor="name" className="block text-sm font-medium text-white mb-2">
+                      Name
+                    </label>
+                    <input
+                      type="text"
+                      id="name"
+                      name="name"
+                      value={formData.name}
+                      onChange={handleChange}
+                      required
+                      className="w-full px-5 py-4 bg-transparent border border-white/10 rounded-2xl text-white placeholder-white/30 focus:outline-none focus:ring-0 focus:border-white/30 transition-all duration-200"
+                      placeholder="Enter your name"
+                    />
+                  </div>
 
-                <div>
-                  <label htmlFor="email" className="block text-sm font-medium text-white mb-2">
-                    Email
-                  </label>
-                  <input
-                    type="email"
-                    id="email"
-                    name="email"
-                    value={formData.email}
-                    onChange={handleChange}
-                    required
-                    className="w-full px-5 py-4 bg-transparent border border-white/10 rounded-2xl text-white placeholder-white/30 focus:outline-none focus:ring-0 focus:border-white/30 transition-all duration-200"
-                    placeholder="Enter your email"
-                  />
-                </div>
+                  <div>
+                    <label htmlFor="email" className="block text-sm font-medium text-white mb-2">
+                      Email
+                    </label>
+                    <input
+                      type="email"
+                      id="email"
+                      name="email"
+                      value={formData.email}
+                      onChange={handleChange}
+                      required
+                      className="w-full px-5 py-4 bg-transparent border border-white/10 rounded-2xl text-white placeholder-white/30 focus:outline-none focus:ring-0 focus:border-white/30 transition-all duration-200"
+                      placeholder="Enter your email"
+                    />
+                  </div>
 
-                <div>
-                  <label htmlFor="message" className="block text-sm font-medium text-white mb-2">
-                    Your Project
-                  </label>
-                  <textarea
-                    id="message"
-                    name="message"
-                    value={formData.message}
-                    onChange={handleChange}
-                    required
-                    rows={5}
-                    className="w-full px-5 py-4 bg-transparent border border-white/10 rounded-2xl text-white placeholder-white/30 focus:outline-none focus:ring-0 focus:border-white/30 transition-all duration-200 resize-none"
-                    placeholder="Tell us about your project"
-                  />
-                </div>
+                  <div>
+                    <label htmlFor="message" className="block text-sm font-medium text-white mb-2">
+                      Your Project
+                    </label>
+                    <textarea
+                      id="message"
+                      name="message"
+                      value={formData.message}
+                      onChange={handleChange}
+                      required
+                      rows={5}
+                      className="w-full px-5 py-4 bg-transparent border border-white/10 rounded-2xl text-white placeholder-white/30 focus:outline-none focus:ring-0 focus:border-white/30 transition-all duration-200 resize-none"
+                      placeholder="Tell us about your project"
+                    />
+                  </div>
 
-                <motion.button
-                  type="submit"
-                  disabled={isSubmitting}
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                  className={`w-full py-3 px-6 bg-[#F5F5F5] text-black font-semibold rounded-2xl transition-all duration-200 flex items-center justify-center space-x-2 disabled:opacity-50 disabled:cursor-not-allowed`}
-                >
-                  {isSubmitting ? (
-                    <>
-                      <div className="w-5 h-5 border-2 border-black/30 border-t-black rounded-full animate-spin" />
-                      <span>Submitting...</span>
-                    </>
-                  ) : (
-                    <span>Submit</span>
-                  )}
-                </motion.button>
-              </form>
+                  <motion.button
+                    type="submit"
+                    disabled={isSubmitting}
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                    className={`w-full py-3 px-6 bg-[#F5F5F5] text-black font-semibold rounded-2xl transition-all duration-200 flex items-center justify-center space-x-2 disabled:opacity-50 disabled:cursor-not-allowed`}
+                  >
+                    {isSubmitting ? (
+                      <>
+                        <div className="w-5 h-5 border-2 border-black/30 border-t-black rounded-full animate-spin" />
+                        <span>Submitting...</span>
+                      </>
+                    ) : (
+                      <span>Submit</span>
+                    )}
+                  </motion.button>
+                </form>
               </div>
             </div>
           </div>

@@ -26,7 +26,19 @@ export default function SmoothScroll({ children }: { children: React.ReactNode }
     // Disable GSAP's lag smoothing to prevent conflicts with Lenis
     gsap.ticker.lagSmoothing(0)
 
+    // Force ScrollTrigger to recalculate positions after layout is fully rendered
+    setTimeout(() => {
+      ScrollTrigger.refresh()
+    }, 500)
+
+    // Refresh ScrollTrigger if the body height changes (e.g. images load)
+    const resizeObserver = new ResizeObserver(() => {
+      ScrollTrigger.refresh()
+    })
+    resizeObserver.observe(document.body)
+
     return () => {
+      resizeObserver.disconnect()
       lenis.destroy()
       gsap.ticker.remove((time) => {
         lenis.raf(time * 1000)

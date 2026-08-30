@@ -4,10 +4,13 @@ import { useState, useEffect } from "react"
 import Navbar from "@/components/Navbar"
 import Hero from "@/components/Hero"
 import About from "@/components/About"
+import WhatIDo from "@/components/WhatIDo"
 import Skills from "@/components/Skills"
 import Projects from "@/components/Projects"
+import Testimonials from "@/components/Testimonials"
 import Contact from "@/components/Contact"
 import Footer from "@/components/Footer"
+import Experience from "@/components/Experience"
 
 import { ThemeProvider } from "@/components/ThemeProvider"
 import ScrollProfileCard from "@/components/ScrollProfileCard"
@@ -52,8 +55,11 @@ export default function Home() {
           <main>
             <Hero />
             <About />
+            <Experience />
+            <WhatIDo />
             <Skills />
             <Projects />
+            <Testimonials />
             <Contact />
           </main>
 

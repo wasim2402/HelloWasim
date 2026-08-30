@@ -1,14 +1,10 @@
 "use client"
 
-import { ExternalLink, Github, ChevronLeft, ChevronRight } from "lucide-react"
+import { ArrowUpRight, Github } from "lucide-react"
 import Image from "next/image"
-import { useTheme } from "./ThemeProvider"
-import { useRef, useState, useEffect } from "react"
-import { motion, useMotionValue, useTransform } from "framer-motion"
-import SpotlightCard from "./ui/SpotlightCard"
+import { useState, useEffect } from "react"
+import { motion, useMotionValue, useSpring } from "framer-motion"
 import { Archivo } from "next/font/google"
-import gsap from "gsap"
-import ScrollTrigger from "gsap/ScrollTrigger"
 
 const archivo = Archivo({
   subsets: ['latin'],
@@ -16,346 +12,197 @@ const archivo = Archivo({
 })
 
 export default function Projects() {
-  const { getAccentColor } = useTheme()
-  const scrollRef = useRef<HTMLDivElement>(null)
-  const desktopContainerRef = useRef<HTMLDivElement>(null)
-  const desktopSliderRef = useRef<HTMLDivElement>(null)
-  const [canScrollLeft, setCanScrollLeft] = useState(false)
-  const [canScrollRight, setCanScrollRight] = useState(true)
-  const [currentIndex, setCurrentIndex] = useState(0)
-  const [showAll, setShowAll] = useState(false)
+  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null)
 
-  // GSAP Horizontal Scroll for Desktop
+  const cursorX = useMotionValue(0)
+  const cursorY = useMotionValue(0)
+
+  const springConfig = { damping: 25, stiffness: 200 }
+  const cursorXSpring = useSpring(cursorX, springConfig)
+  const cursorYSpring = useSpring(cursorY, springConfig)
+
   useEffect(() => {
-    if (typeof window !== "undefined" && desktopSliderRef.current && desktopContainerRef.current) {
-      gsap.registerPlugin(ScrollTrigger)
+    const moveCursor = (e: MouseEvent) => {
+      const gap = 40; // Increased gap from mouse
+      const imageWidth = window.innerWidth >= 1024 ? 400 : 300;
+      const imageHeight = window.innerWidth >= 1024 ? 260 : 200;
 
-      const slider = desktopSliderRef.current
-      const container = desktopContainerRef.current
+      let targetX = e.clientX + gap;
+      let targetY = e.clientY + gap;
 
-      let ctx: gsap.Context
-
-      const timeout = setTimeout(() => {
-        ctx = gsap.context(() => {
-          gsap.to(slider, {
-            x: () => -(slider.scrollWidth - container.offsetWidth),
-            ease: "none",
-            scrollTrigger: {
-              trigger: "#projects",
-              start: "top top",
-              end: () => `+=${Math.max(0, slider.scrollWidth - container.offsetWidth) + 500}`,
-              pin: true,
-              scrub: 1,
-              invalidateOnRefresh: true,
-            }
-          })
-        })
-      }, 500)
-
-      return () => {
-        clearTimeout(timeout)
-        if (ctx) ctx.revert()
+      // Flip to left side if it overflows the right edge
+      if (targetX + imageWidth > window.innerWidth) {
+        targetX = e.clientX - imageWidth - gap;
       }
+
+      // Flip to top if it overflows the bottom edge
+      if (targetY + imageHeight > window.innerHeight) {
+        targetY = e.clientY - imageHeight - gap;
+      }
+
+      cursorX.set(targetX)
+      cursorY.set(targetY)
     }
-  }, [])
+    window.addEventListener("mousemove", moveCursor)
+    return () => {
+      window.removeEventListener("mousemove", moveCursor)
+    }
+  }, [cursorX, cursorY])
 
   const projects = [
     {
       title: "ShopX Clothing Brand",
-      description: "Full-stack e-commerce solution with React, Node.js, and Stripe integration",
+      category: "FULL-STACK E-COMMERCE",
+      year: "2024",
       image: "/shopx-project.png?height=160&width=240",
+      link: "https://shopx-forntend.vercel.app/",
       github: "https://github.com/wasim2402/ShopX-MERN-Stack",
-      demo: "https://shopx-forntend.vercel.app/",
-      tags: ["MongoDB", "Express js", "React", "Node.js"],
     },
     {
       title: "Real Time Chat App",
-      description: "Collaborative task management tool with real-time updates",
+      category: "REAL-TIME CHAT PLATFORM",
+      year: "2024",
       image: "/chat-app-project.png?height=160&width=240",
+      link: "https://chat-app-weld-gamma-64.vercel.app/",
       github: "https://github.com/wasim2402/Chat-App",
-      demo: "https://chat-app-weld-gamma-64.vercel.app/",
-      tags: ["React Js", "CSS", "Firebase"],
     },
     {
-      title: "Tic Tac Toe ",
-      description: "A simple and interactive Tic Tac Toe game allowing two players to compete in turns on a 3x3 grid.",
+      title: "Tic Tac Toe",
+      category: "BROWSER GAME",
+      year: "2023",
       image: "/tic-tac-toe-project.jpg?height=160&width=240",
+      link: "https://wasim2402.github.io/Tic-Tac-Toe/",
       github: "https://github.com/wasim2402/Tic-Tac-Toe",
-      demo: "https://wasim2402.github.io/Tic-Tac-Toe/",
-      tags: ["HTML", "CSS", "JavaScript"],
     },
     {
       title: "Portfolio Website",
-      description: "Responsive portfolio with smooth Scrolling",
+      category: "PERSONAL PORTFOLIO",
+      year: "2023",
       image: "/portfolio-project.png?height=160&width=240",
+      link: "https://wasim2402.github.io/My_Portfolio/",
       github: "https://github.com/wasim2402/My_Portfolio",
-      demo: "https://wasim2402.github.io/My_Portfolio/",
-      tags: ["HTML", "CSS", "JavaCript"],
     },
     {
       title: "Amazon Clone",
-      description: "An Amazon website clone highlighting its user interface and layout design.",
+      category: "UI/UX REPLICA",
+      year: "2023",
       image: "/amazon-project.png?height=160&width=240",
+      link: "https://github.com/wasim2402/HTML-and-CSS-projects/tree/main/AMAZON%20CLONE",
       github: "https://github.com/wasim2402/HTML-and-CSS-projects/tree/main/AMAZON%20CLONE",
-      demo: "https://github.com/wasim2402/HTML-and-CSS-projects/tree/main/AMAZON%20CLONE",
-      tags: ["HTML", "CSS",],
     },
     {
       title: "Simple Calculator",
-      description: "An interactive calculator for performing standard mathematical calculations.",
+      category: "WEB UTILITY",
+      year: "2023",
       image: "/calculator-project.jpg?height=160&width=240",
+      link: "https://wasim2402.github.io/Simple-Calculator/",
       github: "https://github.com/wasim2402/Simple-Calculator",
-      demo: "https://wasim2402.github.io/Simple-Calculator/",
-      tags: ["HTML", "CSS", "JavaScript"],
     },
   ]
 
-  const checkScrollButtons = () => {
-    if (scrollRef.current) {
-      const { scrollLeft, scrollWidth, clientWidth } = scrollRef.current
-      setCanScrollLeft(scrollLeft > 0)
-      setCanScrollRight(scrollLeft < scrollWidth - clientWidth - 10)
-    }
-  }
-
-  const scroll = (direction: "left" | "right") => {
-    if (scrollRef.current) {
-      const cardWidth = window.innerWidth < 768 ? 280 : 320
-      const scrollAmount = direction === "left" ? -cardWidth : cardWidth
-      scrollRef.current.scrollBy({ left: scrollAmount, behavior: "smooth" })
-
-      if (direction === "right" && currentIndex < projects.length - 1) {
-        setCurrentIndex(currentIndex + 1)
-      } else if (direction === "left" && currentIndex > 0) {
-        setCurrentIndex(currentIndex - 1)
-      }
-    }
-  }
-
-  // Auto-scroll functionality
-  useEffect(() => {
-    const autoScroll = setInterval(() => {
-      if (canScrollRight) {
-        scroll("right")
-      } else {
-        // Reset to beginning
-        if (scrollRef.current) {
-          scrollRef.current.scrollTo({ left: 0, behavior: "smooth" })
-          setCurrentIndex(0)
-        }
-      }
-    }, 4000) // Auto-scroll every 4 seconds
-
-    return () => clearInterval(autoScroll)
-  }, [canScrollRight, currentIndex])
-
-  useEffect(() => {
-    checkScrollButtons()
-    const handleScroll = () => checkScrollButtons()
-
-    if (scrollRef.current) {
-      scrollRef.current.addEventListener("scroll", handleScroll, { passive: true })
-      return () => scrollRef.current?.removeEventListener("scroll", handleScroll)
-    }
-  }, [])
-
-  const visibleProjects = showAll ? projects : projects.slice(0, 3)
-
   return (
-    <section id="projects" className="py-20 relative overflow-hidden bg-[#B2C248]">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
-          <h2
-            className={`font-semibold mb-6 text-black tracking-tighter ${archivo.className}`}
-            style={{ fontSize: 'clamp(3rem, 6vw, 76px)', lineHeight: '1' }}
-          >
-            Featured Projects
-          </h2>
-          <p className="text-black/80 text-lg max-w-2xl mx-auto">A showcase of my recent work and personal projects</p>
-        </div>
-
-        {/* Desktop Horizontal Scroll View */}
-        <div className="hidden lg:block overflow-hidden" ref={desktopContainerRef}>
-          <div
-            className="flex gap-8 mb-12"
-            ref={desktopSliderRef}
-            style={{ width: 'max-content', paddingRight: '20vw' }}
-          >
-            {projects.map((project, index) => (
-              <div key={index} className="w-[500px] xl:w-[600px] flex-shrink-0 h-full flex">
-                <ProjectCard project={project} index={index} />
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* Mobile/Tablet Horizontal Scroll View */}
-        <div className="lg:hidden relative">
-          {/* Navigation Buttons */}
-          <div className="flex justify-between items-center mb-4">
-            <button
-              onClick={() => scroll("left")}
-              disabled={!canScrollLeft}
-              className={`p-2 rounded-full transition-all duration-200 ${canScrollLeft ? "bg-white/10 text-white hover:bg-white/20" : "bg-white/5 text-gray-500"
-                }`}
-            >
-              <ChevronLeft size={20} />
-            </button>
-
-            <div className="flex space-x-2">
-              {projects.slice(0, Math.ceil(projects.length / 2)).map((_, index) => (
-                <div
-                  key={index}
-                  className={`w-2 h-2 rounded-full transition-all duration-300 ${Math.floor(currentIndex / 2) === index ? `bg-gradient-to-r ${getAccentColor()}` : "bg-white/20"
-                    }`}
-                />
-              ))}
+    <section id="projects" className="py-20 md:py-32 relative overflow-hidden bg-[#B2C248] min-h-screen flex items-center">
+      <div className="max-w-[1400px] w-full mx-auto px-6 md:px-12 lg:px-16">
+        <div className="mb-12 md:mb-20 flex flex-col md:flex-row md:items-end justify-between gap-6">
+          <div>
+            <div className="flex items-center gap-3 mb-6">
+              <span className="w-2 h-2 rounded-full bg-purple-500"></span>
+              <span className="text-xs font-bold tracking-[0.2em] text-black/60 uppercase">Projects</span>
             </div>
-
-            <button
-              onClick={() => scroll("right")}
-              disabled={!canScrollRight}
-              className={`p-2 rounded-full transition-all duration-200 ${canScrollRight ? "bg-white/10 text-white hover:bg-white/20" : "bg-white/5 text-gray-500"
-                }`}
+            <h2
+              className={`tracking-tighter ${archivo.className} text-black`}
+              style={{ fontSize: 'clamp(3rem, 6vw, 76px)', lineHeight: '1' }}
             >
-              <ChevronRight size={20} />
-            </button>
+              <span className="font-light">Featured</span>{" "}
+              <span className="font-light inline-block bg-gradient-to-r from-[#F7F4ED] to-[#9646E0] px-2 rounded-lg">
+                Projects
+              </span>
+            </h2>
           </div>
+          <p className="text-black/70 text-lg max-w-sm">A curated selection of my recent work and digital experiences.</p>
+        </div>
 
-          {/* Scrollable Container */}
-          <div
-            ref={scrollRef}
-            className="flex space-x-4 overflow-x-auto projects-slider pb-4"
-            style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
-          >
-            {projects.map((project, index) => (
-              <div key={index} className="flex-shrink-0 w-64 md:w-72">
-                <ProjectCard project={project} index={index} isMobile />
+        <div className="flex flex-col border-t border-black/20">
+          {projects.map((project, index) => (
+            <div
+              key={index}
+              className="group flex flex-col md:flex-row md:items-center justify-between py-6 md:py-8 border-b border-black/20 hover:bg-black/[0.03] transition-colors relative"
+              onMouseEnter={() => setHoveredIndex(index)}
+              onMouseLeave={() => setHoveredIndex(null)}
+            >
+              <div className="flex items-center gap-6 md:gap-12 w-full md:w-auto">
+                <span className="text-black/50 font-mono text-sm md:text-base">{(index + 1).toString().padStart(2, '0')}</span>
+                <a
+                  href={project.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-xl md:text-3xl lg:text-4xl font-medium text-black tracking-tight group-hover:translate-x-3 transition-transform duration-500"
+                >
+                  {project.title}
+                </a>
               </div>
-            ))}
-          </div>
+              <div className="flex items-center gap-6 md:gap-12 mt-4 md:mt-0 w-full md:w-auto justify-between md:justify-end">
+                <span className="text-black/60 text-xs md:text-sm tracking-widest uppercase hidden md:block">
+                  {project.category}
+                </span>
+                <span className="text-black/50 font-mono text-sm hidden md:block">
+                  {project.year}
+                </span>
+                <div className="flex items-center gap-4">
+                  {project.github && (
+                    <a
+                      href={project.github}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-black/50 hover:text-black transition-colors"
+                      title="View Source on GitHub"
+                    >
+                      <Github size={24} strokeWidth={1.5} />
+                    </a>
+                  )}
+                  <a
+                    href={project.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-black transform group-hover:-translate-y-1 group-hover:translate-x-1 transition-transform duration-300"
+                    title="Visit Project"
+                  >
+                    <ArrowUpRight size={28} strokeWidth={1.5} />
+                  </a>
+                </div>
+              </div>
+            </div>
+          ))}
         </div>
       </div>
-    </section>
-  )
-}
 
-function ProjectCard({
-  project,
-  index,
-  isMobile = false,
-}: {
-  project: any
-  index: number
-  isMobile?: boolean
-}) {
-  const { getAccentColor } = useTheme()
-
-  // 3D Tilt Logic
-  const x = useMotionValue(0)
-  const y = useMotionValue(0)
-  const rotateX = useTransform(y, [-100, 100], [10, -10])
-  const rotateY = useTransform(x, [-100, 100], [-10, 10])
-
-  const handleMouseMove = (event: React.MouseEvent<HTMLDivElement>) => {
-    const rect = event.currentTarget.getBoundingClientRect()
-    const centerX = rect.left + rect.width / 2
-    const centerY = rect.top + rect.height / 2
-    x.set(event.clientX - centerX)
-    y.set(event.clientY - centerY)
-  }
-
-  const handleMouseLeave = () => {
-    x.set(0)
-    y.set(0)
-  }
-
-  return (
-    <motion.div
-      style={{
-        perspective: 1000,
-      }}
-      className="h-full w-full"
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ delay: index * 0.1, duration: 0.4 }}
-    >
+      {/* Floating Image Container (Desktop Only) */}
       <motion.div
-        className="h-full w-full"
+        className="hidden md:block fixed top-0 left-0 pointer-events-none z-50 overflow-hidden rounded-xl shadow-2xl"
         style={{
-          rotateX: isMobile ? 0 : rotateX,
-          rotateY: isMobile ? 0 : rotateY,
-          transformStyle: "preserve-3d",
+          x: cursorXSpring,
+          y: cursorYSpring,
         }}
-        onMouseMove={!isMobile ? handleMouseMove : undefined}
-        onMouseLeave={!isMobile ? handleMouseLeave : undefined}
+        initial={{ opacity: 0, scale: 0.8 }}
+        animate={{
+          opacity: hoveredIndex !== null ? 1 : 0,
+          scale: hoveredIndex !== null ? 1 : 0.8,
+        }}
+        transition={{ type: "spring", damping: 20, stiffness: 300 }}
       >
-        <SpotlightCard
-          className={`bg-white/5 backdrop-blur-sm rounded-xl border border-black/20 hover:border-black/40 transition-colors duration-200 group relative flex flex-col ${isMobile ? "h-80" : "h-full"}`}
-          spotlightColor="rgba(0, 0, 0, 0.05)"
-        >
-          <div className="relative overflow-hidden shrink-0" style={{ transform: "translateZ(20px)" }}>
+        <div className="relative w-[300px] h-[200px] lg:w-[400px] lg:h-[260px] bg-black/10">
+          {projects.map((project, index) => (
             <Image
-              src={project.image || "/placeholder.svg"}
+              key={index}
+              src={project.image.split('?')[0]} // Remove query params to ensure proper loading if they are local static files
               alt={project.title}
-              width={isMobile ? 240 : 300}
-              height={isMobile ? 140 : 200}
-              className={`w-full object-cover group-hover:scale-105 transition-transform duration-300 ${isMobile ? "h-32" : "h-48"
+              fill
+              className={`object-cover transition-opacity duration-300 ${hoveredIndex === index ? "opacity-100" : "opacity-0"
                 }`}
             />
-            <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-200 flex items-center justify-center space-x-4">
-              <a
-                href={project.github}
-                className="p-2 bg-white/20 rounded-full hover:bg-white/30 transition-colors duration-200"
-              >
-                <Github size={18} className="text-white" />
-              </a>
-              <a
-                href={project.demo}
-                className="p-2 bg-white/20 rounded-full hover:bg-white/30 transition-colors duration-200"
-              >
-                <ExternalLink size={18} className="text-white" />
-              </a>
-            </div>
-          </div>
-
-          <div className={`flex flex-col flex-grow ${isMobile ? "p-3" : "p-6"}`} style={{ transform: "translateZ(30px)" }}>
-            <h3 className={`font-semibold text-black mb-2 ${isMobile ? "text-lg" : "text-xl"}`}>{project.title}</h3>
-            <p className={`text-black/70 mb-3 ${isMobile ? "text-xs line-clamp-2" : "text-sm"}`}>{project.description}</p>
-
-            <div className="flex flex-wrap gap-1 mb-3">
-              {project.tags.map((tag: string, tagIndex: number) => (
-                <span
-                  key={tagIndex}
-                  className={`px-2 py-1 bg-white/70 text-black border border-black/10 rounded-lg ${isMobile ? "text-[10px]" : "text-xs"}`}
-                >
-                  {tag}
-                </span>
-              ))}
-            </div>
-
-            <div className="flex space-x-3 mt-auto pt-4">
-              <a
-                href={project.github}
-                className={`flex items-center text-black/70 hover:text-black transition-colors duration-200 ${isMobile ? "text-xs" : "text-sm"
-                  }`}
-              >
-                <Github size={14} className="mr-1" />
-                Code
-              </a>
-              <a
-                href={project.demo}
-                className={`flex items-center text-black/70 hover:text-black transition-colors duration-200 ${isMobile ? "text-xs" : "text-sm"
-                  }`}
-              >
-                <ExternalLink size={14} className="mr-1" />
-                Demo
-              </a>
-            </div>
-          </div>
-        </SpotlightCard>
+          ))}
+        </div>
       </motion.div>
-    </motion.div>
+    </section>
   )
 }

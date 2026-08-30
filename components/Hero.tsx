@@ -31,17 +31,12 @@ const LightningGraphic = () => (
 
 export default function Hero() {
   return (
-    <section id="hero" className="min-h-screen bg-[#F3F2EE] flex items-center justify-center relative overflow-hidden text-[#111111] pt-32 pb-20 selection:bg-[#111111] selection:text-[#F3F2EE]">
-      {/* Noise Overlay */}
-      <div
-        className="absolute inset-0 z-0 opacity-[0.12] pointer-events-none mix-blend-multiply"
-        style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")` }}
-      />
+    <section id="hero" className="min-h-screen bg-[#7288AE] flex items-center justify-center relative overflow-hidden text-white pt-32 pb-20 selection:bg-white selection:text-[#7288AE]">
 
       <div className="w-full relative flex flex-col items-center justify-center h-full z-10 mt-0">
 
         {/* Giant Typography Background */}
-        <div className={`relative w-full flex flex-col items-center justify-center pointer-events-none z-10 font-extrabold text-[#111111] tracking-tighter ${archivo.className}`} style={{ fontSize: 'clamp(4rem, 13.2vw, 184px)', lineHeight: '0.9' }}>
+        <div className={`relative w-full flex flex-col items-center justify-center pointer-events-none z-10 font-extrabold text-white tracking-tighter ${archivo.className}`} style={{ fontSize: 'clamp(4rem, 13.2vw, 184px)', lineHeight: '0.9' }}>
           <motion.div
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
@@ -89,7 +84,7 @@ export default function Hero() {
       {/* Bottom Corner Elements */}
       <div className="absolute -bottom-2 left-16 md:bottom-0 md:left-32 lg:bottom-2 lg:left-36 z-30">
         <motion.p
-          className={`tracking-tighter text-[#111111] ${archivo.className}`}
+          className={`tracking-tighter text-white ${archivo.className}`}
           style={{ fontSize: 'clamp(2.5rem, 5vw, 68px)', lineHeight: '1', fontWeight: 600 }}
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
@@ -110,10 +105,10 @@ export default function Hero() {
           transition={{ duration: 0.8, delay: 0.6 }}
         >
           <Link
-            href="/about"
+            href="/blogs"
             className="px-4 py-2 md:py-2.5 bg-[#111111] text-white rounded-lg md:rounded-xl font-semibold text-[10px] md:text-xs hover:bg-[#333] hover:scale-105 transition-all w-full text-center whitespace-nowrap shadow-xl"
           >
-            About More
+            Read Blogs
           </Link>
           <a
             href="/Wasim_ResumeLatest.pdf"

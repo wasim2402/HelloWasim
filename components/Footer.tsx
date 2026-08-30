@@ -16,7 +16,15 @@ export default function Footer() {
 
 
   return (
-    <footer className="pt-12 border-t border-white/10 relative overflow-hidden flex flex-col">
+    <footer className="pt-12 border-t border-white/10 relative overflow-hidden flex flex-col bg-[#050505]">
+      {/* Square Dots Background */}
+      <div 
+        className="absolute inset-0 pointer-events-none z-0"
+        style={{
+          backgroundImage: `url("data:image/svg+xml,%3Csvg width='24' height='24' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='2' height='2' fill='%231a1a1a'/%3E%3C/svg%3E")`,
+          backgroundSize: '24px 24px'
+        }}
+      />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full relative z-10">
         <div className="flex flex-col items-center space-y-8 pb-0">
 
@@ -49,7 +57,7 @@ export default function Footer() {
       </div>
 
       {/* Watermark Branding */}
-      <div className="w-full flex justify-center -mt-6 pointer-events-none select-none overflow-hidden">
+      <div className="w-full flex justify-center -mt-6 pointer-events-none select-none overflow-hidden relative z-10">
         <span
           className={`text-[18vw] font-bold text-transparent bg-clip-text bg-gradient-to-b from-white/0 to-white/20 tracking-tighter leading-none ${inter.className}`}
           style={{ marginBottom: '-4.5vw' }}

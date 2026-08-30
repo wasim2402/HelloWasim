@@ -12,8 +12,11 @@ export default function Navbar() {
 
   const navItems = [
     { name: "About", href: pathname === "/" ? "#about" : "/#about" },
+    { name: "Experience", href: pathname === "/" ? "#experience" : "/#experience" },
+    { name: "Services", href: pathname === "/" ? "#services" : "/#services" },
     { name: "Skills", href: pathname === "/" ? "#skills" : "/#skills" },
     { name: "Projects", href: pathname === "/" ? "#projects" : "/#projects" },
+    { name: "Testimonials", href: pathname === "/" ? "#testimonials" : "/#testimonials" },
     { name: "Contact", href: pathname === "/" ? "#contact" : "/#contact" },
   ]
 
