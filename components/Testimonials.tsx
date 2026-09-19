@@ -54,7 +54,7 @@ export default function Testimonials() {
   const [currentPage, setCurrentPage] = useState(0)
   const [cardsPerPage, setCardsPerPage] = useState(3)
   const [mounted, setMounted] = useState(false)
-  
+
   useEffect(() => {
     setMounted(true)
     const handleResize = () => {
@@ -64,25 +64,25 @@ export default function Testimonials() {
         setCardsPerPage(3)
       }
     }
-    
+
     handleResize()
     window.addEventListener('resize', handleResize)
     return () => window.removeEventListener('resize', handleResize)
   }, [])
-  
+
   const totalPages = Math.ceil(allTestimonials.length / cardsPerPage)
-  
+
   const nextPage = () => {
     setCurrentPage((prev) => (prev + 1) % totalPages)
   }
-  
+
   const prevPage = () => {
     setCurrentPage((prev) => (prev - 1 + totalPages) % totalPages)
   }
 
   // Ensure current page is valid when switching screen sizes
   const validCurrentPage = currentPage >= totalPages ? 0 : currentPage
-  
+
   const displayedTestimonials = allTestimonials.slice(
     validCurrentPage * cardsPerPage,
     (validCurrentPage + 1) * cardsPerPage
@@ -91,24 +91,24 @@ export default function Testimonials() {
   return (
     <section id="testimonials" className="bg-[#111111] text-white py-12 md:py-32 px-6 md:px-12 lg:px-16 overflow-hidden sticky top-0 h-[100dvh] md:min-h-screen flex flex-col justify-center z-0">
       <div className="max-w-7xl mx-auto w-full">
-        
+
         {/* Header */}
         <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-8 md:mb-16 gap-6">
           <div>
             <p className="text-neutral-400 font-mono text-sm mb-2 md:mb-4">Testimonials</p>
             <h2 className={`text-4xl md:text-5xl lg:text-6xl font-medium tracking-tight ${archivo.className}`}>
-              People love us, you know.
+              Kind words from colleagues
             </h2>
           </div>
-          
+
           <div className="flex gap-4">
-            <button 
+            <button
               onClick={prevPage}
               className="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center hover:bg-white/5 transition-colors"
             >
               <ChevronLeft size={20} className="text-neutral-400" />
             </button>
-            <button 
+            <button
               onClick={nextPage}
               className="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center hover:bg-white/5 transition-colors"
             >
@@ -130,17 +130,17 @@ export default function Testimonials() {
                 className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6"
               >
                 {displayedTestimonials.map((testimonial, idx) => (
-                  <div 
-                    key={idx} 
+                  <div
+                    key={idx}
                     className="bg-transparent border border-white/10 rounded-2xl p-5 md:p-8 flex flex-col justify-between h-full min-h-[200px]"
                   >
                     <p className="text-neutral-200 text-base md:text-xl leading-relaxed mb-6 md:mb-8 line-clamp-4">
                       {testimonial.quote}
                     </p>
-                    
+
                     <div className="flex items-center gap-4 mt-auto">
                       <div className="w-10 h-10 rounded-full overflow-hidden shrink-0 bg-neutral-800">
-                        <Image 
+                        <Image
                           src={testimonial.image}
                           alt={testimonial.name}
                           width={40}
