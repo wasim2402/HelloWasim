@@ -57,34 +57,27 @@ export default function WhatIDo() {
   const rightColumnY = useTransform(scrollYProgress, [0, 1], ["20vh", "-120vh"])
 
   return (
-    <section id="services" className="bg-[#0a0a0a] text-white relative border-t border-white/10">
+    <section id="services" className="bg-[#171717] text-white relative border-t border-white/10">
       
       {/* 
-        The massive scrollable container.
-        This gives us the physical scrollbar space (300vh) to scrub the animation.
+        Desktop View (Pinned Scroll)
+        Hidden on mobile, block on tablet and up.
       */}
-      <div ref={containerRef} className="h-[300vh] relative w-full overflow-hidden">
-        
-        {/* The manually 'Pinned' Viewport Container */}
+      <div ref={containerRef} className="hidden md:block h-[300vh] relative w-full overflow-hidden">
         <motion.div 
           style={{ y: pinY }} 
           className="absolute top-0 left-0 w-full h-screen overflow-hidden flex items-center"
         >
-          
-          {/* Top Left Badge */}
           <div className="absolute top-12 left-6 md:left-12 lg:left-16 flex items-center gap-3 z-20">
             <span className="w-2 h-2 rounded-full bg-purple-500"></span>
             <span className="text-xs font-bold tracking-[0.2em] text-white/60 uppercase">Services</span>
           </div>
 
           <div className="max-w-[1400px] w-full mx-auto px-6 md:px-12 lg:px-16 grid grid-cols-1 md:grid-cols-12 gap-16 md:gap-8 items-start relative h-full">
-            
-            {/* Left Column (Static relative to the pinned container) */}
             <div className="md:col-span-5 lg:col-span-4 flex flex-col pt-[15vh] md:pt-[25vh]">
               <h2 className={`text-6xl md:text-7xl lg:text-[100px] font-semibold leading-[0.9] tracking-tighter mb-10 ${archivo.className}`}>
                 WHAT I<br />DO.
               </h2>
-
               <p className="text-neutral-300 text-lg md:text-xl max-w-[400px] leading-relaxed font-light">
                 From brand identity to AI-powered websites<br className="hidden lg:block" />
                 — I deliver clean, fast, and user-friendly<br className="hidden lg:block" />
@@ -92,18 +85,13 @@ export default function WhatIDo() {
               </p>
             </div>
 
-            {/* Right Column (Scrolling) */}
             <div className="md:col-span-7 lg:col-span-8 md:pl-10 lg:pl-20 h-full relative md:border-l border-white/10">
-              {/* This motion.div slides UP as the user scrolls down */}
               <motion.div 
                 style={{ y: rightColumnY }}
                 className="flex flex-col gap-12 md:gap-16 pt-[25vh] w-full absolute top-0 left-0"
               >
                 {services.map((service) => (
-                  <div
-                    key={service.id}
-                    className="flex flex-col border-b border-white/10 pb-12 md:pb-16"
-                  >
+                  <div key={service.id} className="flex flex-col border-b border-white/10 pb-12 md:pb-16">
                     <div className="flex flex-col md:flex-row md:items-baseline gap-4 md:gap-8 mb-6">
                       <span className="text-purple-400 text-lg md:text-xl font-mono tracking-wider font-semibold">
                         {service.id}
@@ -112,7 +100,6 @@ export default function WhatIDo() {
                         {service.title}
                       </h3>
                     </div>
-
                     <div className="md:pl-[5.5rem]">
                       <p className="text-neutral-400 text-base md:text-lg leading-relaxed max-w-2xl">
                         {service.description}
@@ -122,10 +109,47 @@ export default function WhatIDo() {
                 ))}
               </motion.div>
             </div>
-
           </div>
         </motion.div>
       </div>
+
+      {/* 
+        Mobile View (Static Stack)
+        Block on mobile, hidden on tablet and up.
+      */}
+      <div className="block md:hidden relative w-full pt-28 pb-20 px-6">
+        <div className="flex items-center gap-3 mb-8">
+          <span className="w-2 h-2 rounded-full bg-purple-500"></span>
+          <span className="text-xs font-bold tracking-[0.2em] text-white/60 uppercase">Services</span>
+        </div>
+
+        <h2 className={`text-5xl font-semibold leading-[1] tracking-tighter mb-6 ${archivo.className}`}>
+          WHAT I<br />DO.
+        </h2>
+
+        <p className="text-neutral-300 text-lg leading-relaxed font-light mb-16">
+          From brand identity to AI-powered websites
+          — I deliver clean, fast, and user-friendly
+          solutions that help businesses grow.
+        </p>
+
+        <div className="flex flex-col gap-12">
+          {services.map((service) => (
+            <div key={service.id} className="flex flex-col border-b border-white/10 pb-8">
+              <span className="text-purple-400 text-lg font-mono tracking-wider font-semibold mb-3">
+                {service.id}
+              </span>
+              <h3 className={`text-2xl font-medium tracking-tight text-white mb-4 ${archivo.className}`}>
+                {service.title}
+              </h3>
+              <p className="text-neutral-400 text-base leading-relaxed">
+                {service.description}
+              </p>
+            </div>
+          ))}
+        </div>
+      </div>
+
     </section>
   )
 }

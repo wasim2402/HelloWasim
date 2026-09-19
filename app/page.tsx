@@ -35,9 +35,9 @@ export default function Home() {
       return () => clearTimeout(timer)
     }
 
-    // Prevent horizontal scroll
-    document.body.style.overflowX = "hidden"
-    document.documentElement.style.overflowX = "hidden"
+    // Prevent horizontal scroll without breaking position: sticky
+    document.body.style.overflowX = "clip"
+    document.documentElement.style.overflowX = "clip"
   }, [])
 
   if (!mounted) {

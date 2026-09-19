@@ -18,7 +18,7 @@ export default function About() {
   const aboutText = `I'm a full-stack developer with a passion for building beautiful and functional digital experiences. I specialize in React, Next.js, and modern web technologies, always eager to learn and create something new.`
 
   return (
-    <section id="about" className="min-h-screen bg-[#7288AE] relative py-20 md:py-32 flex items-center overflow-hidden text-white selection:bg-white selection:text-[#7288AE]">
+    <section id="about" className="min-h-screen bg-[#FCF2E5] relative py-20 md:py-32 flex items-center overflow-hidden text-black selection:bg-black selection:text-[#FCF2E5]">
 
       <div className="max-w-[1400px] mx-auto px-6 md:px-12 lg:px-16 w-full relative z-10">
         <div className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 min-h-[500px] lg:min-h-[600px]">
@@ -30,13 +30,13 @@ export default function About() {
               <span className="text-xs font-bold tracking-[0.2em] text-slate-900/60 uppercase">About</span>
             </div>
             <h2
-              className={`font-semibold text-white tracking-tighter ${archivo.className}`}
+              className={`font-semibold text-black tracking-tighter ${archivo.className}`}
               style={{ fontSize: 'clamp(3rem, 6vw, 76px)', lineHeight: '1' }}
             >
               Hey!
             </h2>
 
-            <p className="text-white text-lg md:text-xl leading-relaxed mt-12 md:mt-0 mb-6 md:mb-12 max-w-[340px]">
+            <p className="text-black text-lg md:text-xl leading-relaxed mt-12 md:mt-0 mb-6 md:mb-12 max-w-[340px]">
               I&apos;m Wasim, a <strong>Founding Engineer at Napplied</strong>, where I build AI-powered digital experiences with a focus on modern frontend architecture, intuitive interfaces, and scalable products.
             </p>
           </div>
@@ -52,10 +52,10 @@ export default function About() {
           {/* Right Column: More Bio and Link */}
           <div className="md:col-span-4 flex flex-col justify-end h-full pb-4 pt-12 md:pt-0">
             <div className="flex flex-col gap-6 max-w-[360px]">
-              <p className="text-white text-base md:text-lg leading-relaxed">
+              <p className="text-black text-base md:text-lg leading-relaxed">
                 I enjoy bringing together design, frontend engineering, and AI to create products that are both intuitive and impactful.
               </p>
-              <p className="text-white text-base md:text-lg leading-relaxed">
+              <p className="text-black text-base md:text-lg leading-relaxed">
                 Alongside my work, I&apos;m actively exploring Agentic AI, learning how autonomous AI systems can reason, use tools, and create smarter product experiences.
               </p>
 
@@ -63,7 +63,7 @@ export default function About() {
                 <span className="absolute inset-[-1000%] animate-[spin_3s_linear_infinite] [animation-direction:reverse] z-0 bg-[conic-gradient(from_90deg_at_50%_50%,transparent_0%,transparent_75%,#a855f7_95%,#3b82f6_100%)]" />
                 <Link
                   href="/blogs"
-                  className="relative z-10 flex items-center gap-2 text-white font-medium hover:bg-[#5a6e8e] transition-colors w-fit px-5 py-2.5 rounded-full bg-[#7288AE]"
+                  className="relative z-10 flex items-center gap-2 text-white font-medium hover:bg-black/80 transition-colors w-fit px-5 py-2.5 rounded-full bg-black"
                 >
                   Read Blogs
                   <span className="flex items-center justify-center">

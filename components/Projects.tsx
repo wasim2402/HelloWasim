@@ -101,7 +101,7 @@ export default function Projects() {
   ]
 
   return (
-    <section id="projects" className="py-20 md:py-32 relative overflow-hidden bg-[#B2C248] min-h-screen flex items-center">
+    <section id="projects" className="py-20 md:py-32 relative overflow-hidden bg-[#FCF2E5] min-h-screen flex items-center">
       <div className="max-w-[1400px] w-full mx-auto px-6 md:px-12 lg:px-16">
         <div className="mb-12 md:mb-20 flex flex-col md:flex-row md:items-end justify-between gap-6">
           <div>
@@ -194,11 +194,15 @@ export default function Projects() {
           {projects.map((project, index) => (
             <Image
               key={index}
-              src={project.image.split('?')[0]} // Remove query params to ensure proper loading if they are local static files
+              src={project.image.split('?')[0]}
               alt={project.title}
               fill
-              className={`object-cover transition-opacity duration-300 ${hoveredIndex === index ? "opacity-100" : "opacity-0"
-                }`}
+              priority // Preload all images so they instantly appear
+              sizes="(max-width: 1024px) 300px, 400px"
+              style={{ willChange: 'opacity' }} // GPU acceleration for smooth crossfades
+              className={`object-cover transition-opacity duration-200 ${
+                hoveredIndex === index ? "opacity-100 z-10" : "opacity-0 z-0"
+              }`}
             />
           ))}
         </div>

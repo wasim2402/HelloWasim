@@ -31,12 +31,12 @@ const LightningGraphic = () => (
 
 export default function Hero() {
   return (
-    <section id="hero" className="min-h-screen bg-[#7288AE] flex items-center justify-center relative overflow-hidden text-white pt-32 pb-20 selection:bg-white selection:text-[#7288AE]">
+    <section id="hero" className="min-h-screen bg-[#FCF2E5] flex items-center justify-center relative overflow-hidden text-black pt-32 pb-20 selection:bg-black selection:text-[#FCF2E5]">
 
       <div className="w-full relative flex flex-col items-center justify-center h-full z-10 mt-0">
 
         {/* Giant Typography Background */}
-        <div className={`relative w-full flex flex-col items-center justify-center pointer-events-none z-10 font-extrabold text-white tracking-tighter ${archivo.className}`} style={{ fontSize: 'clamp(4rem, 13.2vw, 184px)', lineHeight: '0.9' }}>
+        <div className={`relative w-full flex flex-col items-center justify-center pointer-events-none z-10 font-extrabold text-black tracking-tighter ${archivo.className}`} style={{ fontSize: 'clamp(4rem, 13.2vw, 184px)', lineHeight: '0.9' }}>
           <motion.div
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
@@ -45,7 +45,7 @@ export default function Hero() {
           >
             {/* Decorative Star - Top Left of 'S' */}
             <motion.div
-              className="absolute -top-[15%] -left-[5%] md:-top-[20%] md:-left-[8%] lg:-top-[25%] lg:-left-[10%] drop-shadow-2xl z-10"
+              className="absolute -top-[25%] -left-[12%] md:-top-[20%] md:-left-[8%] lg:-top-[25%] lg:-left-[10%] drop-shadow-2xl -z-10"
               initial={{ opacity: 0, scale: 0, rotate: -45 }}
               animate={{ opacity: 1, scale: 1, rotate: 0 }}
               transition={{ duration: 0.8, delay: 0.5, ease: "easeOut" }}
@@ -63,7 +63,7 @@ export default function Hero() {
             Engineer
             {/* Decorative Lightning Bolt - Bottom Right of 'R' */}
             <motion.div
-              className="absolute -bottom-[17%] -right-[7%] md:-bottom-[12%] md:-right-[10%] lg:-bottom-[7%] lg:-right-[10%] drop-shadow-xl z-10"
+              className="absolute -bottom-[25%] -right-[12%] md:-bottom-[12%] md:-right-[10%] lg:-bottom-[7%] lg:-right-[10%] drop-shadow-xl -z-10"
               initial={{ opacity: 0, scale: 0, rotate: 15 }}
               animate={{ opacity: 1, scale: 1, rotate: 0 }}
               transition={{ duration: 0.8, delay: 0.7 }}
@@ -84,7 +84,7 @@ export default function Hero() {
       {/* Bottom Corner Elements */}
       <div className="absolute -bottom-2 left-16 md:bottom-0 md:left-32 lg:bottom-2 lg:left-36 z-30">
         <motion.p
-          className={`tracking-tighter text-white ${archivo.className}`}
+          className={`tracking-tighter text-black ${archivo.className}`}
           style={{ fontSize: 'clamp(2.5rem, 5vw, 68px)', lineHeight: '1', fontWeight: 600 }}
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}

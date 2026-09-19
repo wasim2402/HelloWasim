@@ -56,11 +56,11 @@ export default function Experience() {
   const lineScale = useTransform(scrollYProgress, [0, 1], [0, 1])
 
   return (
-    <section id="experience" className="bg-[#050505] text-white py-24 md:py-40 relative border-t border-white/10">
+    <section id="experience" className="bg-[#111111] text-white py-16 md:py-20 relative border-t border-white/10">
       <div className="max-w-[1200px] mx-auto px-6 md:px-12 lg:px-16">
 
         {/* Header */}
-        <div className="flex flex-col mb-16 md:mb-24">
+        <div className="flex flex-col mb-8 md:mb-12">
           <div className="flex items-center gap-3 mb-6">
             <span className="w-2 h-2 rounded-full bg-[#C084FC]"></span>
             <span className="text-xs font-bold tracking-[0.2em] text-white/60 uppercase">Experience</span>
@@ -73,7 +73,7 @@ export default function Experience() {
         </div>
 
         {/* Top border line */}
-        <div className="w-full h-[1px] bg-white/10 mb-20 md:mb-32"></div>
+        <div className="w-full h-[1px] bg-white/10 mb-12 md:mb-16"></div>
 
         {/* Timeline Container */}
         <div ref={containerRef} className="relative w-full pb-20">
