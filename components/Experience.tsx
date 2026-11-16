@@ -62,7 +62,7 @@ export default function Experience() {
         {/* Header */}
         <div className="flex flex-col mb-8 md:mb-12">
           <div className="flex items-center gap-3 mb-6">
-            <span className="w-2 h-2 rounded-full bg-[#C084FC]"></span>
+            <span className="w-2 h-2 rounded-full bg-[#C8102E]"></span>
             <span className="text-xs font-bold tracking-[0.2em] text-white/60 uppercase">Experience</span>
           </div>
           <div className="flex justify-between items-baseline">
@@ -84,7 +84,7 @@ export default function Experience() {
           {/* Animated Progress Line */}
           <motion.div
             style={{ scaleY: lineScale }}
-            className="absolute left-[8px] top-0 bottom-0 w-[1px] bg-[#C084FC] origin-top"
+            className="absolute left-[8px] top-0 bottom-0 w-[1px] bg-[#C8102E] origin-top"
           ></motion.div>
 
           {/* Timeline Items */}
@@ -94,8 +94,8 @@ export default function Experience() {
 
                 {/* Timeline Dot & Year */}
                 <div className="flex items-center gap-6 md:gap-12 md:w-1/3 mb-6 md:mb-0">
-                  <div className="relative z-10 w-[17px] h-[17px] rounded-full border border-neutral-600 bg-[#050505] flex items-center justify-center transition-colors duration-300 group-hover:border-[#C084FC]">
-                    <div className="w-1.5 h-1.5 rounded-full bg-neutral-600 group-hover:bg-[#C084FC] transition-colors duration-300"></div>
+                  <div className="relative z-10 w-[17px] h-[17px] rounded-full border border-neutral-600 bg-[#050505] flex items-center justify-center transition-colors duration-300 group-hover:border-[#C8102E]">
+                    <div className="w-1.5 h-1.5 rounded-full bg-neutral-600 group-hover:bg-[#C8102E] transition-colors duration-300"></div>
                   </div>
                   <span className="text-xl md:text-2xl font-light tracking-wider">
                     {item.year}
@@ -104,14 +104,14 @@ export default function Experience() {
 
                 {/* Content */}
                 <div className="md:w-2/3 pl-[40px] md:pl-0 flex flex-col pt-[-10px]">
-                  <h3 className="text-3xl md:text-5xl text-[#C084FC] font-serif italic tracking-wide mb-8">
+                  <h3 className="text-3xl md:text-5xl text-[#C8102E] font-serif italic tracking-wide mb-8">
                     {item.title}
                   </h3>
 
                   <div className="flex flex-col gap-4">
                     {item.bullets.map((bullet, idx) => (
                       <div key={idx} className="flex items-center gap-4">
-                        <div className="w-1.5 h-1.5 bg-[#C084FC]"></div>
+                        <div className="w-1.5 h-1.5 bg-[#C8102E]"></div>
                         <span className="font-mono text-xs md:text-sm text-neutral-400 uppercase tracking-widest">
                           {bullet}
                         </span>

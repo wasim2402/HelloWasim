@@ -106,7 +106,7 @@ export default function Projects() {
         <div className="mb-12 md:mb-20 flex flex-col md:flex-row md:items-end justify-between gap-6">
           <div>
             <div className="flex items-center gap-3 mb-6">
-              <span className="w-2 h-2 rounded-full bg-purple-500"></span>
+              <span className="w-2 h-2 rounded-full bg-[#C8102E]"></span>
               <span className="text-xs font-bold tracking-[0.2em] text-black/60 uppercase">Projects</span>
             </div>
             <h2
@@ -114,7 +114,7 @@ export default function Projects() {
               style={{ fontSize: 'clamp(3rem, 6vw, 76px)', lineHeight: '1' }}
             >
               <span className="font-light">Featured</span>{" "}
-              <span className="font-light inline-block bg-gradient-to-r from-[#F7F4ED] to-[#9646E0] px-2 rounded-lg">
+              <span className="font-light inline-block bg-gradient-to-r from-[#F7F4ED] to-[#C8102E]/25 px-2 rounded-lg">
                 Projects
               </span>
             </h2>

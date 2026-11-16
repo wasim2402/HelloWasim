@@ -26,7 +26,7 @@ export default function About() {
           {/* Left Column: 'Hey!' and Bio intro */}
           <div className="md:col-span-4 flex flex-col justify-between h-full pt-4 md:pt-10 pb-4">
             <div className="flex items-center gap-3 mb-6">
-              <span className="w-2 h-2 rounded-full bg-purple-500"></span>
+              <span className="w-2 h-2 rounded-full bg-[#C8102E]"></span>
               <span className="text-xs font-bold tracking-[0.2em] text-slate-900/60 uppercase">About</span>
             </div>
             <h2
@@ -59,11 +59,11 @@ export default function About() {
                 Alongside my work, I&apos;m actively exploring Agentic AI, learning how autonomous AI systems can reason, use tools, and create smarter product experiences.
               </p>
 
-              <div className="mt-4 relative inline-flex w-fit overflow-hidden rounded-full p-[2px] bg-white/30">
-                <span className="absolute inset-[-1000%] animate-[spin_3s_linear_infinite] [animation-direction:reverse] z-0 bg-[conic-gradient(from_90deg_at_50%_50%,transparent_0%,transparent_75%,#a855f7_95%,#3b82f6_100%)]" />
+              <div className="mt-4 relative inline-flex w-fit overflow-hidden rounded-full p-[2px] bg-[#C8102E]/20">
+                <span className="absolute inset-[-1000%] animate-[spin_3s_linear_infinite] [animation-direction:reverse] z-0 bg-[conic-gradient(from_90deg_at_50%_50%,transparent_0%,transparent_70%,#ffffff_90%,#C8102E_100%)]" />
                 <Link
                   href="/blogs"
-                  className="relative z-10 flex items-center gap-2 text-white font-medium hover:bg-black/80 transition-colors w-fit px-5 py-2.5 rounded-full bg-black"
+                  className="relative z-10 flex items-center gap-2 text-white font-medium hover:bg-[#a60d26] transition-colors w-fit px-5 py-2.5 rounded-full bg-[#C8102E]"
                 >
                   Read Blogs
                   <span className="flex items-center justify-center">

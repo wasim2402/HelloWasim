@@ -71,7 +71,7 @@ export default function Contact() {
   }
 
   return (
-    <section id="contact" className="py-24 min-h-screen flex items-center relative overflow-hidden bg-black z-50">
+    <section id="contact" className="py-24 min-h-screen flex items-center relative overflow-hidden bg-[#111111] z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-8">
 
@@ -88,7 +88,7 @@ export default function Contact() {
 
               <h2 className={`text-[3.5rem] md:text-[5rem] lg:text-[5.5rem] font-medium text-white leading-[1.05] tracking-tighter mb-8 ${archivo.className}`}>
                 Let's build something<br />
-                <span className="italic font-serif font-normal text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-purple-500">extraordinary.</span>
+                <span className="italic font-serif font-normal text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-[#C8102E]">extraordinary.</span>
               </h2>
               <p className="text-white/60 text-lg md:text-xl max-w-md font-medium tracking-tight mb-8">
                 Have a project or need help? Fill out the form, and we'll get back to you soon.

@@ -1,148 +1,136 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import Image from "next/image";
+import { useEffect, useRef, useState } from "react";
 
 export default function CustomCursor() {
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-  const [isVisible, setIsVisible] = useState(false);
-  const [isHovering, setIsHovering] = useState(false);
+  const cursorRef = useRef<HTMLDivElement>(null);
+  const [isTouchDevice, setIsTouchDevice] = useState(false);
 
   useEffect(() => {
-    // Add a style tag to dynamically handle cursor states
+    // Disable on touch devices
+    if (window.matchMedia("(pointer: coarse)").matches) {
+      setIsTouchDevice(true);
+      return;
+    }
+
+    const cursor = cursorRef.current;
+    if (!cursor) return;
+
+    // Inject global cursor: none style for desktop
     const style = document.createElement("style");
+    style.id = "custom-cursor-style";
+    style.innerHTML = `* { cursor: none !important; }`;
     document.head.appendChild(style);
 
-    let lastClientX = 0;
-    let lastClientY = 0;
-    let hasMoved = false;
+    let targetX = -100;
+    let targetY = -100;
+    let currentX = -100;
+    let currentY = -100;
+    let isHovered = false;
+    let isClicked = false;
+    let isVisible = false;
+    let rafId: number;
 
-    const checkActiveSection = (target: Element | null) => {
-      if (!target) {
-        setIsVisible(false);
-        if (style.innerHTML !== '') style.innerHTML = '';
-        return;
+    const lerp = (start: number, end: number, factor: number) => {
+      return start + (end - start) * factor;
+    };
+
+    const render = () => {
+      // High-performance lerp (0.75 gives near-instant response with butter-smooth interpolation)
+      currentX = lerp(currentX, targetX, 0.75);
+      currentY = lerp(currentY, targetY, 0.75);
+
+      if (cursor) {
+        const scale = isClicked ? 0.85 : isHovered ? 1.2 : 1;
+        cursor.style.transform = `translate3d(${currentX - 5.5}px, ${currentY - 2.85}px, 0) scale(${scale})`;
+        cursor.style.opacity = isVisible ? "1" : "0";
       }
 
-      // Check if mouse is over specific sections
-      const isActiveSection = !!(
-        target.closest('#experience') || 
-        target.closest('#services') || 
-        target.closest('#skills')
-      );
+      rafId = requestAnimationFrame(render);
+    };
 
-      if (isActiveSection) {
-        setIsVisible(true);
-        if (style.innerHTML === '') {
-          style.innerHTML = `* { cursor: none !important; }`;
-        }
-        
-        // Check if hovering over clickable elements
-        if (
-          target.tagName.toLowerCase() === 'a' ||
-          target.tagName.toLowerCase() === 'button' ||
-          target.closest('a') ||
-          target.closest('button')
-        ) {
-          setIsHovering(true);
-        } else {
-          setIsHovering(false);
-        }
-      } else {
-        setIsVisible(false);
-        if (style.innerHTML !== '') {
-          style.innerHTML = '';
-        }
+    rafId = requestAnimationFrame(render);
+
+    const onMouseMove = (e: MouseEvent) => {
+      if (!isVisible) {
+        // Snap immediately on first entrance so it doesn't fly across screen
+        currentX = e.clientX;
+        currentY = e.clientY;
+        isVisible = true;
+      }
+      targetX = e.clientX;
+      targetY = e.clientY;
+
+      // Check if hovering clickable elements
+      const target = e.target as HTMLElement | null;
+      if (target) {
+        const clickable = target.closest("a, button, [role='button'], input, textarea, select");
+        isHovered = !!clickable;
       }
     };
 
-    const updateMousePosition = (e: MouseEvent) => {
-      hasMoved = true;
-      lastClientX = e.clientX;
-      lastClientY = e.clientY;
-      setMousePosition({ x: e.clientX, y: e.clientY });
-      
-      checkActiveSection(e.target as Element);
+    const onMouseDown = () => {
+      isClicked = true;
     };
 
-    const handleScroll = () => {
-      if (!hasMoved) return;
-      const target = document.elementFromPoint(lastClientX, lastClientY);
-      checkActiveSection(target);
+    const onMouseUp = () => {
+      isClicked = false;
     };
 
-    const handleMouseLeave = () => {
-      setIsVisible(false);
-      style.innerHTML = '';
+    const onMouseLeave = () => {
+      isVisible = false;
     };
 
-    window.addEventListener("mousemove", updateMousePosition, { passive: true });
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    document.addEventListener("mouseleave", handleMouseLeave);
+    const onMouseEnter = (e: MouseEvent) => {
+      isVisible = true;
+      targetX = e.clientX;
+      targetY = e.clientY;
+      currentX = e.clientX;
+      currentY = e.clientY;
+    };
+
+    window.addEventListener("mousemove", onMouseMove, { passive: true });
+    window.addEventListener("mousedown", onMouseDown, { passive: true });
+    window.addEventListener("mouseup", onMouseUp, { passive: true });
+    document.addEventListener("mouseleave", onMouseLeave, { passive: true });
+    document.addEventListener("mouseenter", onMouseEnter, { passive: true });
 
     return () => {
-      window.removeEventListener("mousemove", updateMousePosition);
-      window.removeEventListener("scroll", handleScroll);
-      document.removeEventListener("mouseleave", handleMouseLeave);
+      cancelAnimationFrame(rafId);
+      window.removeEventListener("mousemove", onMouseMove);
+      window.removeEventListener("mousedown", onMouseDown);
+      window.removeEventListener("mouseup", onMouseUp);
+      document.removeEventListener("mouseleave", onMouseLeave);
+      document.removeEventListener("mouseenter", onMouseEnter);
       if (document.head.contains(style)) {
         document.head.removeChild(style);
       }
     };
   }, []);
 
-  if (typeof window === "undefined") return null;
+  if (isTouchDevice) return null;
 
   return (
-    <AnimatePresence>
-      {isVisible && (
-        <motion.div
-          className="fixed top-0 left-0 z-[10000] pointer-events-none flex flex-col items-start"
-          animate={{
-            x: mousePosition.x,
-            y: mousePosition.y,
-            scale: isHovering ? 1.05 : 1,
-          }}
-          transition={{
-            type: "spring",
-            stiffness: 1000,
-            damping: 50,
-            mass: 0.1,
-          }}
-        >
-          {/* SVG Blue Pointer */}
-          <svg 
-            width="24" 
-            height="24" 
-            viewBox="0 0 24 24" 
-            fill="none" 
-            xmlns="http://www.w3.org/2000/svg"
-            className="text-blue-500 drop-shadow-md"
-            style={{ transform: 'translate(-4px, -4px)' }}
-          >
-            <path 
-              d="M5.5 3.21V20.8c0 .45.54.67.85.35l4.86-4.86a.5.5 0 01.35-.15h6.87c.45 0 .67-.54.35-.85L6.35 2.85a.5.5 0 00-.85.36z" 
-              fill="currentColor" 
-              stroke="white" 
-              strokeWidth="1.5"
-            />
-          </svg>
-          
-          {/* Pill */}
-          <div className="bg-blue-500 text-white rounded-full flex items-center px-2 py-1.5 shadow-xl whitespace-nowrap ml-3 mt-1 pointer-events-none">
-            <div className="w-5 h-5 rounded-full overflow-hidden mr-2 border-2 border-white/30">
-              <Image
-                src="/profile.jpg"
-                alt="Wasim"
-                width={20}
-                height={20}
-                className="w-full h-full object-cover"
-              />
-            </div>
-            <span className="text-sm font-semibold pr-1 tracking-wide">Wasim</span>
-          </div>
-        </motion.div>
-      )}
-    </AnimatePresence>
+    <div
+      ref={cursorRef}
+      className="fixed top-0 left-0 z-[100000] pointer-events-none will-change-transform transition-opacity duration-150 ease-out opacity-0"
+      style={{ transformOrigin: "5.5px 2.85px" }}
+    >
+      <svg
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+        className="text-[#C8102E] drop-shadow-[0_2px_10px_rgba(200,16,46,0.55)]"
+      >
+        <path
+          d="M5.5 3.21V20.8c0 .45.54.67.85.35l4.86-4.86a.5.5 0 01.35-.15h6.87c.45 0 .67-.54.35-.85L6.35 2.85a.5.5 0 00-.85.36z"
+          fill="currentColor"
+          stroke="white"
+          strokeWidth="1.5"
+        />
+      </svg>
+    </div>
   );
 }

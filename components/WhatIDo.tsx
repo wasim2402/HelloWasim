@@ -57,7 +57,7 @@ export default function WhatIDo() {
   const rightColumnY = useTransform(scrollYProgress, [0, 1], ["20vh", "-120vh"])
 
   return (
-    <section id="services" className="bg-[#171717] text-white relative border-t border-white/10">
+    <section id="services" className="bg-[#111111] text-white relative border-t border-white/10">
       
       {/* 
         Desktop View (Pinned Scroll)
@@ -69,7 +69,7 @@ export default function WhatIDo() {
           className="absolute top-0 left-0 w-full h-screen overflow-hidden flex items-center"
         >
           <div className="absolute top-12 left-6 md:left-12 lg:left-16 flex items-center gap-3 z-20">
-            <span className="w-2 h-2 rounded-full bg-purple-500"></span>
+            <span className="w-2 h-2 rounded-full bg-[#C8102E]"></span>
             <span className="text-xs font-bold tracking-[0.2em] text-white/60 uppercase">Services</span>
           </div>
 
@@ -93,7 +93,7 @@ export default function WhatIDo() {
                 {services.map((service) => (
                   <div key={service.id} className="flex flex-col border-b border-white/10 pb-12 md:pb-16">
                     <div className="flex flex-col md:flex-row md:items-baseline gap-4 md:gap-8 mb-6">
-                      <span className="text-purple-400 text-lg md:text-xl font-mono tracking-wider font-semibold">
+                      <span className="text-[#C8102E] text-lg md:text-xl font-mono tracking-wider font-semibold">
                         {service.id}
                       </span>
                       <h3 className={`text-2xl md:text-3xl lg:text-4xl font-medium tracking-tight text-white ${archivo.className}`}>
@@ -119,7 +119,7 @@ export default function WhatIDo() {
       */}
       <div className="block md:hidden relative w-full pt-28 pb-20 px-6">
         <div className="flex items-center gap-3 mb-8">
-          <span className="w-2 h-2 rounded-full bg-purple-500"></span>
+          <span className="w-2 h-2 rounded-full bg-[#C8102E]"></span>
           <span className="text-xs font-bold tracking-[0.2em] text-white/60 uppercase">Services</span>
         </div>
 
@@ -136,7 +136,7 @@ export default function WhatIDo() {
         <div className="flex flex-col gap-12">
           {services.map((service) => (
             <div key={service.id} className="flex flex-col border-b border-white/10 pb-8">
-              <span className="text-purple-400 text-lg font-mono tracking-wider font-semibold mb-3">
+              <span className="text-[#C8102E] text-lg font-mono tracking-wider font-semibold mb-3">
                 {service.id}
               </span>
               <h3 className={`text-2xl font-medium tracking-tight text-white mb-4 ${archivo.className}`}>

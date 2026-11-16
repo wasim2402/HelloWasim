@@ -14,7 +14,7 @@ export default function Certificates() {
         {/* Header Section */}
         <div className="mb-20">
           <div className="flex items-center gap-3 mb-6">
-            <span className="w-2 h-2 rounded-full bg-purple-500"></span>
+            <span className="w-2 h-2 rounded-full bg-[#C8102E]"></span>
             <span className="text-xs font-bold tracking-[0.2em] text-white/60 uppercase">
               Certifications
             </span>

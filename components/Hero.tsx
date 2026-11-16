@@ -14,9 +14,9 @@ const StarGraphic = () => (
   <svg width="80" height="80" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-16 h-16 md:w-24 md:h-24">
     <defs>
       <radialGradient id="star3D" cx="35%" cy="35%" r="65%">
-        <stop offset="0%" stopColor="#7c3aed" /> {/* Purple highlight */}
-        <stop offset="40%" stopColor="#1a1525" /> {/* Dark purple/black base */}
-        <stop offset="100%" stopColor="#0a0810" /> {/* Deep shadow */}
+        <stop offset="0%" stopColor="#C8102E" /> {/* Crimson Red highlight */}
+        <stop offset="40%" stopColor="#25080c" /> {/* Dark crimson/black base */}
+        <stop offset="100%" stopColor="#0a0506" /> {/* Deep shadow */}
       </radialGradient>
     </defs>
     <path d="M50 0C50 27.6142 27.6142 50 0 50C27.6142 50 50 72.3858 50 100C50 72.3858 72.3858 50 100 50C72.3858 50 50 27.6142 50 0Z" fill="url(#star3D)" />

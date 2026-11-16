@@ -32,13 +32,13 @@ export default function Skills() {
   const x3 = useTransform(scrollYProgress, [0, 1], ["-5%", "-20%"])
 
   return (
-    <section ref={containerRef} id="skills" className="py-32 relative overflow-hidden bg-[#0a0a0a] min-h-screen flex flex-col justify-center text-white">
+    <section ref={containerRef} id="skills" className="py-32 relative overflow-hidden bg-[#111111] min-h-screen flex flex-col justify-center text-white">
       <div className="max-w-[1400px] mx-auto w-full relative z-10 flex flex-col items-center">
         
         {/* Title Area */}
         <div className="text-center mb-12 flex flex-col items-center px-4">
           <div className="flex items-center justify-center gap-3 mb-6">
-            <span className="w-2 h-2 rounded-full bg-purple-500"></span>
+            <span className="w-2 h-2 rounded-full bg-[#C8102E]"></span>
             <span className="text-xs font-bold tracking-[0.2em] text-white/60 uppercase">Skills</span>
           </div>
           <h2 className={`text-white text-5xl md:text-7xl lg:text-[110px] font-medium uppercase tracking-tighter leading-none ${archivo.className}`}>

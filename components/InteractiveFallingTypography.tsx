@@ -427,7 +427,7 @@ export default function InteractiveFallingTypography() {
     <section
       ref={sectionRef}
       id="kinetic-philosophy"
-      className="relative w-full h-[220vh] min-h-[220vh] bg-[#050505] text-white selection:bg-white selection:text-black"
+      className="relative w-full h-[220vh] min-h-[220vh] bg-[#111111] text-white selection:bg-white selection:text-black"
     >
       {/* Sticky 100vh Stage Container */}
       <div
@@ -435,7 +435,7 @@ export default function InteractiveFallingTypography() {
         className="sticky top-0 w-full h-screen h-[100dvh] flex flex-col items-center justify-center relative overflow-hidden px-4 sm:px-8 md:px-12"
       >
         {/* Subtle Ambient Radial Glow */}
-        <div className="absolute inset-0 pointer-events-none bg-[radial-gradient(circle_at_50%_50%,rgba(168,85,247,0.06)_0%,transparent_70%)] z-0" />
+        <div className="absolute inset-0 pointer-events-none bg-[radial-gradient(circle_at_50%_50%,rgba(200,16,46,0.08)_0%,transparent_70%)] z-0" />
 
         {/* Subtle Grid Accent Pattern */}
         <div
@@ -448,7 +448,7 @@ export default function InteractiveFallingTypography() {
 
         {/* Top Section Metadata Tag */}
         <div className="absolute top-10 left-6 md:left-14 flex items-center gap-3 z-10 pointer-events-none">
-          <span className="w-2 h-2 rounded-full bg-purple-500 animate-pulse" />
+          <span className="w-2 h-2 rounded-full bg-[#C8102E] animate-pulse" />
           <span className="text-[11px] font-bold tracking-[0.25em] text-white/50 uppercase">
             Engineering Creed
           </span>
@@ -489,7 +489,7 @@ export default function InteractiveFallingTypography() {
                                 archivo.className
                               } ${
                                 charObj.isAccent
-                                  ? "bg-gradient-to-r from-purple-400 via-purple-300 to-indigo-300 bg-clip-text text-transparent drop-shadow-[0_0_25px_rgba(168,85,247,0.35)]"
+                                  ? "bg-gradient-to-r from-[#FF4D6D] via-[#C8102E] to-[#99001A] bg-clip-text text-transparent drop-shadow-[0_0_25px_rgba(200,16,46,0.5)]"
                                   : charObj.isGray
                                   ? "text-neutral-400 hover:text-neutral-300"
                                   : "text-white hover:text-neutral-100"
@@ -520,7 +520,7 @@ export default function InteractiveFallingTypography() {
           <span className="text-[10px] md:text-xs font-mono tracking-widest uppercase">
             Scroll down to release gravity
           </span>
-          <ArrowDown className="w-4 h-4 animate-bounce text-purple-400" />
+          <ArrowDown className="w-4 h-4 animate-bounce text-[#C8102E]" />
         </div>
 
         {/* Final Transition Statement (Revealed in center after typography falls) */}
@@ -529,7 +529,7 @@ export default function InteractiveFallingTypography() {
           className="absolute inset-0 flex flex-col items-center justify-center z-20 px-6 text-center"
         >
           <div className="flex items-center gap-2 mb-4 md:mb-6">
-            <span className="w-1.5 h-1.5 rounded-full bg-purple-400" />
+            <span className="w-1.5 h-1.5 rounded-full bg-[#C8102E]" />
             <span className="text-xs font-mono tracking-[0.3em] text-neutral-400 uppercase">
               What Matters Most
             </span>
@@ -541,7 +541,7 @@ export default function InteractiveFallingTypography() {
           >
             LET&apos;S BUILD
             <br />
-            <span className="bg-gradient-to-r from-white via-neutral-200 to-purple-400 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-white via-neutral-200 to-[#C8102E] bg-clip-text text-transparent">
               SOMETHING USEFUL.
             </span>
           </h2>
@@ -552,7 +552,7 @@ export default function InteractiveFallingTypography() {
 
           <div className="mt-8 flex items-center gap-2 text-xs font-mono tracking-widest text-neutral-500 uppercase">
             <span>Explore Selected Projects</span>
-            <ArrowDown className="w-3.5 h-3.5 text-purple-400" />
+            <ArrowDown className="w-3.5 h-3.5 text-[#C8102E]" />
           </div>
         </div>
       </div>

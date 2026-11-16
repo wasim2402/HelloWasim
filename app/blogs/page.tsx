@@ -38,7 +38,7 @@ const blogs = [
 
 export default function BlogsPage() {
   return (
-    <div className="min-h-screen bg-[#050505] text-white pt-32 pb-20 px-6 md:px-12 lg:px-16 selection:bg-purple-500 selection:text-white">
+    <div className="min-h-screen bg-[#050505] text-white pt-32 pb-20 px-6 md:px-12 lg:px-16 selection:bg-[#C8102E] selection:text-white">
       <div className="max-w-[1000px] mx-auto">
         <div className="mb-16">
           <Link href="/" className="inline-flex items-center gap-2 text-white/60 hover:text-white transition-colors mb-8 text-sm uppercase tracking-widest font-semibold">
@@ -59,16 +59,16 @@ export default function BlogsPage() {
               className="group cursor-pointer border-b border-white/10 pb-8 hover:border-white/30 transition-colors"
             >
               <div className="flex flex-col md:flex-row md:items-baseline justify-between gap-4 mb-4">
-                <span className="text-purple-400 font-mono text-xs md:text-sm uppercase tracking-widest">{blog.tag}</span>
+                <span className="text-[#C8102E] font-mono text-xs md:text-sm uppercase tracking-widest">{blog.tag}</span>
                 <span className="text-white/40 font-mono text-xs md:text-sm">{blog.date} • {blog.readTime}</span>
               </div>
-              <h2 className={`text-2xl md:text-4xl font-semibold mb-4 group-hover:text-purple-300 transition-colors ${archivo.className}`}>
+              <h2 className={`text-2xl md:text-4xl font-semibold mb-4 group-hover:text-[#FF4D6D] transition-colors ${archivo.className}`}>
                 {blog.title}
               </h2>
               <p className="text-white/60 text-base md:text-lg max-w-2xl leading-relaxed">
                 {blog.excerpt}
               </p>
-              <div className="mt-6 flex items-center gap-2 text-sm font-semibold text-white group-hover:text-purple-400 transition-colors">
+              <div className="mt-6 flex items-center gap-2 text-sm font-semibold text-white group-hover:text-[#C8102E] transition-colors">
                 Read Article 
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="transform group-hover:translate-x-1 transition-transform">
                   <path d="M5 12h14M12 5l7 7-7 7" />
