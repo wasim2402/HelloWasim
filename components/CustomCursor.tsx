@@ -4,17 +4,19 @@ import { useEffect, useRef, useState } from "react";
 
 export default function CustomCursor() {
   const cursorRef = useRef<HTMLDivElement>(null);
+  const innerRef = useRef<HTMLDivElement>(null);
   const [isTouchDevice, setIsTouchDevice] = useState(false);
 
   useEffect(() => {
-    // Disable on touch devices
+    // Disable completely on touchscreens
     if (window.matchMedia("(pointer: coarse)").matches) {
       setIsTouchDevice(true);
       return;
     }
 
     const cursor = cursorRef.current;
-    if (!cursor) return;
+    const inner = innerRef.current;
+    if (!cursor || !inner) return;
 
     // Inject global cursor: none style for desktop
     const style = document.createElement("style");
@@ -22,82 +24,63 @@ export default function CustomCursor() {
     style.innerHTML = `* { cursor: none !important; }`;
     document.head.appendChild(style);
 
-    let targetX = -100;
-    let targetY = -100;
-    let currentX = -100;
-    let currentY = -100;
-    let isHovered = false;
-    let isClicked = false;
     let isVisible = false;
-    let rafId: number;
 
-    const lerp = (start: number, end: number, factor: number) => {
-      return start + (end - start) * factor;
-    };
+    // Offset for 30px arrow cursor tip (SVG tip at 5.5, 2.85 in 24x24 viewBox scaled by 1.25)
+    const TIP_OFFSET_X = 6.9;
+    const TIP_OFFSET_Y = 3.6;
 
-    const render = () => {
-      // High-performance lerp (0.75 gives near-instant response with butter-smooth interpolation)
-      currentX = lerp(currentX, targetX, 0.75);
-      currentY = lerp(currentY, targetY, 0.75);
-
-      if (cursor) {
-        const scale = isClicked ? 0.85 : isHovered ? 1.2 : 1;
-        cursor.style.transform = `translate3d(${currentX - 5.5}px, ${currentY - 2.85}px, 0) scale(${scale})`;
-        cursor.style.opacity = isVisible ? "1" : "0";
-      }
-
-      rafId = requestAnimationFrame(render);
-    };
-
-    rafId = requestAnimationFrame(render);
-
-    const onMouseMove = (e: MouseEvent) => {
+    const updatePosition = (clientX: number, clientY: number) => {
+      // Direct hardware-accelerated transform without RAF queue delay = 0ms latency
+      cursor.style.transform = `translate3d(${clientX - TIP_OFFSET_X}px, ${clientY - TIP_OFFSET_Y}px, 0)`;
       if (!isVisible) {
-        // Snap immediately on first entrance so it doesn't fly across screen
-        currentX = e.clientX;
-        currentY = e.clientY;
         isVisible = true;
+        cursor.style.opacity = "1";
       }
-      targetX = e.clientX;
-      targetY = e.clientY;
+    };
 
-      // Check if hovering clickable elements
+    const onPointerMove = (e: PointerEvent) => {
+      updatePosition(e.clientX, e.clientY);
+
+      // Check if hovering over clickable elements
       const target = e.target as HTMLElement | null;
       if (target) {
-        const clickable = target.closest("a, button, [role='button'], input, textarea, select");
-        isHovered = !!clickable;
+        const isClickable = !!target.closest("a, button, [role='button'], input, textarea, select");
+        if (isClickable) {
+          inner.style.transform = "scale(1.22)";
+        } else {
+          inner.style.transform = "scale(1)";
+        }
       }
     };
 
     const onMouseDown = () => {
-      isClicked = true;
+      inner.style.transform = "scale(0.85)";
     };
 
-    const onMouseUp = () => {
-      isClicked = false;
+    const onMouseUp = (e: MouseEvent) => {
+      const target = e.target as HTMLElement | null;
+      const isClickable = target ? !!target.closest("a, button, [role='button'], input, textarea, select") : false;
+      inner.style.transform = isClickable ? "scale(1.22)" : "scale(1)";
     };
 
     const onMouseLeave = () => {
       isVisible = false;
+      cursor.style.opacity = "0";
     };
 
     const onMouseEnter = (e: MouseEvent) => {
-      isVisible = true;
-      targetX = e.clientX;
-      targetY = e.clientY;
-      currentX = e.clientX;
-      currentY = e.clientY;
+      updatePosition(e.clientX, e.clientY);
     };
 
-    window.addEventListener("mousemove", onMouseMove, { passive: true });
+    window.addEventListener("pointermove", onPointerMove, { passive: true });
     window.addEventListener("mousedown", onMouseDown, { passive: true });
     window.addEventListener("mouseup", onMouseUp, { passive: true });
     document.addEventListener("mouseleave", onMouseLeave, { passive: true });
     document.addEventListener("mouseenter", onMouseEnter, { passive: true });
 
     return () => {
-      cancelAnimationFrame(rafId);
-      window.removeEventListener("mousemove", onMouseMove);
+      window.removeEventListener("pointermove", onPointerMove);
       window.removeEventListener("mousedown", onMouseDown);
       window.removeEventListener("mouseup", onMouseUp);
       document.removeEventListener("mouseleave", onMouseLeave);
@@ -113,24 +96,32 @@ export default function CustomCursor() {
   return (
     <div
       ref={cursorRef}
-      className="fixed top-0 left-0 z-[100000] pointer-events-none will-change-transform transition-opacity duration-150 ease-out opacity-0"
-      style={{ transformOrigin: "5.5px 2.85px" }}
+      className="fixed top-0 left-0 z-[100000] pointer-events-none will-change-transform opacity-0 transition-opacity duration-150 ease-out"
+      style={{
+        transform: "translate3d(-100px, -100px, 0)",
+      }}
     >
-      <svg
-        width="24"
-        height="24"
-        viewBox="0 0 24 24"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-        className="text-[#C8102E] drop-shadow-[0_2px_10px_rgba(200,16,46,0.55)]"
+      <div
+        ref={innerRef}
+        className="origin-[6.9px_3.6px] transition-transform duration-150 ease-out"
       >
-        <path
-          d="M5.5 3.21V20.8c0 .45.54.67.85.35l4.86-4.86a.5.5 0 01.35-.15h6.87c.45 0 .67-.54.35-.85L6.35 2.85a.5.5 0 00-.85.36z"
-          fill="currentColor"
-          stroke="white"
-          strokeWidth="1.5"
-        />
-      </svg>
+        <svg
+          width="30"
+          height="30"
+          viewBox="0 0 24 24"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+          className="text-[#C8102E] drop-shadow-[0_2px_12px_rgba(200,16,46,0.6)]"
+        >
+          <path
+            d="M5.5 3.21V20.8c0 .45.54.67.85.35l4.86-4.86a.5.5 0 01.35-.15h6.87c.45 0 .67-.54.35-.85L6.35 2.85a.5.5 0 00-.85.36z"
+            fill="currentColor"
+            stroke="white"
+            strokeWidth="1.5"
+            strokeLinejoin="round"
+          />
+        </svg>
+      </div>
     </div>
   );
 }

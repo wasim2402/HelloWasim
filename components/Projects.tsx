@@ -5,6 +5,7 @@ import Image from "next/image"
 import { useState, useEffect } from "react"
 import { motion, useMotionValue, useSpring } from "framer-motion"
 import { Archivo } from "next/font/google"
+import { TapeHighlight } from "./ui/TapeHighlight"
 
 const archivo = Archivo({
   subsets: ['latin'],
@@ -114,9 +115,9 @@ export default function Projects() {
               style={{ fontSize: 'clamp(3rem, 6vw, 76px)', lineHeight: '1' }}
             >
               <span className="font-light">Featured</span>{" "}
-              <span className="font-light inline-block bg-gradient-to-r from-[#F7F4ED] to-[#C8102E]/25 px-2 rounded-lg">
+              <TapeHighlight textClassName="text-white font-light">
                 Projects
-              </span>
+              </TapeHighlight>
             </h2>
           </div>
           <p className="text-black/70 text-lg max-w-sm">A curated selection of my recent work and digital experiences.</p>

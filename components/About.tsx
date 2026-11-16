@@ -6,6 +6,7 @@ import Image from "next/image"
 import { TextGenerateEffect } from "./ui/TextGenerateEffect"
 import { useTheme } from "./ThemeProvider"
 import { Archivo } from "next/font/google"
+import { TapeHighlight } from "./ui/TapeHighlight"
 
 const archivo = Archivo({
   subsets: ['latin'],
@@ -37,7 +38,7 @@ export default function About() {
             </h2>
 
             <p className="text-black text-lg md:text-xl leading-relaxed mt-12 md:mt-0 mb-6 md:mb-12 max-w-[340px]">
-              I&apos;m Wasim, a <strong>Founding Engineer at Napplied</strong>, where I build AI-powered digital experiences with a focus on modern frontend architecture, intuitive interfaces, and scalable products.
+              I&apos;m Wasim, a <TapeHighlight>Founding Engineer at Napplied</TapeHighlight>, where I build AI-powered digital experiences with a focus on modern frontend architecture, intuitive interfaces, and scalable products.
             </p>
           </div>
 
@@ -56,7 +57,7 @@ export default function About() {
                 I enjoy bringing together design, frontend engineering, and AI to create products that are both intuitive and impactful.
               </p>
               <p className="text-black text-base md:text-lg leading-relaxed">
-                Alongside my work, I&apos;m actively exploring Agentic AI, learning how autonomous AI systems can reason, use tools, and create smarter product experiences.
+                Alongside my work, I&apos;m actively exploring <TapeHighlight>Agentic AI</TapeHighlight>, learning how <TapeHighlight>autonomous AI</TapeHighlight> systems can reason, use tools, and create smarter product experiences.
               </p>
 
               <div className="mt-4 relative inline-flex w-fit overflow-hidden rounded-full p-[2px] bg-[#C8102E]/20">
