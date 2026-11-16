@@ -25,9 +25,14 @@ export default function ScrollProfileCard() {
 
     if (!heroPlaceholder || !aboutPlaceholder || !card || !inner) return
 
+    let activeTimeline: gsap.core.Timeline | null = null
+
     const updateAnimation = () => {
-      // Clear previous scroll triggers
-      ScrollTrigger.getAll().forEach(t => t.kill())
+      // Clear previous scroll trigger for profile card
+      if (activeTimeline) {
+        activeTimeline.scrollTrigger?.kill()
+        activeTimeline.kill()
+      }
 
       const heroRect = heroPlaceholder.getBoundingClientRect()
       const aboutRect = aboutPlaceholder.getBoundingClientRect()
@@ -77,6 +82,7 @@ export default function ScrollProfileCard() {
           scrub: 1,
         }
       })
+      activeTimeline = tl
 
       tl.to(card, {
         x: endX,
@@ -104,7 +110,10 @@ export default function ScrollProfileCard() {
     return () => {
       window.removeEventListener("resize", updateAnimation)
       clearTimeout(timeout)
-      ScrollTrigger.getAll().forEach(t => t.kill())
+      if (activeTimeline) {
+        activeTimeline.scrollTrigger?.kill()
+        activeTimeline.kill()
+      }
     }
   }, [mounted])
 

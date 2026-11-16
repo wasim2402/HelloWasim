@@ -31,7 +31,7 @@ const LightningGraphic = () => (
 
 export default function Hero() {
   return (
-    <section id="hero" className="min-h-screen bg-[#FCF2E5] flex items-center justify-center relative overflow-hidden text-black pt-32 pb-20 selection:bg-black selection:text-[#FCF2E5]">
+    <section id="hero" className="min-h-screen bg-[#F7F7F7] flex items-center justify-center relative overflow-hidden text-black pt-32 pb-20 selection:bg-black selection:text-[#F7F7F7]">
 
       <div className="w-full relative flex flex-col items-center justify-center h-full z-10 mt-0">
 

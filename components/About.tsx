@@ -18,7 +18,7 @@ export default function About() {
   const aboutText = `I'm a full-stack developer with a passion for building beautiful and functional digital experiences. I specialize in React, Next.js, and modern web technologies, always eager to learn and create something new.`
 
   return (
-    <section id="about" className="min-h-screen bg-[#FCF2E5] relative py-20 md:py-32 flex items-center overflow-hidden text-black selection:bg-black selection:text-[#FCF2E5]">
+    <section id="about" className="min-h-screen bg-[#F7F7F7] relative py-20 md:py-32 flex items-center overflow-hidden text-black selection:bg-black selection:text-[#F7F7F7]">
 
       <div className="max-w-[1400px] mx-auto px-6 md:px-12 lg:px-16 w-full relative z-10">
         <div className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 min-h-[500px] lg:min-h-[600px]">

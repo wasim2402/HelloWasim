@@ -6,6 +6,7 @@ import Hero from "@/components/Hero"
 import About from "@/components/About"
 import WhatIDo from "@/components/WhatIDo"
 import Skills from "@/components/Skills"
+import InteractiveFallingTypography from "@/components/InteractiveFallingTypography"
 import Projects from "@/components/Projects"
 import Testimonials from "@/components/Testimonials"
 import Contact from "@/components/Contact"
@@ -58,6 +59,7 @@ export default function Home() {
             <Experience />
             <WhatIDo />
             <Skills />
+            <InteractiveFallingTypography />
             <Projects />
             <Testimonials />
             <Contact />

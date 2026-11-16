@@ -101,7 +101,7 @@ export default function Projects() {
   ]
 
   return (
-    <section id="projects" className="py-20 md:py-32 relative overflow-hidden bg-[#FCF2E5] min-h-screen flex items-center">
+    <section id="projects" className="py-20 md:py-32 relative overflow-hidden bg-[#F7F7F7] min-h-screen flex items-center">
       <div className="max-w-[1400px] w-full mx-auto px-6 md:px-12 lg:px-16">
         <div className="mb-12 md:mb-20 flex flex-col md:flex-row md:items-end justify-between gap-6">
           <div>

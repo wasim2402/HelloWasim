@@ -14,6 +14,11 @@ export default function SmoothScroll({ children }: { children: React.ReactNode }
       smoothWheel: true,
     })
 
+    // Expose lenis globally for programmatic scrolling
+    if (typeof window !== "undefined") {
+      ;(window as any).lenis = lenis
+    }
+
     // Synchronize GSAP ScrollTrigger with Lenis scroll
     lenis.on("scroll", ScrollTrigger.update)
 
@@ -31,6 +36,16 @@ export default function SmoothScroll({ children }: { children: React.ReactNode }
       ScrollTrigger.refresh()
     }, 500)
 
+    // Scroll to hash target on initial load if provided
+    if (typeof window !== "undefined" && window.location.hash) {
+      setTimeout(() => {
+        const target = document.querySelector(window.location.hash)
+        if (target) {
+          lenis.scrollTo(target as HTMLElement, { offset: 0, duration: 1.2 })
+        }
+      }, 600)
+    }
+
     // Refresh ScrollTrigger if the body height changes (e.g. images load)
     const resizeObserver = new ResizeObserver(() => {
       ScrollTrigger.refresh()
@@ -38,6 +53,9 @@ export default function SmoothScroll({ children }: { children: React.ReactNode }
     resizeObserver.observe(document.body)
 
     return () => {
+      if (typeof window !== "undefined") {
+        delete (window as any).lenis
+      }
       resizeObserver.disconnect()
       lenis.destroy()
       gsap.ticker.remove((time) => {

@@ -20,6 +20,27 @@ export default function Navbar() {
     { name: "Contact", href: pathname === "/" ? "#contact" : "/#contact" },
   ]
 
+  const handleScroll = (e: React.MouseEvent<HTMLAnchorElement>, targetHref: string) => {
+    e.preventDefault()
+    setIsMobileMenuOpen(false)
+
+    const targetId = targetHref.replace(/^\/?#/, "")
+    const selector = `#${targetId}`
+
+    if (pathname === "/" || pathname === "") {
+      const element = document.querySelector(selector)
+      if (element) {
+        if (typeof window !== "undefined" && (window as any).lenis) {
+          (window as any).lenis.scrollTo(element, { offset: 0, duration: 1.2 })
+        } else {
+          element.scrollIntoView({ behavior: "smooth" })
+        }
+      }
+    } else {
+      window.location.href = `/#${targetId}`
+    }
+  }
+
   return (
     <motion.nav
       initial={{ y: -100, x: "-50%" }}
@@ -37,13 +58,9 @@ export default function Navbar() {
           <motion.a
             href="#hero"
             layout
-            onClick={(e) => {
-              e.preventDefault()
-              document.querySelector("#hero")?.scrollIntoView({ behavior: "smooth" })
-              setIsMobileMenuOpen(false)
-            }}
+            onClick={(e) => handleScroll(e, "#hero")}
             whileHover={{ scale: 1.05 }}
-            className="flex items-center"
+            className="flex items-center cursor-pointer"
           >
             <div className="h-5 md:h-6 flex items-center justify-start">
                <Image src="/logo-as.png" alt="AS Logo" width={80} height={24} className="object-contain h-full w-auto" priority />
@@ -53,7 +70,8 @@ export default function Navbar() {
           <motion.button 
             layout
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} 
-            className="w-[44px] h-[36px] md:w-[48px] md:h-[40px] bg-[#F3F2EE] rounded-lg flex items-center justify-center text-[#111111] hover:bg-white transition-colors"
+            className="w-[44px] h-[36px] md:w-[48px] md:h-[40px] bg-[#F3F2EE] rounded-lg flex items-center justify-center text-[#111111] hover:bg-white transition-colors cursor-pointer"
+            aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
           >
             {isMobileMenuOpen ? <X size={18} /> : <MoreHorizontal size={20} />}
           </motion.button>
@@ -73,12 +91,12 @@ export default function Navbar() {
                 <motion.a
                   key={item.name}
                   href={item.href}
-                  onClick={() => setIsMobileMenuOpen(false)}
+                  onClick={(e) => handleScroll(e, item.href)}
                   initial={{ x: -30, opacity: 0 }}
                   animate={{ x: 0, opacity: 1 }}
                   exit={{ x: -20, opacity: 0 }}
                   transition={{ delay: index * 0.05 + 0.1, duration: 0.3, ease: "easeOut" }}
-                  className="bg-[#F3F2EE] text-[#111111] px-4 py-1.5 rounded-lg text-sm font-semibold hover:bg-white transition-colors w-fit"
+                  className="bg-[#F3F2EE] text-[#111111] px-4 py-1.5 rounded-lg text-sm font-semibold hover:bg-white hover:scale-105 transition-all w-fit cursor-pointer select-none block"
                 >
                   {item.name}
                 </motion.a>
