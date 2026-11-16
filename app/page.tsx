@@ -19,34 +19,17 @@ import LoadingScreen from "@/components/LoadingScreen"
 import SmoothScroll from "@/components/SmoothScroll"
 
 export default function Home() {
-  const [mounted, setMounted] = useState(false)
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    // Check if user has visited before in this session
-    const hasVisited = sessionStorage.getItem("hasVisited")
-
-    if (hasVisited) {
-      setMounted(true)
-    } else {
-      // Simulate a slightly longer load time to show off the animation
-      const timer = setTimeout(() => {
-        setMounted(true)
-        sessionStorage.setItem("hasVisited", "true")
-      }, 4000)
-      return () => clearTimeout(timer)
-    }
-
     // Prevent horizontal scroll without breaking position: sticky
     document.body.style.overflowX = "clip"
     document.documentElement.style.overflowX = "clip"
   }, [])
 
-  if (!mounted) {
-    return <LoadingScreen />
-  }
-
   return (
     <ThemeProvider>
+      {loading && <LoadingScreen onComplete={() => setLoading(false)} />}
       <SmoothScroll>
         <div className="min-h-screen transition-all duration-500 relative z-10">
 
