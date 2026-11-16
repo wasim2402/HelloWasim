@@ -8,6 +8,7 @@ import WhatIDo from "@/components/WhatIDo"
 import Skills from "@/components/Skills"
 import InteractiveFallingTypography from "@/components/InteractiveFallingTypography"
 import Projects from "@/components/Projects"
+import GitHubContributions from "@/components/GitHubContributions"
 import Testimonials from "@/components/Testimonials"
 import Contact from "@/components/Contact"
 import Footer from "@/components/Footer"
@@ -43,6 +44,7 @@ export default function Home() {
             <WhatIDo />
             <Skills />
             <InteractiveFallingTypography />
+            <GitHubContributions />
             <Projects />
             <Testimonials />
             <Contact />

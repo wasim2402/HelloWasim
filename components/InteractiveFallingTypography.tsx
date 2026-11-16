@@ -551,7 +551,7 @@ export default function InteractiveFallingTypography() {
           </p>
 
           <div className="mt-8 flex items-center gap-2 text-xs font-mono tracking-widest text-neutral-500 uppercase">
-            <span>Explore Selected Projects</span>
+            <span>Explore GitHub Activity</span>
             <ArrowDown className="w-3.5 h-3.5 text-[#C8102E]" />
           </div>
         </div>
