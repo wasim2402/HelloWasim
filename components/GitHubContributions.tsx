@@ -1,9 +1,9 @@
 "use client"
 
-import React, { useEffect, useState, useMemo } from "react"
+import React, { useEffect, useState, useMemo, useCallback } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import Image from "next/image"
-import { ExternalLink, GitCommit, Calendar, Flame, Trophy } from "lucide-react"
+import { ExternalLink, GitCommit, Calendar, Flame, Trophy, RotateCw } from "lucide-react"
 
 interface DayContribution {
   date: string
@@ -33,6 +33,7 @@ interface ApiResponse {
 export default function GitHubContributions() {
   const [data, setData] = useState<ApiResponse | null>(null)
   const [loading, setLoading] = useState(true)
+  const [isRefreshing, setIsRefreshing] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [hoveredCell, setHoveredCell] = useState<{
     day: DayContribution
@@ -40,50 +41,60 @@ export default function GitHubContributions() {
     y: number
   } | null>(null)
 
-  useEffect(() => {
-    let isMounted = true
-
-    async function fetchData() {
-      try {
+  const fetchData = useCallback(async (isManual = false) => {
+    try {
+      if (isManual) {
+        setIsRefreshing(true)
+      } else {
         setLoading(true)
-        const res = await fetch("/api/github-contributions")
-        if (!res.ok) {
-          throw new Error(`Failed to fetch: ${res.statusText}`)
-        }
-        const json: ApiResponse = await res.json()
-        if (isMounted) {
-          if (json.success && json.contributions) {
-            setData(json)
-          } else {
-            setError(json.error || "Unable to load contribution data.")
-          }
-        }
-      } catch (err: any) {
-        if (isMounted) {
-          setError(err.message || "Failed to load GitHub data.")
-        }
-      } finally {
-        if (isMounted) {
-          setLoading(false)
-        }
       }
-    }
+      setError(null)
 
-    fetchData()
+      // Always bust browser and intermediary caches with timestamp + cache: "no-store"
+      const res = await fetch(`/api/github-contributions?t=${Date.now()}`, {
+        cache: "no-store",
+        headers: {
+          "Cache-Control": "no-cache",
+          Pragma: "no-cache",
+        },
+      })
 
-    return () => {
-      isMounted = false
+      if (!res.ok) {
+        throw new Error(`Failed to fetch: ${res.statusText}`)
+      }
+
+      const json: ApiResponse = await res.json()
+      if (json.success && json.contributions) {
+        setData(json)
+      } else {
+        setError(json.error || "Unable to load contribution data.")
+      }
+    } catch (err: any) {
+      console.error("Error loading GitHub contributions:", err)
+      setError(err.message || "Failed to load GitHub data.")
+    } finally {
+      setLoading(false)
+      setIsRefreshing(false)
     }
   }, [])
 
-  // 1. Group into columns of 7 days (Sunday - Saturday)
+  useEffect(() => {
+    fetchData()
+  }, [fetchData])
+
+  // 1. Group into columns of 7 days (Sunday - Saturday), strictly sorted chronologically
   const weeks = useMemo(() => {
     if (!data?.contributions || data.contributions.length === 0) return []
+
+    // Guarantee strictly chronological order
+    const sorted = [...data.contributions].sort(
+      (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()
+    )
 
     const result: (DayContribution | null)[][] = []
     let currentWeek: (DayContribution | null)[] = []
 
-    const firstDate = new Date(data.contributions[0].date + "T00:00:00")
+    const firstDate = new Date(sorted[0].date + "T00:00:00")
     const firstDayOfWeek = firstDate.getDay() // 0 = Sun, 1 = Mon ...
 
     // Pad beginning of first week
@@ -91,7 +102,7 @@ export default function GitHubContributions() {
       currentWeek.push(null)
     }
 
-    for (const day of data.contributions) {
+    for (const day of sorted) {
       currentWeek.push(day)
       if (currentWeek.length === 7) {
         result.push(currentWeek)
@@ -109,7 +120,7 @@ export default function GitHubContributions() {
     return result
   }, [data])
 
-  // 2. Month label positions across columns
+  // 2. Month label positions across columns (spaced with at least 3 weeks minimum gap to prevent overlap)
   const monthLabels = useMemo(() => {
     if (weeks.length === 0) return []
     const months: { month: string; colIndex: number }[] = []
@@ -120,7 +131,10 @@ export default function GitHubContributions() {
       if (firstValidDay) {
         const d = new Date(firstValidDay.date + "T00:00:00")
         const monthIdx = d.getMonth()
-        if (monthIdx !== lastMonth) {
+        if (
+          monthIdx !== lastMonth &&
+          (months.length === 0 || colIdx - months[months.length - 1].colIndex >= 3)
+        ) {
           lastMonth = monthIdx
           months.push({
             month: d.toLocaleString("en-US", { month: "short" }),
@@ -252,15 +266,33 @@ export default function GitHubContributions() {
             </h2>
           </div>
 
-          <a
-            href="https://github.com/wasim2402"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg border border-white/15 bg-white/[0.03] hover:bg-white/10 hover:border-white/30 text-neutral-300 hover:text-white font-mono text-xs uppercase tracking-wider transition-all duration-200 w-fit group"
-          >
-            <span>VIEW PROFILE</span>
-            <ExternalLink className="w-3.5 h-3.5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-          </a>
+          <div className="flex items-center gap-3">
+            <button
+              onClick={() => fetchData(true)}
+              disabled={loading || isRefreshing}
+              title="Fetch latest live commits from GitHub"
+              className="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg border border-white/15 bg-white/[0.03] hover:bg-white/10 hover:border-white/30 text-neutral-300 hover:text-white font-mono text-xs uppercase tracking-wider transition-all duration-200 disabled:opacity-50"
+            >
+              <RotateCw
+                className={`w-3.5 h-3.5 transition-transform duration-500 ${
+                  isRefreshing ? "animate-spin text-[#C8102E]" : ""
+                }`}
+              />
+              <span className="hidden sm:inline">
+                {isRefreshing ? "SYNCING..." : "SYNC"}
+              </span>
+            </button>
+
+            <a
+              href="https://github.com/wasim2402"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg border border-white/15 bg-white/[0.03] hover:bg-white/10 hover:border-white/30 text-neutral-300 hover:text-white font-mono text-xs uppercase tracking-wider transition-all duration-200 w-fit group"
+            >
+              <span>VIEW PROFILE</span>
+              <ExternalLink className="w-3.5 h-3.5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+            </a>
+          </div>
         </div>
 
         {/* Main Dashboard Card */}
@@ -339,25 +371,33 @@ export default function GitHubContributions() {
               {/* Horizontally scrollable container on smaller screens */}
               <div className="overflow-x-auto pb-4 pt-1 [scrollbar-width:none] -mx-2 px-2">
                 <div className="min-w-[780px] select-none">
-                  {/* Month Labels */}
-                  <div className="flex text-[11px] font-mono text-neutral-400 mb-2 pl-8 relative h-4">
-                    {monthLabels.map(({ month, colIndex }, idx) => (
-                      <span
-                        key={idx}
-                        className="absolute"
-                        style={{
-                          left: `calc(2rem + ${colIndex} * 14.8px)`,
-                        }}
-                      >
-                        {month}
-                      </span>
-                    ))}
+                  {/* Month Labels Header aligned with week columns */}
+                  <div className="flex gap-1.5 mb-2">
+                    <div className="w-6 sm:w-7 flex-shrink-0" />
+                    <div
+                      className="grid gap-[3px] h-4 relative"
+                      style={{
+                        gridTemplateColumns: `repeat(${weeks.length}, 13px)`,
+                      }}
+                    >
+                      {monthLabels.map(({ month, colIndex }, idx) => (
+                        <span
+                          key={idx}
+                          className="text-[10px] sm:text-[11px] font-mono text-neutral-400 whitespace-nowrap overflow-visible pointer-events-none"
+                          style={{
+                            gridColumnStart: colIndex + 1,
+                          }}
+                        >
+                          {month}
+                        </span>
+                      ))}
+                    </div>
                   </div>
 
                   {/* Heatmap Matrix: Weekdays + 7 Rows */}
-                  <div className="flex gap-2">
+                  <div className="flex gap-1.5">
                     {/* Weekday Labels (Mon, Wed, Fri) */}
-                    <div className="flex flex-col justify-between py-[2px] text-[10px] font-mono text-neutral-500 w-6 flex-shrink-0 leading-none h-[100px]">
+                    <div className="flex flex-col justify-between py-[1px] text-[10px] font-mono text-neutral-500 w-6 sm:w-7 flex-shrink-0 leading-none" style={{ height: `${7 * 13 + 6 * 3}px` }}>
                       <span className="opacity-0">Sun</span>
                       <span>Mon</span>
                       <span className="opacity-0">Tue</span>
@@ -368,18 +408,23 @@ export default function GitHubContributions() {
                     </div>
 
                     {/* Columns of Weeks */}
-                    <div className="flex gap-[3.5px] sm:gap-[4px] flex-1">
+                    <div
+                      className="grid gap-[3px]"
+                      style={{
+                        gridTemplateColumns: `repeat(${weeks.length}, 13px)`,
+                      }}
+                    >
                       {weeks.map((week, colIdx) => (
                         <div
                           key={colIdx}
-                          className="flex flex-col gap-[3.5px] sm:gap-[4px]"
+                          className="flex flex-col gap-[3px]"
                         >
                           {week.map((day, rowIdx) => {
                             if (!day) {
                               return (
                                 <div
                                   key={rowIdx}
-                                  className="w-[11px] h-[11px] sm:w-[12px] sm:h-[12px] opacity-0 pointer-events-none"
+                                  className="w-[13px] h-[13px] opacity-0 pointer-events-none"
                                 />
                               )
                             }
@@ -396,7 +441,7 @@ export default function GitHubContributions() {
                                   })
                                 }}
                                 onMouseLeave={() => setHoveredCell(null)}
-                                className={`w-[11px] h-[11px] sm:w-[12px] sm:h-[12px] rounded-[2.5px] cursor-pointer transition-all duration-150 hover:scale-125 hover:z-20 ${getCellColor(
+                                className={`w-[13px] h-[13px] rounded-[2px] cursor-pointer transition-all duration-150 hover:scale-125 hover:z-20 ${getCellColor(
                                   day.level
                                 )}`}
                               />
